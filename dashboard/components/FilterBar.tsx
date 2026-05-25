@@ -3,6 +3,8 @@
 import clsx from "clsx";
 import { useFilters, type TicketType, type DateRange, type Severity } from "./FilterContext";
 
+type ActivePage = "executive" | "operations" | "seo" | "root";
+
 const TICKET_TYPES: TicketType[] = ["CLAIM", "WHITELIST", "GBQ", "GCD", "TKT_BKT", "DIE"];
 const TYPE_COLOR: Record<string, string> = {
   CLAIM: "chip-bad", GBQ: "chip-bad", DIE: "chip-bad",
@@ -35,48 +37,100 @@ const NETWORKS = [
   { id: "NET-0004", name: "BHMedia" },
 ];
 
-export function FilterBar() {
+/**
+ * Per-page filter visibility contracts.
+ * Hiding chips that don't affect a given page prevents the silent "filter
+ * empties everything" trap (e.g., Severity=medium on Operations where no row
+ * carries that level).
+ */
+function visibleFor(page: ActivePage | undefined) {
+  switch (page) {
+    case "operations":
+      return {
+        dateRange: false, // Operations is live; date range doesn't apply
+        types: true,
+        projects: true,
+        networks: true,
+        // Only severities that map to rows: critical (→bad), high (→warn).
+        severities: ["critical", "high"] as Severity[],
+      };
+    case "seo":
+      return {
+        dateRange: true, // affects "Recent outcomes" only
+        types: true,
+        projects: true,
+        networks: true,
+        severities: [] as Severity[], // SEO page doesn't use severity
+      };
+    case "root":
+      return {
+        dateRange: false, // Root cause analytics are precomputed long windows
+        types: true,
+        projects: false,
+        networks: false,
+        severities: [] as Severity[],
+      };
+    case "executive":
+    default:
+      return {
+        dateRange: true,
+        types: true,
+        projects: true,
+        networks: true,
+        severities: ["critical", "high", "medium", "low"] as Severity[],
+      };
+  }
+}
+
+export function FilterBar({ activePage }: { activePage?: ActivePage }) {
   const { filters, setDateRange, toggleType, setProjectId, setNetworkId, setSeverity, setChannel, clearAll, activeCount } = useFilters();
+  const v = visibleFor(activePage);
+
+  const sevOptions = SEVERITY_OPTIONS.filter((s) => v.severities.includes(s.value));
 
   return (
     <div className="px-6 py-3 bg-white border-b border-gborder space-y-2">
       {/* Row 1: date + type chips */}
       <div className="flex items-center gap-3 flex-wrap">
-        {/* Date range */}
-        <div className="flex items-center bg-gbg rounded-full p-0.5 text-[12px] font-medium shrink-0">
-          {DATE_OPTIONS.map((opt) => (
-            <button
-              key={opt.value}
-              onClick={() => setDateRange(opt.value)}
-              className={clsx(
-                "px-3 py-1 rounded-full transition",
-                filters.dateRange === opt.value ? "bg-white text-gink shadow-sm" : "text-gmuted hover:text-gink"
-              )}
-            >
-              {opt.label}
-            </button>
-          ))}
-        </div>
-
-        <div className="w-px h-5 bg-gborder shrink-0" />
+        {v.dateRange && (
+          <>
+            <div className="flex items-center bg-gbg rounded-full p-0.5 text-[12px] font-medium shrink-0">
+              {DATE_OPTIONS.map((opt) => (
+                <button
+                  key={opt.value}
+                  onClick={() => setDateRange(opt.value)}
+                  className={clsx(
+                    "px-3 py-1 rounded-full transition",
+                    filters.dateRange === opt.value ? "bg-white text-gink shadow-sm" : "text-gmuted hover:text-gink"
+                  )}
+                >
+                  {opt.label}
+                </button>
+              ))}
+            </div>
+            <div className="w-px h-5 bg-gborder shrink-0" />
+          </>
+        )}
 
         {/* Type chips */}
-        <div className="flex items-center gap-1.5 flex-wrap">
-          {TICKET_TYPES.map((ty) => (
-            <button
-              key={ty}
-              onClick={() => toggleType(ty)}
-              className={clsx(
-                "chip text-[11px] transition border",
-                filters.types.includes(ty)
-                  ? `${TYPE_COLOR[ty]} border-transparent`
-                  : "chip-neutral border-gborder bg-white opacity-60 hover:opacity-100"
-              )}
-            >
-              {ty}
-            </button>
-          ))}
-        </div>
+        {v.types && (
+          <div className="flex items-center gap-1.5 flex-wrap">
+            {TICKET_TYPES.map((ty) => (
+              <button
+                key={ty}
+                onClick={() => toggleType(ty)}
+                className={clsx(
+                  "chip text-[11px] transition border",
+                  filters.types.includes(ty)
+                    ? `${TYPE_COLOR[ty]} border-transparent`
+                    : "chip-neutral border-gborder bg-white opacity-60 hover:opacity-100"
+                )}
+              >
+                {ty}
+              </button>
+            ))}
+          </div>
+        )}
 
         <div className="flex-1" />
 
@@ -94,43 +148,49 @@ export function FilterBar() {
 
       {/* Row 2: project / network / severity / channel filter */}
       <div className="flex items-center gap-2 flex-wrap">
-        {/* Project */}
-        <select
-          value={filters.projectId ?? ""}
-          onChange={(e) => setProjectId(e.target.value || null)}
-          className="h-8 px-3 rounded-full border border-gborder bg-white text-[12px] text-gink cursor-pointer hover:bg-gbg"
-        >
-          <option value="">Tất cả project</option>
-          {PROJECTS.map((p) => <option key={p.id} value={p.id}>{p.name}</option>)}
-        </select>
+        {v.projects && (
+          <select
+            value={filters.projectId ?? ""}
+            onChange={(e) => setProjectId(e.target.value || null)}
+            className="h-8 px-3 rounded-full border border-gborder bg-white text-[12px] text-gink cursor-pointer hover:bg-gbg"
+          >
+            <option value="">Tất cả project</option>
+            {PROJECTS.map((p) => <option key={p.id} value={p.id}>{p.name}</option>)}
+          </select>
+        )}
 
-        {/* Network */}
-        <select
-          value={filters.networkId ?? ""}
-          onChange={(e) => setNetworkId(e.target.value || null)}
-          className="h-8 px-3 rounded-full border border-gborder bg-white text-[12px] text-gink cursor-pointer hover:bg-gbg"
-        >
-          <option value="">Tất cả network</option>
-          {NETWORKS.map((n) => <option key={n.id} value={n.id}>{n.name}</option>)}
-        </select>
+        {v.networks && (
+          <select
+            value={filters.networkId ?? ""}
+            onChange={(e) => setNetworkId(e.target.value || null)}
+            className="h-8 px-3 rounded-full border border-gborder bg-white text-[12px] text-gink cursor-pointer hover:bg-gbg"
+          >
+            <option value="">Tất cả network</option>
+            {NETWORKS.map((n) => <option key={n.id} value={n.id}>{n.name}</option>)}
+          </select>
+        )}
 
-        {/* Severity */}
-        <div className="flex items-center gap-1">
-          {SEVERITY_OPTIONS.map((s) => (
-            <button
-              key={s.value}
-              onClick={() => setSeverity(filters.severity === s.value ? null : s.value)}
-              className={clsx(
-                "chip text-[11px] transition border",
-                filters.severity === s.value
-                  ? `${s.chip} border-transparent`
-                  : "chip-neutral border-gborder bg-white opacity-60 hover:opacity-100"
-              )}
-            >
-              {s.label}
-            </button>
-          ))}
-        </div>
+        {sevOptions.length > 0 && (
+          <div className="flex items-center gap-1">
+            {sevOptions.map((s) => {
+              const isActive = filters.severity === s.value;
+              return (
+                <button
+                  key={s.value}
+                  onClick={() => setSeverity(isActive ? null : s.value)}
+                  className={clsx(
+                    "chip text-[11px] transition border-2",
+                    isActive
+                      ? `${s.chip} border-gink font-semibold`
+                      : "chip-neutral border-transparent bg-white opacity-60 hover:opacity-100"
+                  )}
+                >
+                  {s.label}
+                </button>
+              );
+            })}
+          </div>
+        )}
 
         {/* Active channel filter badge */}
         {filters.channelId && (

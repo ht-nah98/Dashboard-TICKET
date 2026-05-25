@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-25T03:46:05.685Z",
+  "generated_at": "2026-05-25T08:04:33.317Z",
   "as_of": "2026-05-23T02:00:00.000Z",
   "kpis": {
     "my_open": 178,
@@ -3623,5 +3623,135 @@
       "status": "waiting",
       "current_state": "sent"
     }
-  ]
+  ],
+  "whitelist_pipeline": {
+    "by_status": [
+      {
+        "status": "Đang WL",
+        "count": 65,
+        "tone": "good"
+      },
+      {
+        "status": "Đã gỡ",
+        "count": 8,
+        "tone": "bad"
+      },
+      {
+        "status": "Đang xử lý",
+        "count": 7,
+        "tone": "warn"
+      }
+    ],
+    "avg_days_to_wl": 4.5,
+    "recent_wl": [
+      {
+        "id": "MWL-0030",
+        "channel_name": "Lifestyle Official 28",
+        "project_name": "Giải Trí 24h",
+        "wl_date": "2026-05-27T05:29:22.590Z",
+        "days_taken": 4.5
+      },
+      {
+        "id": "MWL-0044",
+        "channel_name": "Gaming Network 4",
+        "project_name": "Vlog Cuộc Sống",
+        "wl_date": "2026-05-26T17:07:22.450Z",
+        "days_taken": 4.3
+      },
+      {
+        "id": "MWL-0038",
+        "channel_name": "Edu 24h 29",
+        "project_name": "Học Tập Online",
+        "wl_date": "2026-05-25T05:28:47.213Z",
+        "days_taken": 3.4
+      },
+      {
+        "id": "MWL-0021",
+        "channel_name": "Kids Pro 43",
+        "project_name": "Âm Nhạc Việt",
+        "wl_date": "2026-05-25T03:47:35.907Z",
+        "days_taken": 4.9
+      },
+      {
+        "id": "MWL-0011",
+        "channel_name": "Gaming 24h 23",
+        "project_name": "Âm Nhạc Việt",
+        "wl_date": "2026-05-24T16:14:20.396Z",
+        "days_taken": 4.3
+      },
+      {
+        "id": "MWL-0029",
+        "channel_name": "Comedy Hub 27",
+        "project_name": "Học Tập Online",
+        "wl_date": "2026-05-24T15:37:56.767Z",
+        "days_taken": 3.2
+      },
+      {
+        "id": "MWL-0045",
+        "channel_name": "Comedy Hub 30",
+        "project_name": "Âm Nhạc Việt",
+        "wl_date": "2026-05-22T18:49:06.694Z",
+        "days_taken": 5.3
+      },
+      {
+        "id": "MWL-0025",
+        "channel_name": "Edu Hub 19",
+        "project_name": "Vlog Cuộc Sống",
+        "wl_date": "2026-05-20T13:50:08.636Z",
+        "days_taken": 3.9
+      }
+    ],
+    "pending_applications": [
+      {
+        "id": "MWL-0065",
+        "channel_name": "Lifestyle Network 24",
+        "project_name": "Giải Trí 24h",
+        "days_waiting": 116,
+        "created_at": "2026-01-26T08:38:57.719Z"
+      },
+      {
+        "id": "MWL-0067",
+        "channel_name": "Tech Official 34",
+        "project_name": "Phim Hoạt Hình",
+        "days_waiting": 107,
+        "created_at": "2026-02-04T11:54:28.504Z"
+      },
+      {
+        "id": "MWL-0059",
+        "channel_name": "Kids Studio 9",
+        "project_name": "Phim Hoạt Hình",
+        "days_waiting": 75,
+        "created_at": "2026-03-08T09:15:37.447Z"
+      },
+      {
+        "id": "MWL-0078",
+        "channel_name": "Vlog Hub 33",
+        "project_name": "Vlog Cuộc Sống",
+        "days_waiting": 63,
+        "created_at": "2026-03-20T19:39:25.376Z"
+      },
+      {
+        "id": "MWL-0069",
+        "channel_name": "Edu Studio 7",
+        "project_name": "Phim Hoạt Hình",
+        "days_waiting": 55,
+        "created_at": "2026-03-28T18:23:20.443Z"
+      },
+      {
+        "id": "MWL-0066",
+        "channel_name": "Music Network 25",
+        "project_name": "Phim Hoạt Hình",
+        "days_waiting": 51,
+        "created_at": "2026-04-01T15:59:34.159Z"
+      },
+      {
+        "id": "MWL-0079",
+        "channel_name": "Vlog Hub 33",
+        "project_name": "Vlog Cuộc Sống",
+        "days_waiting": 30,
+        "created_at": "2026-04-23T00:04:56.999Z"
+      }
+    ],
+    "total": 80
+  }
 }

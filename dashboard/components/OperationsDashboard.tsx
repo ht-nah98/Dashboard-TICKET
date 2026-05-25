@@ -9,8 +9,10 @@ import { AssigneePerformance } from "@/components/AssigneePerformance";
 import { HandoffLatency } from "@/components/HandoffLatency";
 import { EscalationBoard } from "@/components/EscalationBoard";
 import { PauseReopen } from "@/components/PauseReopen";
+import { OpsAgingWaiting } from "@/components/OpsAgingWaiting";
 import { TicketDetailPanel, type TicketDetail } from "@/components/TicketDetailPanel";
 import { useFilters } from "@/components/FilterContext";
+import { makeOperationsMatcher } from "@/lib/matchFilters";
 import type { OperationsPayload } from "@/lib/types";
 
 export function OperationsDashboard({
@@ -23,26 +25,12 @@ export function OperationsDashboard({
   const { filters } = useFilters();
   const [selectedTicket, setSelectedTicket] = useState<TicketDetail | null>(null);
 
-  const NOW_MS = new Date("2026-05-23T09:00:00+07:00").getTime();
+  // Operations is an "action now" view: dateRange is intentionally IGNORED
+  // here. Severity uses the ops "warn"/"bad" tone mapping (see matchFilters).
+  const matchItem = useMemo(() => makeOperationsMatcher(filters), [filters]);
 
-  function matchItem(item: { type: string; channel_id: string; project_id: string; network_id: string; created_at: string; severity?: string }) {
-    if (filters.types.length > 0 && !filters.types.includes(item.type as any)) return false;
-    if (filters.channelId && item.channel_id !== filters.channelId) return false;
-    if (filters.projectId && item.project_id !== filters.projectId) return false;
-    if (filters.networkId && item.network_id !== filters.networkId) return false;
-    if (filters.dateRange !== "all" && item.created_at) {
-      const days = filters.dateRange === "7d" ? 7 : filters.dateRange === "30d" ? 30 : 90;
-      if (NOW_MS - new Date(item.created_at).getTime() > days * 86400000) return false;
-    }
-    if (filters.severity && item.severity) {
-      const sev = item.severity === "bad" ? "critical" : item.severity === "warn" ? "high" : "low";
-      if (sev !== filters.severity) return false;
-    }
-    return true;
-  }
-
-  const filteredNearBreach = useMemo(() => data.near_breach.filter(matchItem), [data.near_breach, filters]);
-  const filteredEscalation = useMemo(() => data.escalation_board.filter(matchItem), [data.escalation_board, filters]);
+  const filteredNearBreach = useMemo(() => data.near_breach.filter(matchItem), [data.near_breach, matchItem]);
+  const filteredEscalation = useMemo(() => data.escalation_board.filter(matchItem), [data.escalation_board, matchItem]);
 
   function openDetail(item: any) {
     const full = detailMap[item.id];
@@ -102,9 +90,8 @@ export function OperationsDashboard({
             {data.sla.pct_within}% còn trong SLA{activeFilterNote}
           </p>
         </div>
-        <div className="flex items-center gap-2 text-[12px] text-gmuted">
-          <span className="chip chip-good">Trực tiếp</span>
-          Tự động cập nhật mỗi 5 phút
+        <div className="text-[12px] text-gmuted">
+          Bộ lọc thời gian không áp dụng trên trang này
         </div>
       </div>
 
@@ -121,6 +108,11 @@ export function OperationsDashboard({
         <div className="col-span-8 flex">
           <NearBreachRadar data={filteredNearBreach} onRowClick={openDetail} />
         </div>
+      </section>
+
+      {/* Row 2.5 — Aging + Waiting split */}
+      <section>
+        <OpsAgingWaiting aging={data.aging} waiting={data.waiting_split} />
       </section>
 
       {/* Row 3 — Workload + Performance */}

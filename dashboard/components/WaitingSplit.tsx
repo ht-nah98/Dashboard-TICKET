@@ -11,18 +11,15 @@ const SIDE_COLORS: Record<string, string> = {
   "Không xác định": "#5F6368",
 };
 
-const SIDE_TO_TYPE: Record<string, string> = {
-  "Chờ SEO": "SEO",
-  "Chờ VHYT": "VHYT",
-};
-
 export function WaitingSplit({
   data,
-  onTypeClick,
 }: {
   data: { side: string; count: number }[];
-  onTypeClick?: (type: string) => void;
 }) {
+  // No click handler: "Chờ SEO" / "Chờ VHYT" are waiting-side labels,
+  // not TicketType values. Pushing them into the TicketType filter would
+  // silently empty every list on the page (since no ticket has type "SEO").
+  // A real "waiting-side" filter belongs in FilterContext — Phase 3 work.
   const total = data.reduce((s, d) => s + d.count, 0);
   return (
     <div className="gcard gcard-fill w-full p-5">
@@ -58,11 +55,9 @@ export function WaitingSplit({
         </div>
         <div className="flex-1 space-y-1.5">
           {data.map((d) => (
-            <button
+            <div
               key={d.side}
-              onClick={() => onTypeClick?.(SIDE_TO_TYPE[d.side] ?? d.side)}
-              className="flex items-center gap-2 text-[12px] w-full hover:bg-gbg rounded-md px-1 py-0.5 transition text-left"
-              title={onTypeClick ? "Click để lọc" : undefined}
+              className="flex items-center gap-2 text-[12px] w-full px-1 py-0.5"
             >
               <span
                 className="w-2.5 h-2.5 rounded-full shrink-0"
@@ -71,9 +66,9 @@ export function WaitingSplit({
               <span className="flex-1 text-gink">{d.side}</span>
               <span className="text-gmuted tabular-nums">{d.count}</span>
               <span className="text-gmuted tabular-nums w-12 text-right">
-                {Math.round((d.count / total) * 100)}%
+                {total > 0 ? Math.round((d.count / total) * 100) : 0}%
               </span>
-            </button>
+            </div>
           ))}
         </div>
       </div>

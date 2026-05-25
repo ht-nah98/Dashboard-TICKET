@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-25T03:46:05.647Z",
+  "generated_at": "2026-05-25T08:04:33.280Z",
   "as_of": "2026-05-23T02:00:00.000Z",
   "kpis": [
     {
@@ -372,6 +372,92 @@
       "GCD": 2,
       "TKT_BKT": 2,
       "DIE": 0
+    }
+  ],
+  "outcome_trend": [
+    {
+      "week": "2026-03-02",
+      "completed": 25,
+      "failed": 0,
+      "open": 15,
+      "success_rate": 100
+    },
+    {
+      "week": "2026-03-09",
+      "completed": 26,
+      "failed": 2,
+      "open": 18,
+      "success_rate": 92.9
+    },
+    {
+      "week": "2026-03-16",
+      "completed": 22,
+      "failed": 1,
+      "open": 8,
+      "success_rate": 95.7
+    },
+    {
+      "week": "2026-03-23",
+      "completed": 24,
+      "failed": 1,
+      "open": 16,
+      "success_rate": 96
+    },
+    {
+      "week": "2026-03-30",
+      "completed": 28,
+      "failed": 2,
+      "open": 12,
+      "success_rate": 93.3
+    },
+    {
+      "week": "2026-04-06",
+      "completed": 17,
+      "failed": 0,
+      "open": 17,
+      "success_rate": 100
+    },
+    {
+      "week": "2026-04-13",
+      "completed": 31,
+      "failed": 2,
+      "open": 13,
+      "success_rate": 93.9
+    },
+    {
+      "week": "2026-04-20",
+      "completed": 27,
+      "failed": 3,
+      "open": 14,
+      "success_rate": 90
+    },
+    {
+      "week": "2026-04-27",
+      "completed": 19,
+      "failed": 2,
+      "open": 15,
+      "success_rate": 90.5
+    },
+    {
+      "week": "2026-05-04",
+      "completed": 26,
+      "failed": 1,
+      "open": 14,
+      "success_rate": 96.3
+    },
+    {
+      "week": "2026-05-11",
+      "completed": 18,
+      "failed": 2,
+      "open": 11,
+      "success_rate": 90
+    },
+    {
+      "week": "2026-05-18",
+      "completed": 15,
+      "failed": 0,
+      "open": 8,
+      "success_rate": 100
     }
   ],
   "type_risk": [

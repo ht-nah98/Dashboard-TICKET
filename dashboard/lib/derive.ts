@@ -13,6 +13,13 @@ import type {
   TicketType,
   KpiCard,
 } from "./types";
+import {
+  channelById as buildChannelById,
+  userById as buildUserById,
+  projectById as buildProjectById,
+  timelineByTicket as buildTimelineByTicket,
+} from "./lookups";
+import { isOpen } from "./sla";
 
 const DATA_DIR = path.resolve(process.cwd(), "data");
 const OUT_DIR = path.resolve(process.cwd(), "derived");
@@ -48,10 +55,6 @@ function weekLabel(d: Date): string {
   return `${w.getUTCFullYear()}-W${String(
     Math.ceil(((+w - +new Date(Date.UTC(w.getUTCFullYear(), 0, 1))) / MS_DAY + 1) / 7)
   ).padStart(2, "0")}`;
-}
-
-function isOpen(t: Ticket): boolean {
-  return !["completed", "closed", "failed"].includes(t.current_state);
 }
 
 function isCritical(t: Ticket, breachedIds: Set<string>): boolean {
@@ -105,20 +108,10 @@ async function main() {
   const slaEvents = load<SlaEvent>("sla_events.json");
   const masterWl = load<MasterWhitelistRow>("master_whitelist.json");
 
-  const projectById = new Map(projects.map((p) => [p.id, p]));
-  const channelById = new Map(channels.map((c) => [c.id, c]));
-  const userById = new Map(users.map((u) => [u.id, u]));
-
-  // Index timeline + sla by ticket
-  const timelineByTicket = new Map<string, TimelineEvent[]>();
-  for (const e of timeline) {
-    const arr = timelineByTicket.get(e.ticket_id) ?? [];
-    arr.push(e);
-    timelineByTicket.set(e.ticket_id, arr);
-  }
-  for (const arr of timelineByTicket.values()) {
-    arr.sort((a, b) => +new Date(a.timestamp) - +new Date(b.timestamp));
-  }
+  const projectById = buildProjectById(projects);
+  const channelById = buildChannelById(channels);
+  const userById = buildUserById(users);
+  const timelineByTicket = buildTimelineByTicket(timeline);
 
   const breachedIds = new Set(
     slaEvents.filter((s) => s.event_type === "breach_48h").map((s) => s.ticket_id)
@@ -351,6 +344,30 @@ async function main() {
     return row;
   });
 
+  // Outcome trend per week — created bucketed by completed / failed / still-open.
+  // Resolution date = completed_at or updated_at (closed/failed). For "open"
+  // tickets we use created_at week (they haven't resolved yet).
+  const outcomeTrend = weekKeys.map((wk) => {
+    const start = +new Date(wk);
+    const end = start + 7 * MS_DAY;
+    let completed = 0, failed = 0, open = 0;
+    for (const t of tickets) {
+      const created = +new Date(t.created_at);
+      if (created < start || created >= end) continue;
+      if (t.current_state === "completed") completed += 1;
+      else if (t.current_state === "failed" || t.current_state === "closed") failed += 1;
+      else open += 1;
+    }
+    const resolved = completed + failed;
+    return {
+      week: wk,
+      completed,
+      failed,
+      open,
+      success_rate: resolved > 0 ? Math.round((completed / resolved) * 1000) / 10 : 0,
+    };
+  });
+
   const typeRisk = types.map((ty) => {
     const open = openTickets.filter((t) => t.type === ty);
     const med = median(open.map((t) => t.affected_revenue_vnd ?? 0));
@@ -538,6 +555,7 @@ async function main() {
       by_project: revenueByProject,
     },
     volume_trend: volumeTrend,
+    outcome_trend: outcomeTrend,
     type_risk: typeRisk,
     project_type_heatmap: projectTypeHeatmap,
     funnel,
@@ -591,5 +609,5 @@ import("./derive_detail").then((m) => {
   const out = m.buildTicketDetails();
   const count = Object.keys(out).length;
   fs.writeFileSync(path.join(OUT_DIR, "ticket_details.json"), JSON.stringify(out, null, 2));
-  console.log(`Wrote ticket_details.json (${count} open tickets)`);
+  console.log(`Wrote ticket_details.json (${count} tickets — all states)`);
 });

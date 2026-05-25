@@ -43,7 +43,7 @@ export function RootRepeatChannels({ data }: { data: RepeatChannel[] }) {
               const barPct = (ch.total_tickets / maxTotal) * 100;
               const riskLevel = ch.gbq_count >= 3 || ch.failed_tickets >= 2 ? "#D93025" : ch.claim_count >= 5 ? "#F9AB00" : "#1A73E8";
               return (
-                <tr key={ch.channel_id} className="row-hover border-b border-gborder/60 last:border-b-0 cursor-pointer">
+                <tr key={ch.channel_id} className="border-b border-gborder/60 last:border-b-0">
                   <td className="py-1.5 pr-2 text-gmuted">{i + 1}</td>
                   <td className="py-1.5 pr-2">
                     <div className="font-medium text-gink max-w-[100px] truncate">{ch.channel_name}</div>

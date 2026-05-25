@@ -9,6 +9,12 @@ import type {
   SlaEvent,
   OperationsPayload,
 } from "./types";
+import { currentStepInfo, isOpen } from "./sla";
+import {
+  channelById as buildChannelById,
+  userById as buildUserById,
+  timelineByTicket as buildTimelineByTicket,
+} from "./lookups";
 
 const DATA_DIR = path.resolve(process.cwd(), "data");
 const OUT_DIR = path.resolve(process.cwd(), "derived");
@@ -25,9 +31,6 @@ function median(nums: number[]): number {
   const m = Math.floor(s.length / 2);
   return s.length % 2 ? s[m] : (s[m - 1] + s[m]) / 2;
 }
-function isOpen(t: Ticket): boolean {
-  return !["completed", "closed", "failed"].includes(t.current_state);
-}
 function ageHours(t: Ticket): number {
   return (+NOW - +new Date(t.created_at)) / MS_HOUR;
 }
@@ -40,18 +43,9 @@ export function buildOps(): OperationsPayload {
   const timeline = load<TimelineEvent>("timeline.json");
   const slaEvents = load<SlaEvent>("sla_events.json");
 
-  const channelById = new Map(channels.map((c) => [c.id, c]));
-  const userById = new Map(users.map((u) => [u.id, u]));
-
-  const timelineByTicket = new Map<string, TimelineEvent[]>();
-  for (const e of timeline) {
-    const arr = timelineByTicket.get(e.ticket_id) ?? [];
-    arr.push(e);
-    timelineByTicket.set(e.ticket_id, arr);
-  }
-  for (const arr of timelineByTicket.values()) {
-    arr.sort((a, b) => +new Date(a.timestamp) - +new Date(b.timestamp));
-  }
+  const channelById = buildChannelById(channels);
+  const userById = buildUserById(users);
+  const timelineByTicket = buildTimelineByTicket(timeline);
 
   const breachedIds = new Set(
     slaEvents.filter((s) => s.event_type === "breach_48h").map((s) => s.ticket_id)
@@ -80,43 +74,11 @@ export function buildOps(): OperationsPayload {
     return tl[tl.length - 1]?.actor_user_id ?? null;
   }
 
-  // ---- Per-step SLA model ----
-  // SLA is measured PER STEP, not by total ticket age. Each "current step" (the
-  // ticket's last timeline action) implies who must act next and how many hours
-  // they are allowed. Breach = hours_in_current_step > step_sla_hours.
-  // The matcher is ordered: first matching rule wins.
-  const STEP_SLA: { match: RegExp; hours: number; owner: string; step: string }[] = [
-    // Explicit SLA in the action name (authoritative)
-    { match: /VHYT tiếp nhận \(SLA 2h\)/, hours: 2, owner: "VHYT", step: "VHYT tiếp nhận" },
-    { match: /SEO thực hiện kháng \(SLA 1h\)/, hours: 1, owner: "SEO", step: "SEO thực hiện kháng" },
-    // VHYT/VHDA/VHWL holding the ticket → operational steps
-    { match: /^VHYT tiếp nhận/, hours: 2, owner: "VHYT", step: "VHYT tiếp nhận" },
-    { match: /^VHYT (liên hệ|chọn|trigger|cập nhật|soạn|tạo|gửi)/, hours: 12, owner: "VHYT", step: "VHYT xử lý" },
-    { match: /^VHDA/, hours: 12, owner: "VHDA", step: "VHDA xử lý" },
-    { match: /^VHWL bắt đầu/, hours: 24, owner: "VHWL", step: "VHWL xử lý" },
-    { match: /^VHWL hoàn thành/, hours: 8, owner: "SEO", step: "Chờ SEO xác nhận" },
-    // SEO holding the ticket
-    { match: /^SEO gửi ticket/, hours: 24, owner: "VHYT", step: "Chờ VHYT tiếp nhận" },
-    { match: /^SEO (gửi lại|đã thực hiện|nộp|Cut|submit)/, hours: 24, owner: "VHYT", step: "Chờ VHYT xử lý" },
-    { match: /^SEO tạo ticket/, hours: 48, owner: "SEO", step: "SEO hoàn thiện & gửi" },
-    // External + abandon
-    { match: /dịch vụ ngoài/, hours: 168, owner: "External", step: "Chờ dịch vụ ngoài" },
-    { match: /Tự động Tạm dừng/, hours: 24, owner: "SEO", step: "Tạm dừng — chờ mở lại" },
-  ];
-  const DEFAULT_SLA = { hours: 48, owner: "—", step: "Khác" };
-
+  // Per-step SLA model lives in lib/sla.ts (single source of truth).
   function currentStep(t: Ticket): { step: string; owner: string; slaHours: number; dwellHours: number } {
     const tl = timelineByTicket.get(t.id) ?? [];
-    const last = tl[tl.length - 1];
-    if (!last) return { step: "Chưa có timeline", owner: "—", slaHours: DEFAULT_SLA.hours, dwellHours: ageHours(t) };
-    const dwellHours = (+NOW - +new Date(last.timestamp)) / MS_HOUR;
-    const rule = STEP_SLA.find((r) => r.match.test(last.action)) ?? DEFAULT_SLA as any;
-    return {
-      step: rule.step ?? DEFAULT_SLA.step,
-      owner: rule.owner ?? DEFAULT_SLA.owner,
-      slaHours: rule.hours ?? DEFAULT_SLA.hours,
-      dwellHours,
-    };
+    const info = currentStepInfo(t, tl, NOW);
+    return { step: info.step, owner: info.owner, slaHours: info.slaHours, dwellHours: info.dwellHours };
   }
 
   // SLA classification per open ticket, based on current-step dwell vs step SLA.
@@ -368,6 +330,42 @@ export function buildOps(): OperationsPayload {
     return { week: wk, paused, reopened };
   });
 
+  // ---- Aging buckets (current-step dwell, not total ticket age) ----
+  // On Operations the SLA model is per-step, so "aging" here means how long
+  // each open ticket has been sitting on its current step. Buckets follow
+  // common SLA thresholds (1h / 8h / 24h / 72h).
+  const agingBuckets = [
+    { bucket: "<1h", min: 0, max: 1, tone: "good" as const },
+    { bucket: "1-8h", min: 1, max: 8, tone: "good" as const },
+    { bucket: "8-24h", min: 8, max: 24, tone: "warn" as const },
+    { bucket: "1-3d", min: 24, max: 72, tone: "warn" as const },
+    { bucket: "3d+", min: 72, max: Infinity, tone: "bad" as const },
+  ];
+  const aging = agingBuckets.map((b) => ({
+    bucket: b.bucket,
+    count: openTickets.filter((t) => {
+      const h = currentStep(t).dwellHours;
+      return h >= b.min && h < b.max;
+    }).length,
+    tone: b.tone,
+  }));
+
+  // ---- Waiting split (who must act next) ----
+  // Owner string from current step ties back to the role responsible for
+  // unblocking — pairs cleanly with workload bars below.
+  const waitingMap = new Map<string, { count: number; owner: string }>();
+  for (const t of openTickets) {
+    const side = sideOf(t);
+    const owner = currentStep(t).owner;
+    const cur = waitingMap.get(side) ?? { count: 0, owner };
+    cur.count += 1;
+    cur.owner = owner;
+    waitingMap.set(side, cur);
+  }
+  const waiting_split = Array.from(waitingMap.entries())
+    .map(([side, v]) => ({ side, count: v.count, owner: v.owner }))
+    .sort((a, b) => b.count - a.count);
+
   return {
     generated_at: new Date().toISOString(),
     as_of: NOW.toISOString(),
@@ -379,6 +377,8 @@ export function buildOps(): OperationsPayload {
     handoff_latency: handoffLatency,
     escalation_board: escalation,
     pause_reopen: pauseReopen,
+    aging,
+    waiting_split,
     totals: { total_tickets: tickets.length, open_tickets: openTickets.length },
   };
 }

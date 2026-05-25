@@ -20,15 +20,7 @@ const STATUS_CONFIG: Record<string, { chip: string; label: string; icon: string 
   waiting: { chip: "chip-neutral", label: "Đang chờ", icon: "hourglass_empty" },
 };
 
-const STATE_LABEL: Record<string, string> = {
-  draft: "Nháp",
-  sent: "Đã gửi",
-  processing: "Đang xử lý",
-  paused: "Tạm dừng",
-  completed: "Hoàn thành",
-  closed: "Đã đóng",
-  failed: "Thất bại",
-};
+import { STATE_LABEL } from "@/lib/labels";
 
 export function SeoReapplyTracker({ data }: { data: ReapplyItem[] }) {
   const counts = {

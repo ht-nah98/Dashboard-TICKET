@@ -14,12 +14,13 @@ export function ChannelLeaderboard({
   data,
   activeChannelId,
   onChannelClick,
-  onTypeClick,
+  onSeverityClick,
 }: {
   data: any[];
   activeChannelId?: string | null;
   onChannelClick?: (channelId: string, channelName: string) => void;
-  onTypeClick?: (type: string) => void;
+  // Severity chip → filter by severity (NOT by ticket type).
+  onSeverityClick?: (sev: "critical" | "high" | "medium" | "low") => void;
 }) {
   const max = Math.max(...data.map((d) => d.revenue_at_risk), 1);
   return (
@@ -29,7 +30,6 @@ export function ChannelLeaderboard({
           <div className="text-[14px] font-medium text-gink">Top 10 kênh rủi ro cao</div>
           <div className="text-[12px] text-gmuted">Click vào hàng để lọc theo kênh · Click mức độ để lọc severity</div>
         </div>
-        <a className="text-[12px] text-gblue font-medium cursor-pointer">Tất cả kênh →</a>
       </div>
       <div className="flex-1 scroll-body" style={{ maxHeight: 380 }}>
         <table className="w-full text-[12px]">
@@ -74,7 +74,7 @@ export function ChannelLeaderboard({
                   </td>
                   <td className="py-2 pr-2">
                     <button
-                      onClick={(e) => { e.stopPropagation(); onTypeClick?.(c.severity); }}
+                      onClick={(e) => { e.stopPropagation(); onSeverityClick?.(c.severity); }}
                       className="hover:opacity-80 transition"
                       title="Click để lọc theo mức độ này"
                     >

@@ -98,6 +98,12 @@ export interface MasterWhitelistRow {
   kho_whitelist_id: string;
   net_whitelist_id: string;
   trang_thai_wl: string;
+  ngay_dk_wl?: string | null;
+  ngay_wl_thanh_cong?: string | null;
+  ghi_chu?: string | null;
+  source_ticket_id?: string | null;
+  source?: string;
+  created_at?: string;
 }
 
 export interface KpiCard {
@@ -171,6 +177,8 @@ export interface OperationsPayload {
     revenue_at_risk: number;
   }[];
   pause_reopen: { week: string; paused: number; reopened: number }[];
+  aging: { bucket: string; count: number; tone: "good" | "warn" | "bad" }[];
+  waiting_split: { side: string; count: number; owner: string }[];
   totals: { total_tickets: number; open_tickets: number };
 }
 
@@ -186,6 +194,7 @@ export interface DerivedPayload {
     by_project: { project_id: string; project_name: string; at_risk: number; share_pct: number }[];
   };
   volume_trend: { week: string; CLAIM: number; WHITELIST: number; GBQ: number; GCD: number; TKT_BKT: number; DIE: number }[];
+  outcome_trend: { week: string; completed: number; failed: number; open: number; success_rate: number }[];
   type_risk: { type: TicketType; count: number; median_revenue: number; score: number }[];
   project_type_heatmap: { project_id: string; project_name: string; cells: Record<TicketType, number> }[];
   funnel: { step: string; count: number; median_dwell_hours: number }[];

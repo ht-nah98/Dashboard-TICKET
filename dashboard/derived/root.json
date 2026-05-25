@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-25T03:46:05.704Z",
+  "generated_at": "2026-05-25T08:04:33.337Z",
   "as_of": "2026-05-23T02:00:00.000Z",
   "pareto": [
     {
@@ -470,6 +470,240 @@
       "bucket": "6+ bàn giao",
       "count": 0,
       "avg_resolution_hours": 0
+    }
+  ],
+  "risky_assets": [
+    {
+      "channel_id": "CH-0045",
+      "channel_name": "Cook Official 45",
+      "project_name": "Học Tập Online",
+      "monthly_revenue": 419214000,
+      "open_critical": 4,
+      "whitelist_status": "Đã gỡ",
+      "no_whitelist": true,
+      "risk_score": 319.6,
+      "risk_factors": [
+        "Chưa whitelist",
+        "4 ticket critical đang mở",
+        "Doanh thu cao"
+      ]
+    },
+    {
+      "channel_id": "CH-0035",
+      "channel_name": "Cook 24h 35",
+      "project_name": "Vlog Cuộc Sống",
+      "monthly_revenue": 453391000,
+      "open_critical": 2,
+      "whitelist_status": "Chưa có",
+      "no_whitelist": true,
+      "risk_score": 296.7,
+      "risk_factors": [
+        "Chưa whitelist",
+        "2 ticket critical",
+        "Doanh thu cao"
+      ]
+    },
+    {
+      "channel_id": "CH-0043",
+      "channel_name": "Kids Pro 43",
+      "project_name": "Âm Nhạc Việt",
+      "monthly_revenue": 426909000,
+      "open_critical": 4,
+      "whitelist_status": "Đang WL",
+      "no_whitelist": false,
+      "risk_score": 293.5,
+      "risk_factors": [
+        "4 ticket critical đang mở",
+        "Doanh thu cao"
+      ]
+    },
+    {
+      "channel_id": "CH-0032",
+      "channel_name": "Kids 24h 32",
+      "project_name": "Học Tập Online",
+      "monthly_revenue": 398818000,
+      "open_critical": 4,
+      "whitelist_status": "Đang WL",
+      "no_whitelist": false,
+      "risk_score": 279.4,
+      "risk_factors": [
+        "4 ticket critical đang mở",
+        "Doanh thu cao"
+      ]
+    },
+    {
+      "channel_id": "CH-0026",
+      "channel_name": "Vlog Hub 26",
+      "project_name": "Vlog Cuộc Sống",
+      "monthly_revenue": 391007000,
+      "open_critical": 4,
+      "whitelist_status": "Đang WL",
+      "no_whitelist": false,
+      "risk_score": 275.5,
+      "risk_factors": [
+        "4 ticket critical đang mở",
+        "Doanh thu cao"
+      ]
+    },
+    {
+      "channel_id": "CH-0046",
+      "channel_name": "Vlog Hub 46",
+      "project_name": "Giải Trí 24h",
+      "monthly_revenue": 397473000,
+      "open_critical": 3,
+      "whitelist_status": "Đang WL",
+      "no_whitelist": false,
+      "risk_score": 258.7,
+      "risk_factors": [
+        "3 ticket critical đang mở",
+        "Doanh thu cao"
+      ]
+    },
+    {
+      "channel_id": "CH-0006",
+      "channel_name": "Vlog Pro 6",
+      "project_name": "Học Tập Online",
+      "monthly_revenue": 428437000,
+      "open_critical": 0,
+      "whitelist_status": "Chưa có",
+      "no_whitelist": true,
+      "risk_score": 244.2,
+      "risk_factors": [
+        "Chưa whitelist",
+        "Doanh thu cao"
+      ]
+    },
+    {
+      "channel_id": "CH-0037",
+      "channel_name": "Lifestyle Official 37",
+      "project_name": "Vlog Cuộc Sống",
+      "monthly_revenue": 344512000,
+      "open_critical": 2,
+      "whitelist_status": "Chưa có",
+      "no_whitelist": true,
+      "risk_score": 242.3,
+      "risk_factors": [
+        "Chưa whitelist",
+        "2 ticket critical",
+        "Doanh thu cao"
+      ]
+    },
+    {
+      "channel_id": "CH-0023",
+      "channel_name": "Gaming 24h 23",
+      "project_name": "Âm Nhạc Việt",
+      "monthly_revenue": 400924000,
+      "open_critical": 2,
+      "whitelist_status": "Đang WL",
+      "no_whitelist": false,
+      "risk_score": 240.5,
+      "risk_factors": [
+        "2 ticket critical",
+        "Doanh thu cao"
+      ]
+    },
+    {
+      "channel_id": "CH-0040",
+      "channel_name": "Kids Official 40",
+      "project_name": "Học Tập Online",
+      "monthly_revenue": 320459000,
+      "open_critical": 4,
+      "whitelist_status": "Đang WL",
+      "no_whitelist": false,
+      "risk_score": 240.2,
+      "risk_factors": [
+        "4 ticket critical đang mở",
+        "Doanh thu cao"
+      ]
+    },
+    {
+      "channel_id": "CH-0038",
+      "channel_name": "Gaming Plus 38",
+      "project_name": "Âm Nhạc Việt",
+      "monthly_revenue": 436714000,
+      "open_critical": 1,
+      "whitelist_status": "Đang WL",
+      "no_whitelist": false,
+      "risk_score": 238.4,
+      "risk_factors": [
+        "1 ticket critical",
+        "Doanh thu cao"
+      ]
+    },
+    {
+      "channel_id": "CH-0025",
+      "channel_name": "Music Network 25",
+      "project_name": "Phim Hoạt Hình",
+      "monthly_revenue": 369337000,
+      "open_critical": 1,
+      "whitelist_status": "Đang xử lý",
+      "no_whitelist": true,
+      "risk_score": 234.7,
+      "risk_factors": [
+        "Chưa whitelist",
+        "1 ticket critical",
+        "Doanh thu cao"
+      ]
+    },
+    {
+      "channel_id": "CH-0034",
+      "channel_name": "Tech Official 34",
+      "project_name": "Phim Hoạt Hình",
+      "monthly_revenue": 338487000,
+      "open_critical": 2,
+      "whitelist_status": "Đang WL",
+      "no_whitelist": false,
+      "risk_score": 209.2,
+      "risk_factors": [
+        "2 ticket critical",
+        "Doanh thu cao"
+      ]
+    },
+    {
+      "channel_id": "CH-0015",
+      "channel_name": "News Studio 15",
+      "project_name": "Phim Hoạt Hình",
+      "monthly_revenue": 249827000,
+      "open_critical": 4,
+      "whitelist_status": "Đang WL",
+      "no_whitelist": false,
+      "risk_score": 204.9,
+      "risk_factors": [
+        "4 ticket critical đang mở",
+        "Doanh thu cao"
+      ]
+    },
+    {
+      "channel_id": "CH-0017",
+      "channel_name": "Lifestyle Hub 17",
+      "project_name": "Học Tập Online",
+      "monthly_revenue": 207196000,
+      "open_critical": 5,
+      "whitelist_status": "Đang WL",
+      "no_whitelist": false,
+      "risk_score": 203.6,
+      "risk_factors": [
+        "5 ticket critical đang mở",
+        "Doanh thu cao"
+      ]
+    }
+  ],
+  "prevention_recommendations": [
+    {
+      "id": "wl-gap",
+      "title": "Whitelist 5 kênh doanh thu cao đang chưa có WL",
+      "detail": "Các kênh này có doanh thu trên 50M/tháng và đang gặp sự cố critical. Đăng ký WL trước khi xảy ra strike sẽ chặn được rủi ro lớn.",
+      "impact": "high",
+      "category": "asset",
+      "affected_count": 5
+    },
+    {
+      "id": "repeat-channels",
+      "title": "3 kênh có lỗi lặp lại nhiều lần",
+      "detail": "Các kênh có nhiều ticket thất bại hoặc GBQ liên tục cần audit kỹ thuật chuyên sâu hoặc đào tạo lại quy trình. Đề xuất review đặc biệt với leader kênh.",
+      "impact": "medium",
+      "category": "asset",
+      "affected_count": 3
     }
   ]
 }

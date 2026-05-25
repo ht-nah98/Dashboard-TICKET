@@ -22,14 +22,7 @@ const SEV_CHIP: Record<string, string> = {
   warn: "chip-warn",
   ok: "chip-good",
 };
-const TYPE_CHIP: Record<string, string> = {
-  CLAIM: "chip-bad",
-  GBQ: "chip-bad",
-  DIE: "chip-bad",
-  WHITELIST: "chip-info",
-  TKT_BKT: "chip-info",
-  GCD: "chip-neutral",
-};
+import { TYPE_CHIP } from "@/lib/labels";
 
 export function SeoActionQueue({ data, onRowClick }: { data: QueueItem[]; onRowClick?: (item: QueueItem) => void }) {
   return (

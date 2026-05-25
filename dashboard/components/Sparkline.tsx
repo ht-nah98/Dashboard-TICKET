@@ -1,15 +1,21 @@
 "use client";
 
+import { useId } from "react";
 import { Area, AreaChart, ResponsiveContainer } from "recharts";
 
 export function Sparkline({ data, color = "#1A73E8" }: { data: number[]; color?: string }) {
   const series = data.map((v, i) => ({ i, v }));
+  // useId yields a stable, per-instance id so multiple sparklines with the
+  // same color don't share a single <defs> entry (which caused colored fill
+  // to leak/disappear across sibling cards).
+  const id = useId().replace(/:/g, "");
+  const gradientId = `spark-${id}`;
   return (
     <div className="h-10 w-full">
       <ResponsiveContainer width="100%" height="100%">
         <AreaChart data={series} margin={{ top: 4, right: 0, bottom: 0, left: 0 }}>
           <defs>
-            <linearGradient id={`spark-${color}`} x1="0" y1="0" x2="0" y2="1">
+            <linearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1">
               <stop offset="0%" stopColor={color} stopOpacity={0.3} />
               <stop offset="100%" stopColor={color} stopOpacity={0} />
             </linearGradient>
@@ -19,7 +25,7 @@ export function Sparkline({ data, color = "#1A73E8" }: { data: number[]; color?:
             dataKey="v"
             stroke={color}
             strokeWidth={1.5}
-            fill={`url(#spark-${color})`}
+            fill={`url(#${gradientId})`}
             isAnimationActive={false}
           />
         </AreaChart>

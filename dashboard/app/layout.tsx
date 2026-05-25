@@ -1,5 +1,6 @@
 import "./globals.css";
 import type { Metadata } from "next";
+import { FilterProvider } from "@/components/FilterContext";
 
 export const metadata: Metadata = {
   title: "QLK Ticket Dashboard — Tổng quan Điều hành",
@@ -19,7 +20,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           href="https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined"
         />
       </head>
-      <body>{children}</body>
+      <body>
+        {/* Provider lives at the root so filter state survives navigation. */}
+        <FilterProvider>{children}</FilterProvider>
+      </body>
     </html>
   );
 }

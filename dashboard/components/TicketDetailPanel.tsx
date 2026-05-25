@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import clsx from "clsx";
 import { formatHours, formatVnd } from "@/lib/format";
+import { STATE_LABEL, STATE_CHIP, TYPE_CHIP, SLA_STATUS_CHIP, SLA_STATUS_LABEL } from "@/lib/labels";
 
 export interface TicketTimelineStep {
   timestamp: string;
@@ -46,26 +47,6 @@ export interface TicketDetail {
   timeline?: TicketTimelineStep[];
   sla_steps?: TicketSlaStep[];
 }
-
-const STATE_LABEL: Record<string, string> = {
-  draft: "Nháp", sent: "Đã gửi", processing: "Đang xử lý",
-  paused: "Tạm dừng", completed: "Hoàn thành", closed: "Đã đóng", failed: "Thất bại",
-};
-const STATE_CHIP: Record<string, string> = {
-  draft: "chip-neutral", sent: "chip-info", processing: "chip-info",
-  paused: "chip-warn", completed: "chip-good", closed: "chip-neutral", failed: "chip-bad",
-};
-const TYPE_CHIP: Record<string, string> = {
-  CLAIM: "chip-bad", GBQ: "chip-bad", DIE: "chip-bad",
-  WHITELIST: "chip-info", TKT_BKT: "chip-info", GCD: "chip-neutral",
-};
-const SLA_STATUS_CHIP: Record<string, string> = {
-  completed: "chip-good", in_progress: "chip-info", breached: "chip-bad",
-  pending: "chip-neutral",
-};
-const SLA_STATUS_LABEL: Record<string, string> = {
-  completed: "Xong", in_progress: "Đang chạy", breached: "Trễ", pending: "Chờ",
-};
 
 export function TicketDetailPanel({
   ticket,
@@ -270,9 +251,9 @@ export function TicketDetailPanel({
 
         {/* Footer */}
         <div className="p-4 border-t border-gborder shrink-0 flex gap-2">
-          <button className="flex-1 h-9 rounded-lg bg-gblue text-white text-[13px] font-medium hover:opacity-90 transition">
-            Mở trong hệ thống
-          </button>
+          <div className="flex-1 text-[11px] text-gmuted flex items-center">
+            ID: <span className="font-mono ml-1 text-gink">{ticket.id}</span>
+          </div>
           <button
             onClick={onClose}
             className="h-9 px-4 rounded-lg border border-gborder text-[13px] text-gmuted hover:bg-gbg transition"

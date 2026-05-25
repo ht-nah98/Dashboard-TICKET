@@ -1,6 +1,12 @@
 import fs from "node:fs";
 import path from "node:path";
-import type { Ticket, Channel, User, Project, TimelineEvent } from "./types";
+import type { Ticket, Channel, User, Project, TimelineEvent, MasterWhitelistRow } from "./types";
+import { currentStepInfo as slaStepInfo, isOpen } from "./sla";
+import {
+  channelById as buildChannelById,
+  projectById as buildProjectById,
+  timelineByTicket as buildTimelineByTicket,
+} from "./lookups";
 
 const DATA_DIR = path.resolve(process.cwd(), "data");
 const OUT_DIR = path.resolve(process.cwd(), "derived");
@@ -24,26 +30,6 @@ function startOfWeek(d: Date): Date {
   x.setUTCHours(0, 0, 0, 0);
   return x;
 }
-function isOpen(t: Ticket): boolean {
-  return !["completed", "closed", "failed"].includes(t.current_state);
-}
-
-// Per-step SLA (mirrors derive_ops.ts — keep in sync)
-const STEP_SLA: { match: RegExp; hours: number; owner: string; step: string }[] = [
-  { match: /VHYT tiếp nhận \(SLA 2h\)/, hours: 2, owner: "VHYT", step: "VHYT tiếp nhận" },
-  { match: /SEO thực hiện kháng \(SLA 1h\)/, hours: 1, owner: "SEO", step: "SEO thực hiện kháng" },
-  { match: /^VHYT tiếp nhận/, hours: 2, owner: "VHYT", step: "VHYT tiếp nhận" },
-  { match: /^VHYT (liên hệ|chọn|trigger|cập nhật|soạn|tạo|gửi)/, hours: 12, owner: "VHYT", step: "VHYT xử lý" },
-  { match: /^VHDA/, hours: 12, owner: "VHDA", step: "VHDA xử lý" },
-  { match: /^VHWL bắt đầu/, hours: 24, owner: "VHWL", step: "VHWL xử lý" },
-  { match: /^VHWL hoàn thành/, hours: 8, owner: "SEO", step: "Chờ SEO xác nhận" },
-  { match: /^SEO gửi ticket/, hours: 24, owner: "VHYT", step: "Chờ VHYT tiếp nhận" },
-  { match: /^SEO (gửi lại|đã thực hiện|nộp|Cut|submit)/, hours: 24, owner: "VHYT", step: "Chờ VHYT xử lý" },
-  { match: /^SEO tạo ticket/, hours: 48, owner: "SEO", step: "SEO hoàn thiện & gửi" },
-  { match: /dịch vụ ngoài/, hours: 168, owner: "External", step: "Chờ dịch vụ ngoài" },
-  { match: /Tự động Tạm dừng/, hours: 24, owner: "SEO", step: "Tạm dừng — chờ mở lại" },
-];
-const DEFAULT_SLA = { hours: 48, owner: "—", step: "Khác" };
 
 export interface SeoPayload {
   generated_at: string;
@@ -124,6 +110,13 @@ export interface SeoPayload {
     status: "overdue" | "ready" | "soon" | "waiting";
     current_state: string;
   }[];
+  whitelist_pipeline: {
+    by_status: { status: string; count: number; tone: "good" | "warn" | "bad" | "neutral" }[];
+    avg_days_to_wl: number | null;
+    recent_wl: { id: string; channel_name: string; project_name: string; wl_date: string; days_taken: number | null }[];
+    pending_applications: { id: string; channel_name: string; project_name: string; days_waiting: number; created_at: string }[];
+    total: number;
+  };
 }
 
 export function buildSeo(): SeoPayload {
@@ -132,27 +125,16 @@ export function buildSeo(): SeoPayload {
   const users = load<User>("users.json");
   const projects = load<Project>("projects.json");
   const timeline = load<TimelineEvent>("timeline.json");
+  const masterWl = load<MasterWhitelistRow>("master_whitelist.json");
 
-  const channelById = new Map(channels.map((c) => [c.id, c]));
-  const projectById = new Map(projects.map((p) => [p.id, p]));
-
-  const timelineByTicket = new Map<string, TimelineEvent[]>();
-  for (const e of timeline) {
-    const arr = timelineByTicket.get(e.ticket_id) ?? [];
-    arr.push(e);
-    timelineByTicket.set(e.ticket_id, arr);
-  }
-  for (const arr of timelineByTicket.values()) {
-    arr.sort((a, b) => +new Date(a.timestamp) - +new Date(b.timestamp));
-  }
+  const channelById = buildChannelById(channels);
+  const projectById = buildProjectById(projects);
+  const timelineByTicket = buildTimelineByTicket(timeline);
 
   function currentStepInfo(t: Ticket) {
     const tl = timelineByTicket.get(t.id) ?? [];
-    const last = tl[tl.length - 1];
-    if (!last) return { step: "Chưa có timeline", owner: "—", slaHours: DEFAULT_SLA.hours, dwellHours: (+NOW - +new Date(t.created_at)) / MS_HOUR };
-    const dwellHours = (+NOW - +new Date(last.timestamp)) / MS_HOUR;
-    const rule = STEP_SLA.find((r) => r.match.test(last.action)) ?? (DEFAULT_SLA as any);
-    return { step: rule.step, owner: rule.owner, slaHours: rule.hours, dwellHours };
+    const info = slaStepInfo(t, tl, NOW);
+    return { step: info.step, owner: info.owner, slaHours: info.slaHours, dwellHours: info.dwellHours };
   }
 
   function overdueRatio(t: Ticket) {
@@ -405,6 +387,69 @@ export function buildSeo(): SeoPayload {
     .map((r) => r.resolution_hours);
   const avg_resolve_hours = Math.round(median(resolveHours) * 10) / 10;
 
+  // ---- Whitelist pipeline ----
+  // Surface where applications stand: how many are active, how many are
+  // in-progress, and how long applications typically take to land.
+  const wlTone: Record<string, "good" | "warn" | "bad" | "neutral"> = {
+    "Đang WL": "good",
+    "Đang xử lý": "warn",
+    "Đã gỡ": "bad",
+  };
+  const statusCounts = new Map<string, number>();
+  for (const m of masterWl) {
+    statusCounts.set(m.trang_thai_wl, (statusCounts.get(m.trang_thai_wl) ?? 0) + 1);
+  }
+  const by_status = Array.from(statusCounts.entries())
+    .map(([status, count]) => ({ status, count, tone: wlTone[status] ?? "neutral" as const }))
+    .sort((a, b) => b.count - a.count);
+
+  const daysToWlSamples: number[] = [];
+  for (const m of masterWl) {
+    if (!m.ngay_dk_wl || !m.ngay_wl_thanh_cong) continue;
+    const days = (+new Date(m.ngay_wl_thanh_cong) - +new Date(m.ngay_dk_wl)) / (24 * 3600_000);
+    if (days >= 0 && days < 90) daysToWlSamples.push(days);
+  }
+  const avg_days_to_wl = daysToWlSamples.length > 0
+    ? Math.round(median(daysToWlSamples) * 10) / 10
+    : null;
+
+  const recent_wl = masterWl
+    .filter((m) => m.trang_thai_wl === "Đang WL" && m.ngay_wl_thanh_cong)
+    .map((m) => {
+      const ch = channelById.get(m.channel_id);
+      const proj = ch ? projectById.get(ch.project_id) : null;
+      const days = m.ngay_dk_wl
+        ? Math.round(((+new Date(m.ngay_wl_thanh_cong!) - +new Date(m.ngay_dk_wl)) / (24 * 3600_000)) * 10) / 10
+        : null;
+      return {
+        id: m.id,
+        channel_name: ch?.name ?? "—",
+        project_name: proj?.name ?? "—",
+        wl_date: m.ngay_wl_thanh_cong!,
+        days_taken: days,
+      };
+    })
+    .sort((a, b) => +new Date(b.wl_date) - +new Date(a.wl_date))
+    .slice(0, 8);
+
+  const pending_applications = masterWl
+    .filter((m) => m.trang_thai_wl === "Đang xử lý")
+    .map((m) => {
+      const ch = channelById.get(m.channel_id);
+      const proj = ch ? projectById.get(ch.project_id) : null;
+      const startIso = m.ngay_dk_wl ?? m.created_at ?? NOW.toISOString();
+      const start = +new Date(startIso);
+      const daysWaiting = Math.floor((+NOW - start) / (24 * 3600_000));
+      return {
+        id: m.id,
+        channel_name: ch?.name ?? "—",
+        project_name: proj?.name ?? "—",
+        days_waiting: daysWaiting,
+        created_at: startIso,
+      };
+    })
+    .sort((a, b) => b.days_waiting - a.days_waiting);
+
   return {
     generated_at: new Date().toISOString(),
     as_of: NOW.toISOString(),
@@ -416,6 +461,13 @@ export function buildSeo(): SeoPayload {
     weekly_trend: weeklyTrend,
     repeat_channels: repeatChannels,
     reapply_tracker: reapplyTracker,
+    whitelist_pipeline: {
+      by_status,
+      avg_days_to_wl,
+      recent_wl,
+      pending_applications,
+      total: masterWl.length,
+    },
   };
 }
 

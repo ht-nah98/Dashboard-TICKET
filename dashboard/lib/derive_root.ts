@@ -1,6 +1,12 @@
 import fs from "node:fs";
 import path from "node:path";
-import type { Ticket, Channel, User, Project, TimelineEvent } from "./types";
+import type { Ticket, Channel, User, Project, TimelineEvent, MasterWhitelistRow } from "./types";
+import { isOpen } from "./sla";
+import {
+  channelById as buildChannelById,
+  projectById as buildProjectById,
+  timelineByTicket as buildTimelineByTicket,
+} from "./lookups";
 
 const DATA_DIR = path.resolve(process.cwd(), "data");
 const OUT_DIR = path.resolve(process.cwd(), "derived");
@@ -102,6 +108,25 @@ export interface RootPayload {
     count: number;
     avg_resolution_hours: number;
   }[];
+  risky_assets: {
+    channel_id: string;
+    channel_name: string;
+    project_name: string;
+    monthly_revenue: number;
+    open_critical: number;
+    whitelist_status: string;
+    no_whitelist: boolean;
+    risk_score: number;
+    risk_factors: string[];
+  }[];
+  prevention_recommendations: {
+    id: string;
+    title: string;
+    detail: string;
+    impact: "high" | "medium" | "low";
+    category: "process" | "asset" | "data";
+    affected_count: number;
+  }[];
 }
 
 export function buildRoot(): RootPayload {
@@ -111,23 +136,11 @@ export function buildRoot(): RootPayload {
   const projects = load<Project>("projects.json");
   const timeline = load<TimelineEvent>("timeline.json");
   const slaSteps = load<SlaStep>("sla_steps.json");
+  const masterWl = load<MasterWhitelistRow>("master_whitelist.json");
 
-  const channelById = new Map(channels.map((c) => [c.id, c]));
-  const projectById = new Map(projects.map((p) => [p.id, p]));
-
-  const timelineByTicket = new Map<string, TimelineEvent[]>();
-  for (const e of timeline) {
-    const arr = timelineByTicket.get(e.ticket_id) ?? [];
-    arr.push(e);
-    timelineByTicket.set(e.ticket_id, arr);
-  }
-  for (const arr of timelineByTicket.values()) {
-    arr.sort((a, b) => +new Date(a.timestamp) - +new Date(b.timestamp));
-  }
-
-  function isOpen(t: Ticket) {
-    return !["completed", "closed", "failed"].includes(t.current_state);
-  }
+  const channelById = buildChannelById(channels);
+  const projectById = buildProjectById(projects);
+  const timelineByTicket = buildTimelineByTicket(timeline);
 
   // ---- Pareto: ticket types by volume + revenue + fail rate ----
   const types = ["CLAIM", "WHITELIST", "GBQ", "GCD", "TKT_BKT", "DIE"] as const;
@@ -328,6 +341,150 @@ export function buildRoot(): RootPayload {
     };
   });
 
+  // ---- Risky Assets ----
+  // Channels with HIGH monthly revenue + active critical issues + no WL coverage
+  // are the riskiest to lose. Score: revenue_weight × open_critical × wl_gap_multiplier.
+  const wlByChannel = new Map<string, MasterWhitelistRow[]>();
+  for (const m of masterWl) {
+    const arr = wlByChannel.get(m.channel_id) ?? [];
+    arr.push(m);
+    wlByChannel.set(m.channel_id, arr);
+  }
+  const hasActiveWl = (cid: string): boolean => {
+    const rows = wlByChannel.get(cid) ?? [];
+    return rows.some((r) => r.trang_thai_wl === "Đang WL");
+  };
+
+  // Critical = open + breach-ish (GBQ/DIE/urgent or claim_lao)
+  function isCriticalOpen(t: Ticket): boolean {
+    if (!isOpen(t)) return false;
+    if (t.is_urgent) return true;
+    if (t.type === "GBQ" || t.type === "DIE") return true;
+    if (t.type === "CLAIM" && t.claim_type === "claim_lao") return true;
+    return false;
+  }
+
+  const channelMetrics = new Map<string, { critical: number; tickets: Ticket[] }>();
+  for (const t of tickets) {
+    if (!isCriticalOpen(t)) continue;
+    const cur = channelMetrics.get(t.channel_id) ?? { critical: 0, tickets: [] };
+    cur.critical += 1;
+    cur.tickets.push(t);
+    channelMetrics.set(t.channel_id, cur);
+  }
+
+  const riskyAssets = channels
+    .map((ch) => {
+      const m = channelMetrics.get(ch.id);
+      const openCritical = m?.critical ?? 0;
+      const hasWl = hasActiveWl(ch.id);
+      const monthlyRev = ch.monthly_revenue_vnd ?? 0;
+
+      // Only surface channels with real risk: meaningful revenue + at least 1 critical
+      if (openCritical === 0 && hasWl) return null;
+      if (monthlyRev < 10_000_000) return null; // skip low-revenue channels
+
+      const factors: string[] = [];
+      if (!hasWl) factors.push("Chưa whitelist");
+      if (openCritical >= 3) factors.push(`${openCritical} ticket critical đang mở`);
+      else if (openCritical >= 1) factors.push(`${openCritical} ticket critical`);
+      if (monthlyRev >= 100_000_000) factors.push("Doanh thu cao");
+
+      // Risk score — normalized for sorting
+      const score =
+        (monthlyRev / 1_000_000) * 0.5 +
+        openCritical * 20 +
+        (hasWl ? 0 : 30);
+
+      const project = projectById.get(ch.project_id);
+      return {
+        channel_id: ch.id,
+        channel_name: ch.name,
+        project_name: project?.name ?? "—",
+        monthly_revenue: monthlyRev,
+        open_critical: openCritical,
+        whitelist_status: hasWl ? "Đang WL" : (wlByChannel.get(ch.id)?.[0]?.trang_thai_wl ?? "Chưa có"),
+        no_whitelist: !hasWl,
+        risk_score: Math.round(score * 10) / 10,
+        risk_factors: factors,
+      };
+    })
+    .filter((x): x is NonNullable<typeof x> => Boolean(x))
+    .sort((a, b) => b.risk_score - a.risk_score)
+    .slice(0, 15);
+
+  // ---- Prevention Recommendations ----
+  // Synthesize actionable suggestions from the diagnostic data.
+  const recommendations: RootPayload["prevention_recommendations"] = [];
+
+  // 1) Channels with no whitelist + high revenue + critical activity
+  const noWlHighRevCount = riskyAssets.filter((r) => r.no_whitelist && r.monthly_revenue >= 50_000_000).length;
+  if (noWlHighRevCount >= 3) {
+    recommendations.push({
+      id: "wl-gap",
+      title: `Whitelist ${noWlHighRevCount} kênh doanh thu cao đang chưa có WL`,
+      detail: "Các kênh này có doanh thu trên 50M/tháng và đang gặp sự cố critical. Đăng ký WL trước khi xảy ra strike sẽ chặn được rủi ro lớn.",
+      impact: "high",
+      category: "asset",
+      affected_count: noWlHighRevCount,
+    });
+  }
+
+  // 2) Step bottleneck — find steps where median actual > 1.5× expected
+  const worstStep = stepBottlenecks
+    .filter((s) => s.sample_size >= 10 && s.slowdown_ratio >= 1.5)
+    .sort((a, b) => b.slowdown_ratio - a.slowdown_ratio)[0];
+  if (worstStep) {
+    recommendations.push({
+      id: `step-${worstStep.step_name}`,
+      title: `Bước "${worstStep.step_name}" chậm ${worstStep.slowdown_ratio.toFixed(1)}× so với SLA`,
+      detail: `Bước này có ${worstStep.sample_size} mẫu, trung vị ${worstStep.median_actual_hours}h so với kỳ vọng ${worstStep.expected_hours}h. Xem lại quy trình hoặc bổ sung nhân lực cho ${worstStep.actor_role}.`,
+      impact: "high",
+      category: "process",
+      affected_count: worstStep.sample_size,
+    });
+  }
+
+  // 3) Repeat-offender channels — pattern of failures from same source
+  const seriousRepeat = repeatOffenders.filter((c) => c.failed_tickets >= 2 || c.gbq_count >= 3);
+  if (seriousRepeat.length >= 3) {
+    recommendations.push({
+      id: "repeat-channels",
+      title: `${seriousRepeat.length} kênh có lỗi lặp lại nhiều lần`,
+      detail: "Các kênh có nhiều ticket thất bại hoặc GBQ liên tục cần audit kỹ thuật chuyên sâu hoặc đào tạo lại quy trình. Đề xuất review đặc biệt với leader kênh.",
+      impact: "medium",
+      category: "asset",
+      affected_count: seriousRepeat.length,
+    });
+  }
+
+  // 4) Multi-returned tickets — process clarity issue
+  if (multiReturned >= 5) {
+    recommendations.push({
+      id: "multi-return",
+      title: `${multiReturned} ticket bị trả lại sửa nhiều lần`,
+      detail: "Tỷ lệ trả lại cao cho thấy briefing ban đầu chưa đủ rõ. Cải thiện template ticket + checklist trước khi gửi sẽ giảm vòng lặp.",
+      impact: "medium",
+      category: "process",
+      affected_count: multiReturned,
+    });
+  }
+
+  // 5) High-failure resolution direction
+  const worstResolution = resEffectiveness
+    .filter((r) => r.total >= 5)
+    .sort((a, b) => a.success_rate - b.success_rate)[0];
+  if (worstResolution && worstResolution.success_rate < 50) {
+    recommendations.push({
+      id: `resolution-${worstResolution.direction}`,
+      title: `Hướng xử lý "${worstResolution.label}" chỉ thành công ${worstResolution.success_rate}%`,
+      detail: `${worstResolution.total} ticket đã đi theo hướng này nhưng chỉ ${worstResolution.completed} thành công. Xem xét loại bỏ hoặc cải tiến hướng xử lý này.`,
+      impact: "high",
+      category: "process",
+      affected_count: worstResolution.total,
+    });
+  }
+
   return {
     generated_at: new Date().toISOString(),
     as_of: NOW.toISOString(),
@@ -339,6 +496,8 @@ export function buildRoot(): RootPayload {
     pause_reasons: pauseReasons,
     weekly_fail_trend: weeklyFailTrend,
     process_complexity: processComplexity,
+    risky_assets: riskyAssets,
+    prevention_recommendations: recommendations,
   };
 }
 

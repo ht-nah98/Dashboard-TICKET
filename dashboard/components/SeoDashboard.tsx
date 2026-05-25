@@ -7,39 +7,34 @@ import { SeoReturnedCorrection } from "@/components/SeoReturnedCorrection";
 import { SeoWeeklyTrend } from "@/components/SeoWeeklyTrend";
 import { SeoRepeatChannels } from "@/components/SeoRepeatChannels";
 import { SeoReapplyTracker } from "@/components/SeoReapplyTracker";
+import { WhitelistPipeline } from "@/components/WhitelistPipeline";
 import { SeoRecentOutcomes } from "@/components/SeoRecentOutcomes";
 import { TicketDetailPanel, type TicketDetail } from "@/components/TicketDetailPanel";
 import { useFilters } from "@/components/FilterContext";
 import { formatHours } from "@/lib/format";
+import { makeActionMatcher, makeHistoryMatcher } from "@/lib/matchFilters";
 import type { SeoPayload } from "@/lib/derive_seo";
 
 export function SeoDashboard({ data, detailMap = {} }: { data: SeoPayload; detailMap?: Record<string, any> }) {
   const { filters, toggleType, setChannel } = useFilters();
   const [detailTicket, setDetailTicket] = useState<TicketDetail | null>(null);
-  const { kpis, action_queue, waiting_on_vhyt, returned_for_correction, recent_outcomes, weekly_trend, repeat_channels, reapply_tracker } = data;
+  const { kpis, action_queue, waiting_on_vhyt, returned_for_correction, recent_outcomes, weekly_trend, repeat_channels, reapply_tracker, whitelist_pipeline } = data;
 
   const NOW_MS = new Date("2026-05-23T09:00:00+07:00").getTime();
 
-  function matchItem(item: { type: string; channel_id?: string; project_id?: string; network_id?: string; created_at?: string }) {
-    if (filters.types.length > 0 && !filters.types.includes(item.type as any)) return false;
-    if (filters.channelId && item.channel_id !== filters.channelId) return false;
-    if (filters.projectId && item.project_id !== filters.projectId) return false;
-    if (filters.networkId && item.network_id !== filters.networkId) return false;
-    if (filters.dateRange !== "all" && item.created_at) {
-      const days = filters.dateRange === "7d" ? 7 : filters.dateRange === "30d" ? 30 : 90;
-      if (NOW_MS - new Date(item.created_at).getTime() > days * 86400000) return false;
-    }
-    return true;
-  }
+  // Action queues are time-agnostic (matchAction). Recent outcomes use the
+  // history matcher so "last 7d" still makes sense for completed/failed rows.
+  const matchAction = useMemo(() => makeActionMatcher(filters), [filters]);
+  const matchHistory = useMemo(() => makeHistoryMatcher(filters, NOW_MS), [filters, NOW_MS]);
 
-  const filteredActionQueue = useMemo(() => action_queue.filter(matchItem),
-    [action_queue, filters]);
-  const filteredWaitingVhyt = useMemo(() => waiting_on_vhyt.filter(matchItem),
-    [waiting_on_vhyt, filters]);
-  const filteredReturned = useMemo(() => returned_for_correction.filter(matchItem),
-    [returned_for_correction, filters]);
-  const filteredOutcomes = useMemo(() => recent_outcomes.filter(matchItem),
-    [recent_outcomes, filters]);
+  const filteredActionQueue = useMemo(() => action_queue.filter(matchAction),
+    [action_queue, matchAction]);
+  const filteredWaitingVhyt = useMemo(() => waiting_on_vhyt.filter(matchAction),
+    [waiting_on_vhyt, matchAction]);
+  const filteredReturned = useMemo(() => returned_for_correction.filter(matchAction),
+    [returned_for_correction, matchAction]);
+  const filteredOutcomes = useMemo(() => recent_outcomes.filter(matchHistory),
+    [recent_outcomes, matchHistory]);
   const filteredRepeatChannels = useMemo(() =>
     repeat_channels.filter((ch) => !filters.channelId || ch.channel_id === filters.channelId),
     [repeat_channels, filters.channelId]
@@ -155,6 +150,10 @@ export function SeoDashboard({ data, detailMap = {} }: { data: SeoPayload; detai
         </section>
 
         {/* Row 5 — Reapply tracker */}
+        <section>
+          <WhitelistPipeline {...whitelist_pipeline} />
+        </section>
+
         <section>
           <SeoReapplyTracker data={reapply_tracker} />
         </section>

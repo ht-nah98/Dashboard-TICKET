@@ -1,6 +1,15 @@
 import fs from "node:fs";
 import path from "node:path";
 import type { Ticket, Channel, User, Project, TimelineEvent } from "./types";
+import { currentStepInfo } from "./sla";
+import {
+  channelById as buildChannelById,
+  userById as buildUserById,
+  projectById as buildProjectById,
+  networkById as buildNetworkById,
+  timelineByTicket as buildTimelineByTicket,
+  groupBy,
+} from "./lookups";
 
 const DATA_DIR = path.resolve(process.cwd(), "data");
 const NOW = new Date("2026-05-23T09:00:00+07:00");
@@ -62,23 +71,6 @@ interface SlaStepRaw {
   status: string;
 }
 
-// Per-step SLA (mirrors derive_ops.ts)
-const STEP_SLA = [
-  { match: /VHYT tiếp nhận \(SLA 2h\)/, hours: 2, owner: "VHYT", step: "VHYT tiếp nhận" },
-  { match: /SEO thực hiện kháng \(SLA 1h\)/, hours: 1, owner: "SEO", step: "SEO thực hiện kháng" },
-  { match: /^VHYT tiếp nhận/, hours: 2, owner: "VHYT", step: "VHYT tiếp nhận" },
-  { match: /^VHYT (liên hệ|chọn|trigger|cập nhật|soạn|tạo|gửi)/, hours: 12, owner: "VHYT", step: "VHYT xử lý" },
-  { match: /^VHDA/, hours: 12, owner: "VHDA", step: "VHDA xử lý" },
-  { match: /^VHWL bắt đầu/, hours: 24, owner: "VHWL", step: "VHWL xử lý" },
-  { match: /^VHWL hoàn thành/, hours: 8, owner: "SEO", step: "Chờ SEO xác nhận" },
-  { match: /^SEO gửi ticket/, hours: 24, owner: "VHYT", step: "Chờ VHYT tiếp nhận" },
-  { match: /^SEO (gửi lại|đã thực hiện|nộp|Cut|submit)/, hours: 24, owner: "VHYT", step: "Chờ VHYT xử lý" },
-  { match: /^SEO tạo ticket/, hours: 48, owner: "SEO", step: "SEO hoàn thiện & gửi" },
-  { match: /dịch vụ ngoài/, hours: 168, owner: "External", step: "Chờ dịch vụ ngoài" },
-  { match: /Tự động Tạm dừng/, hours: 24, owner: "SEO", step: "Tạm dừng — chờ mở lại" },
-];
-const DEFAULT_SLA = { hours: 48, owner: "—", step: "Khác" };
-
 export function buildTicketDetails(): Record<string, TicketDetailFull> {
   const tickets = load<Ticket>("tickets.json");
   const channels = load<Channel>("channels.json");
@@ -88,49 +80,28 @@ export function buildTicketDetails(): Record<string, TicketDetailFull> {
   const timeline = load<TimelineEvent>("timeline.json");
   const slaSteps = load<SlaStepRaw>("sla_steps.json");
 
-  const channelById = new Map(channels.map((c) => [c.id, c]));
-  const userById = new Map(users.map((u) => [u.id, u]));
-  const projectById = new Map(projects.map((p) => [p.id, p]));
-  const networkById = new Map(networks.map((n: any) => [n.id, n]));
-
-  const timelineByTicket = new Map<string, TimelineEvent[]>();
-  for (const e of timeline) {
-    const arr = timelineByTicket.get(e.ticket_id) ?? [];
-    arr.push(e);
-    timelineByTicket.set(e.ticket_id, arr);
-  }
-  for (const arr of timelineByTicket.values()) {
-    arr.sort((a, b) => +new Date(a.timestamp) - +new Date(b.timestamp));
-  }
-
-  const slaStepsByTicket = new Map<string, SlaStepRaw[]>();
-  for (const s of slaSteps) {
-    const arr = slaStepsByTicket.get(s.ticket_id) ?? [];
-    arr.push(s);
-    slaStepsByTicket.set(s.ticket_id, arr);
-  }
-
-  function isOpen(t: Ticket) {
-    return !["completed", "closed", "failed"].includes(t.current_state);
-  }
+  const channelById = buildChannelById(channels);
+  const userById = buildUserById(users);
+  const projectById = buildProjectById(projects);
+  const networkById = buildNetworkById(networks);
+  const timelineByTicket = buildTimelineByTicket(timeline);
+  const slaStepsByTicket = groupBy(slaSteps, (s) => s.ticket_id);
 
   const result: Record<string, TicketDetailFull> = {};
 
-  // Only build detail for open tickets (for now — these are the ones users drill into)
-  const openTickets = tickets.filter(isOpen);
-
-  for (const t of openTickets) {
+  // Build detail for EVERY ticket — completed/failed/closed rows are also
+  // drilled into from "Recent outcomes" on the SEO page.
+  for (const t of tickets) {
     const ch = channelById.get(t.channel_id);
     const proj = projectById.get(t.project_id);
     const net = networkById.get(t.network_id);
     const tl = timelineByTicket.get(t.id) ?? [];
     const steps = slaStepsByTicket.get(t.id) ?? [];
 
-    // Current step & SLA
-    const last = tl[tl.length - 1];
-    const dwellHours = last ? (+NOW - +new Date(last.timestamp)) / MS_HOUR : 0;
-    const rule = last ? (STEP_SLA.find((r) => r.match.test(last.action)) ?? DEFAULT_SLA) : DEFAULT_SLA;
-    const overdueRatio = dwellHours / rule.hours;
+    // Current step & SLA — shared classifier from lib/sla.ts
+    const info = currentStepInfo(t, tl, NOW);
+    const dwellHours = info.dwellHours;
+    const overdueRatio = info.overdueRatio;
     const daysOpen = Math.floor((+NOW - +new Date(t.created_at)) / (MS_HOUR * 24));
 
     // Build timeline steps with dwell
@@ -175,10 +146,10 @@ export function buildTicketDetails(): Record<string, TicketDetailFull> {
       claim_type: t.claim_type,
       claimer: (t as any).claimer,
       resolution_direction: t.resolution_direction,
-      current_step: rule.step,
-      current_owner: rule.owner,
+      current_step: info.step,
+      current_owner: info.owner,
       hours_in_current_step: Math.round(dwellHours * 10) / 10,
-      sla_hours: rule.hours,
+      sla_hours: info.slaHours,
       overdue_ratio: Math.round(overdueRatio * 100) / 100,
       days_open: daysOpen,
       timeline: timelineSteps,
@@ -195,5 +166,5 @@ if (process.argv[1]?.endsWith("derive_detail.ts")) {
   const count = Object.keys(out).length;
   fs.mkdirSync(OUT_DIR, { recursive: true });
   fs.writeFileSync(path.join(OUT_DIR, "ticket_details.json"), JSON.stringify(out, null, 2));
-  console.log(`Wrote ticket_details.json (${count} open tickets)`);
+  console.log(`Wrote ticket_details.json (${count} tickets — all states)`);
 }

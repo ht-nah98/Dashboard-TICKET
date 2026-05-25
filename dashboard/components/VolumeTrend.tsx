@@ -18,9 +18,8 @@ export function VolumeTrend({ data }: { data: any[] }) {
       <div className="flex items-center justify-between mb-3">
         <div>
           <div className="text-[14px] font-medium text-gink">Xu hướng khối lượng ticket</div>
-          <div className="text-[12px] text-gmuted">12 tuần, theo loại — số ticket được tạo mỗi tuần</div>
+          <div className="text-[12px] text-gmuted">Theo bộ lọc thời gian, theo loại — số ticket được tạo mỗi tuần</div>
         </div>
-        <a className="text-[12px] text-gblue font-medium cursor-pointer">Xem theo ngày →</a>
       </div>
       <div className="h-[260px]">
         <ResponsiveContainer width="100%" height="100%">

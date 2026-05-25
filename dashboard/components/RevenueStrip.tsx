@@ -13,7 +13,6 @@ export function RevenueStrip({ data }: { data: DerivedPayload["revenue"] }) {
             <div className="text-[14px] font-medium text-gink">Tác động doanh thu</div>
             <div className="text-[12px] text-gmuted">Rủi ro hiện tại · Đã cứu trong tháng · Thiệt hại đã ghi nhận năm</div>
           </div>
-          <a className="text-[12px] text-gblue font-medium cursor-pointer">Xem chi tiết →</a>
         </div>
         <div className="grid grid-cols-3 gap-4">
           <MoneyStat label="Đang rủi ro" value={data.at_risk_now} color="#F9AB00" tone="warn" series={data.weekly.map((w) => w.at_risk)} />

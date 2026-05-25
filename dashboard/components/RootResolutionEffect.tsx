@@ -1,7 +1,5 @@
 "use client";
 
-import clsx from "clsx";
-
 type ResolutionRow = {
   direction: string;
   label: string;

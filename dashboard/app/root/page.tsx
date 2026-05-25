@@ -6,6 +6,8 @@ import { RootResolutionEffect } from "@/components/RootResolutionEffect";
 import { RootRepeatChannels } from "@/components/RootRepeatChannels";
 import { RootWeeklyFail } from "@/components/RootWeeklyFail";
 import { RootProcessComplexity } from "@/components/RootProcessComplexity";
+import { RiskyAssets } from "@/components/RiskyAssets";
+import { PreventionRecommendations } from "@/components/PreventionRecommendations";
 import type { RootPayload } from "@/lib/derive_root";
 import rootData from "@/derived/root.json";
 
@@ -20,6 +22,8 @@ export default function RootPage() {
     resolution_effectiveness,
     weekly_fail_trend,
     process_complexity,
+    risky_assets,
+    prevention_recommendations,
   } = data;
 
   const totalFailed = pareto.reduce((s, d) => s + d.failed, 0);
@@ -96,6 +100,16 @@ export default function RootPage() {
         {/* Row 5 — Repeat offender channels (full width) */}
         <section>
           <RootRepeatChannels data={repeat_offender_channels} />
+        </section>
+
+        {/* Row 6 — Risky Assets + Prevention Recommendations */}
+        <section className="grid grid-cols-12 gap-4 items-stretch">
+          <div className="col-span-7 flex">
+            <RiskyAssets data={risky_assets} />
+          </div>
+          <div className="col-span-5 flex">
+            <PreventionRecommendations data={prevention_recommendations} />
+          </div>
         </section>
 
       </div>
