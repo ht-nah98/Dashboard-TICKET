@@ -23,26 +23,26 @@ export function OperationsDashboard({
   const { filters } = useFilters();
   const [selectedTicket, setSelectedTicket] = useState<TicketDetail | null>(null);
 
-  // Filter near_breach and escalation_board by active filters
-  const filteredNearBreach = useMemo(() => {
-    return data.near_breach.filter((item) => {
-      if (filters.types.length > 0 && !filters.types.includes(item.type as any)) return false;
-      if (filters.channelId && item.channel_id !== filters.channelId) return false;
-      if (filters.severity) {
-        const sev = item.severity === "bad" ? "critical" : item.severity === "warn" ? "high" : "low";
-        if (sev !== filters.severity) return false;
-      }
-      return true;
-    });
-  }, [data.near_breach, filters]);
+  const NOW_MS = new Date("2026-05-23T09:00:00+07:00").getTime();
 
-  const filteredEscalation = useMemo(() => {
-    return data.escalation_board.filter((item) => {
-      if (filters.types.length > 0 && !filters.types.includes(item.type as any)) return false;
-      if (filters.channelId && item.channel_id !== filters.channelId) return false;
-      return true;
-    });
-  }, [data.escalation_board, filters]);
+  function matchItem(item: { type: string; channel_id: string; project_id: string; network_id: string; created_at: string; severity?: string }) {
+    if (filters.types.length > 0 && !filters.types.includes(item.type as any)) return false;
+    if (filters.channelId && item.channel_id !== filters.channelId) return false;
+    if (filters.projectId && item.project_id !== filters.projectId) return false;
+    if (filters.networkId && item.network_id !== filters.networkId) return false;
+    if (filters.dateRange !== "all" && item.created_at) {
+      const days = filters.dateRange === "7d" ? 7 : filters.dateRange === "30d" ? 30 : 90;
+      if (NOW_MS - new Date(item.created_at).getTime() > days * 86400000) return false;
+    }
+    if (filters.severity && item.severity) {
+      const sev = item.severity === "bad" ? "critical" : item.severity === "warn" ? "high" : "low";
+      if (sev !== filters.severity) return false;
+    }
+    return true;
+  }
+
+  const filteredNearBreach = useMemo(() => data.near_breach.filter(matchItem), [data.near_breach, filters]);
+  const filteredEscalation = useMemo(() => data.escalation_board.filter(matchItem), [data.escalation_board, filters]);
 
   function openDetail(item: any) {
     const full = detailMap[item.id];

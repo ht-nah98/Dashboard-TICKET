@@ -123,27 +123,27 @@
   },
   "hotPaths": [
     {
+      "path": "lib/derive_seo.ts",
+      "accessCount": 7,
+      "lastAccessed": 1779680698162,
+      "type": "file"
+    },
+    {
       "path": "lib/types.ts",
-      "accessCount": 5,
-      "lastAccessed": 1779680402134,
+      "accessCount": 7,
+      "lastAccessed": 1779680719656,
+      "type": "file"
+    },
+    {
+      "path": "lib/derive_ops.ts",
+      "accessCount": 6,
+      "lastAccessed": 1779680711183,
       "type": "file"
     },
     {
       "path": "app/seo/page.tsx",
       "accessCount": 4,
       "lastAccessed": 1779673403933,
-      "type": "file"
-    },
-    {
-      "path": "lib/derive_ops.ts",
-      "accessCount": 4,
-      "lastAccessed": 1779680260326,
-      "type": "file"
-    },
-    {
-      "path": "lib/derive_seo.ts",
-      "accessCount": 4,
-      "lastAccessed": 1779680276936,
       "type": "file"
     },
     {
@@ -234,6 +234,30 @@
       "path": "components/EscalationBoard.tsx",
       "accessCount": 1,
       "lastAccessed": 1779675125546,
+      "type": "file"
+    },
+    {
+      "path": "components/FilterBar.tsx",
+      "accessCount": 1,
+      "lastAccessed": 1779680676685,
+      "type": "file"
+    },
+    {
+      "path": "components/SeoDashboard.tsx",
+      "accessCount": 1,
+      "lastAccessed": 1779680733470,
+      "type": "file"
+    },
+    {
+      "path": "components/OperationsDashboard.tsx",
+      "accessCount": 1,
+      "lastAccessed": 1779680743508,
+      "type": "file"
+    },
+    {
+      "path": "components/ExecutiveDashboard.tsx",
+      "accessCount": 1,
+      "lastAccessed": 1779680758012,
       "type": "file"
     }
   ],

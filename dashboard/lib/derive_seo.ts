@@ -186,12 +186,16 @@ export function buildSeo(): SeoPayload {
     .map((t) => {
       const cs = currentStepInfo(t);
       const ratio = cs.dwellHours / cs.slaHours;
+      const ch = channelById.get(t.channel_id);
       return {
         id: t.id,
         code: t.code,
         type: t.type,
         channel_id: t.channel_id,
-        channel_name: channelById.get(t.channel_id)?.name ?? "—",
+        channel_name: ch?.name ?? "—",
+        project_id: t.project_id,
+        network_id: t.network_id,
+        created_at: t.created_at,
         current_step: cs.step,
         hours_waiting: Math.round(cs.dwellHours * 10) / 10,
         sla_hours: cs.slaHours,
@@ -226,6 +230,9 @@ export function buildSeo(): SeoPayload {
         type: t.type,
         channel_id: t.channel_id,
         channel_name: channelById.get(t.channel_id)?.name ?? "—",
+        project_id: t.project_id,
+        network_id: t.network_id,
+        created_at: t.created_at,
         current_step: cs.step,
         hours_waiting: Math.round(cs.dwellHours * 10) / 10,
         sla_hours: cs.slaHours,
@@ -256,6 +263,9 @@ export function buildSeo(): SeoPayload {
         type: t.type,
         channel_id: t.channel_id,
         channel_name: channelById.get(t.channel_id)?.name ?? "—",
+        project_id: t.project_id,
+        network_id: t.network_id,
+        created_at: t.created_at,
         return_reason: lastReturn.action,
         returned_hours_ago: Math.round(hoursAgo * 10) / 10,
         return_count: returnCount,

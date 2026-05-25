@@ -18,37 +18,30 @@ export function SeoDashboard({ data, detailMap = {} }: { data: SeoPayload; detai
   const [detailTicket, setDetailTicket] = useState<TicketDetail | null>(null);
   const { kpis, action_queue, waiting_on_vhyt, returned_for_correction, recent_outcomes, weekly_trend, repeat_channels, reapply_tracker } = data;
 
-  // Filter helpers
-  const matchType = (item: { type: string }) =>
-    filters.types.length === 0 || filters.types.includes(item.type as any);
-  const matchChannel = (item: { channel_id?: string; channel_name?: string }) =>
-    !filters.channelId || item.channel_id === filters.channelId;
+  const NOW_MS = new Date("2026-05-23T09:00:00+07:00").getTime();
 
-  const filteredActionQueue = useMemo(() =>
-    action_queue.filter((i) => matchType(i) && matchChannel(i)),
-    [action_queue, filters.types, filters.channelId]
-  );
+  function matchItem(item: { type: string; channel_id?: string; project_id?: string; network_id?: string; created_at?: string }) {
+    if (filters.types.length > 0 && !filters.types.includes(item.type as any)) return false;
+    if (filters.channelId && item.channel_id !== filters.channelId) return false;
+    if (filters.projectId && item.project_id !== filters.projectId) return false;
+    if (filters.networkId && item.network_id !== filters.networkId) return false;
+    if (filters.dateRange !== "all" && item.created_at) {
+      const days = filters.dateRange === "7d" ? 7 : filters.dateRange === "30d" ? 30 : 90;
+      if (NOW_MS - new Date(item.created_at).getTime() > days * 86400000) return false;
+    }
+    return true;
+  }
 
-  const filteredWaitingVhyt = useMemo(() =>
-    waiting_on_vhyt.filter((i) => matchType(i) && matchChannel(i)),
-    [waiting_on_vhyt, filters.types, filters.channelId]
-  );
-
-  const filteredReturned = useMemo(() =>
-    returned_for_correction.filter((i) => matchType(i) && matchChannel(i)),
-    [returned_for_correction, filters.types, filters.channelId]
-  );
-
-  const filteredOutcomes = useMemo(() =>
-    recent_outcomes.filter((i) => matchType(i) && matchChannel(i)),
-    [recent_outcomes, filters.types, filters.channelId]
-  );
-
+  const filteredActionQueue = useMemo(() => action_queue.filter(matchItem),
+    [action_queue, filters]);
+  const filteredWaitingVhyt = useMemo(() => waiting_on_vhyt.filter(matchItem),
+    [waiting_on_vhyt, filters]);
+  const filteredReturned = useMemo(() => returned_for_correction.filter(matchItem),
+    [returned_for_correction, filters]);
+  const filteredOutcomes = useMemo(() => recent_outcomes.filter(matchItem),
+    [recent_outcomes, filters]);
   const filteredRepeatChannels = useMemo(() =>
-    repeat_channels.filter((ch) => {
-      if (filters.channelId && ch.channel_id !== filters.channelId) return false;
-      return true;
-    }),
+    repeat_channels.filter((ch) => !filters.channelId || ch.channel_id === filters.channelId),
     [repeat_channels, filters.channelId]
   );
 

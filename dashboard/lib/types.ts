@@ -128,6 +128,9 @@ export interface OperationsPayload {
     type: string;
     channel_id: string;
     channel_name: string;
+    project_id: string;
+    network_id: string;
+    created_at: string;
     owner_name: string;
     waiting_side: string;
     hours_to_breach: number;
@@ -157,6 +160,9 @@ export interface OperationsPayload {
     type: string;
     channel_id: string;
     channel_name: string;
+    project_id: string;
+    network_id: string;
+    created_at: string;
     owner_name: string;
     waiting_side: string;
     days_open: number;

@@ -19,21 +19,29 @@ export function ExecutiveDashboard({ data }: { data: DerivedPayload }) {
   const { filters, toggleType, setChannel } = useFilters();
   const [detailTicket, setDetailTicket] = useState<TicketDetail | null>(null);
 
+  // Project name lookup from projectId
+  const PROJECT_NAMES: Record<string, string> = {
+    "PRJ-0001": "Âm Nhạc Việt",
+    "PRJ-0002": "Giải Trí 24h",
+    "PRJ-0003": "Vlog Cuộc Sống",
+    "PRJ-0004": "Phim Hoạt Hình",
+    "PRJ-0005": "Học Tập Online",
+  };
+
   // Filter channels_top by active filters
   const filteredChannels = useMemo(() => {
     return data.channels_top.filter((ch) => {
       if (filters.channelId && ch.channel_id !== filters.channelId) return false;
       if (filters.projectId) {
-        // channels_top doesn't have project_id directly, match by project_name
-        const proj = data.channels_top.find((c) => c.channel_id === ch.channel_id);
-        // We can't filter by projectId without project_id on channel — skip for now
+        const projName = PROJECT_NAMES[filters.projectId];
+        if (projName && ch.project_name !== projName) return false;
       }
       if (filters.severity && ch.severity !== filters.severity) return false;
       return true;
     });
   }, [data.channels_top, filters]);
 
-  // Filter KPIs — type filter dims non-matching types in treemap/trend
+  // Filter type risk and volume trend by type filter
   const filteredTypeRisk = useMemo(() => {
     if (filters.types.length === 0) return data.type_risk;
     return data.type_risk.filter((t) => filters.types.includes(t.type as any));
