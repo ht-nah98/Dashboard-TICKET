@@ -1,0 +1,110 @@
+[
+  {
+    "id": "TPL-0001",
+    "ticket_type": "CLAIM_PA2",
+    "title": "Mẫu kháng chuẩn — Có bản quyền",
+    "content_excerpt": "Kính gửi quý đối tác, ... Mẫu kháng chuẩn — Có bản quyền ...",
+    "created_by_user_id": "USR-0007",
+    "created_at": "2026-05-13T03:38:52.551Z",
+    "usage_count": 48
+  },
+  {
+    "id": "TPL-0002",
+    "ticket_type": "CLAIM_PA2",
+    "title": "Mẫu kháng — Sử dụng hợp lệ",
+    "content_excerpt": "Kính gửi quý đối tác, ... Mẫu kháng — Sử dụng hợp lệ ...",
+    "created_by_user_id": "USR-0009",
+    "created_at": "2026-03-13T07:12:07.496Z",
+    "usage_count": 26
+  },
+  {
+    "id": "TPL-0003",
+    "ticket_type": "CLAIM_PA2",
+    "title": "Mẫu kháng — Cover",
+    "content_excerpt": "Kính gửi quý đối tác, ... Mẫu kháng — Cover ...",
+    "created_by_user_id": "USR-0006",
+    "created_at": "2026-03-16T04:40:08.412Z",
+    "usage_count": 26
+  },
+  {
+    "id": "TPL-0004",
+    "ticket_type": "CLAIM_PA2",
+    "title": "Mẫu kháng — Footage license",
+    "content_excerpt": "Kính gửi quý đối tác, ... Mẫu kháng — Footage license ...",
+    "created_by_user_id": "USR-0010",
+    "created_at": "2026-03-04T19:59:11.013Z",
+    "usage_count": 29
+  },
+  {
+    "id": "TPL-0005",
+    "ticket_type": "GCD",
+    "title": "Mẫu kháng GCĐ — Nhạc có license",
+    "content_excerpt": "Kính gửi quý đối tác, ... Mẫu kháng GCĐ — Nhạc có license ...",
+    "created_by_user_id": "USR-0007",
+    "created_at": "2026-04-19T13:42:28.778Z",
+    "usage_count": 11
+  },
+  {
+    "id": "TPL-0006",
+    "ticket_type": "GCD",
+    "title": "Mẫu kháng GCĐ — Hình ảnh public domain",
+    "content_excerpt": "Kính gửi quý đối tác, ... Mẫu kháng GCĐ — Hình ảnh public domain ...",
+    "created_by_user_id": "USR-0005",
+    "created_at": "2026-04-15T21:06:36.681Z",
+    "usage_count": 40
+  },
+  {
+    "id": "TPL-0007",
+    "ticket_type": "GCD",
+    "title": "Mẫu kháng GCĐ — Sai sót YouTube",
+    "content_excerpt": "Kính gửi quý đối tác, ... Mẫu kháng GCĐ — Sai sót YouTube ...",
+    "created_by_user_id": "USR-0007",
+    "created_at": "2026-05-01T13:24:04.622Z",
+    "usage_count": 9
+  },
+  {
+    "id": "TPL-0008",
+    "ticket_type": "GCD",
+    "title": "Mẫu kháng GCĐ — Fair use",
+    "content_excerpt": "Kính gửi quý đối tác, ... Mẫu kháng GCĐ — Fair use ...",
+    "created_by_user_id": "USR-0008",
+    "created_at": "2026-05-02T18:58:54.730Z",
+    "usage_count": 46
+  },
+  {
+    "id": "TPL-0009",
+    "ticket_type": "GBQ_OPT3",
+    "title": "Counter-notification — DMCA",
+    "content_excerpt": "Kính gửi quý đối tác, ... Counter-notification — DMCA ...",
+    "created_by_user_id": "USR-0006",
+    "created_at": "2026-04-07T18:22:59.195Z",
+    "usage_count": 25
+  },
+  {
+    "id": "TPL-0010",
+    "ticket_type": "GBQ_OPT3",
+    "title": "Counter-notification — Sai nhận",
+    "content_excerpt": "Kính gửi quý đối tác, ... Counter-notification — Sai nhận ...",
+    "created_by_user_id": "USR-0010",
+    "created_at": "2026-03-18T05:44:36.316Z",
+    "usage_count": 29
+  },
+  {
+    "id": "TPL-0011",
+    "ticket_type": "GBQ_OPT3",
+    "title": "Counter-notification — Có license",
+    "content_excerpt": "Kính gửi quý đối tác, ... Counter-notification — Có license ...",
+    "created_by_user_id": "USR-0005",
+    "created_at": "2026-05-11T23:35:50.523Z",
+    "usage_count": 5
+  },
+  {
+    "id": "TPL-0012",
+    "ticket_type": "GBQ_OPT3",
+    "title": "Counter-notification — Fair use",
+    "content_excerpt": "Kính gửi quý đối tác, ... Counter-notification — Fair use ...",
+    "created_by_user_id": "USR-0005",
+    "created_at": "2026-05-12T14:39:49.847Z",
+    "usage_count": 5
+  }
+]

@@ -1,0 +1,42 @@
+[
+  {
+    "id": "LBL-0001",
+    "name": "Sony Music",
+    "contact_email": "legal@sonymusic.com"
+  },
+  {
+    "id": "LBL-0002",
+    "name": "Universal Music",
+    "contact_email": "legal@universalmusic.com"
+  },
+  {
+    "id": "LBL-0003",
+    "name": "Warner Music",
+    "contact_email": "legal@warnermusic.com"
+  },
+  {
+    "id": "LBL-0004",
+    "name": "Lý Hải Production",
+    "contact_email": "legal@lyhaiproduction.com"
+  },
+  {
+    "id": "LBL-0005",
+    "name": "BH Media",
+    "contact_email": "legal@bhmedia.com"
+  },
+  {
+    "id": "LBL-0006",
+    "name": "Yeah1 Music",
+    "contact_email": "legal@yeah1music.com"
+  },
+  {
+    "id": "LBL-0007",
+    "name": "POPS Music",
+    "contact_email": "legal@popsmusic.com"
+  },
+  {
+    "id": "LBL-0008",
+    "name": "Hoa Vàng Studio",
+    "contact_email": "legal@hoavangstudio.com"
+  }
+]

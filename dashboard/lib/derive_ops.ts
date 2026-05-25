@@ -10,7 +10,7 @@ import type {
   OperationsPayload,
 } from "./types";
 
-const DATA_DIR = path.resolve(process.cwd(), "..", "data");
+const DATA_DIR = path.resolve(process.cwd(), "data");
 const OUT_DIR = path.resolve(process.cwd(), "derived");
 const NOW = new Date("2026-05-23T09:00:00+07:00");
 const MS_DAY = 86_400_000;

@@ -1,0 +1,621 @@
+{
+  "generated_at": "2026-05-25T03:27:47.141Z",
+  "as_of": "2026-05-23T02:00:00.000Z",
+  "queue": [
+    {
+      "key": "new_today",
+      "label": "Mới hôm nay",
+      "value": 0,
+      "tone": "neutral"
+    },
+    {
+      "key": "in_progress",
+      "label": "Đang xử lý",
+      "value": 96,
+      "tone": "neutral"
+    },
+    {
+      "key": "wait_seo",
+      "label": "Chờ SEO",
+      "value": 49,
+      "tone": "warn"
+    },
+    {
+      "key": "wait_vhyt",
+      "label": "Chờ VHYT",
+      "value": 105,
+      "tone": "warn"
+    },
+    {
+      "key": "paused",
+      "label": "Tạm dừng",
+      "value": 21,
+      "tone": "warn"
+    },
+    {
+      "key": "near_breach",
+      "label": "Sắp / đã trễ SLA",
+      "value": 173,
+      "tone": "bad"
+    }
+  ],
+  "sla": {
+    "within": 5,
+    "near": 0,
+    "breached": 173,
+    "pct_within": 2.8,
+    "breach_by_owner": [
+      {
+        "owner": "VHYT",
+        "count": 113
+      },
+      {
+        "owner": "SEO",
+        "count": 57
+      },
+      {
+        "owner": "External",
+        "count": 3
+      }
+    ]
+  },
+  "near_breach": [
+    {
+      "id": "T-0449",
+      "code": "GCD-a9bwr6zu-260221-01",
+      "type": "GCD",
+      "channel_name": "Comedy Pro 50",
+      "owner_name": "Phạm Minh Long",
+      "waiting_side": "SEO thực hiện kháng · SEO",
+      "hours_to_breach": -2118.4,
+      "severity": "bad"
+    },
+    {
+      "id": "T-0450",
+      "code": "GCD-30dfr68c-260221-01",
+      "type": "GCD",
+      "channel_name": "Edu Studio 7",
+      "owner_name": "Lý Hoài Trung",
+      "waiting_side": "SEO thực hiện kháng · SEO",
+      "hours_to_breach": -2103.5,
+      "severity": "bad"
+    },
+    {
+      "id": "T-0431",
+      "code": "GCD-y9ftvd0d-260306-01",
+      "type": "GCD",
+      "channel_name": "Kids Pro 43",
+      "owner_name": "Mai Anh Linh",
+      "waiting_side": "SEO thực hiện kháng · SEO",
+      "hours_to_breach": -1825.9,
+      "severity": "bad"
+    },
+    {
+      "id": "T-0434",
+      "code": "GCD-14cba8ez-260315-01",
+      "type": "GCD",
+      "channel_name": "Edu Việt 39",
+      "owner_name": "Hoàng Thanh Phúc",
+      "waiting_side": "SEO thực hiện kháng · SEO",
+      "hours_to_breach": -1567.9,
+      "severity": "bad"
+    },
+    {
+      "id": "T-0427",
+      "code": "GCD-z5cwssjc-260319-01",
+      "type": "GCD",
+      "channel_name": "Tech Official 16",
+      "owner_name": "Đặng Minh Quân",
+      "waiting_side": "SEO thực hiện kháng · SEO",
+      "hours_to_breach": -1505,
+      "severity": "bad"
+    },
+    {
+      "id": "T-0459",
+      "code": "GCD-r8swop66-260325-01",
+      "type": "GCD",
+      "channel_name": "Cook Network 18",
+      "owner_name": "Đặng Minh Quân",
+      "waiting_side": "SEO thực hiện kháng · SEO",
+      "hours_to_breach": -1351.1,
+      "severity": "bad"
+    },
+    {
+      "id": "T-0437",
+      "code": "GCD-oxcljegz-260401-01",
+      "type": "GCD",
+      "channel_name": "Vlog Hub 33",
+      "owner_name": "Lý Minh Hiếu",
+      "waiting_side": "SEO thực hiện kháng · SEO",
+      "hours_to_breach": -1177,
+      "severity": "bad"
+    },
+    {
+      "id": "T-0438",
+      "code": "GCD-w66om4ja-260406-01",
+      "type": "GCD",
+      "channel_name": "Music Official 31",
+      "owner_name": "Hoàng Thanh Phúc",
+      "waiting_side": "SEO thực hiện kháng · SEO",
+      "hours_to_breach": -1062.2,
+      "severity": "bad"
+    },
+    {
+      "id": "T-0445",
+      "code": "GCD-clhu4ft7-260423-01",
+      "type": "GCD",
+      "channel_name": "Vlog Việt 10",
+      "owner_name": "Vũ Bảo Lan",
+      "waiting_side": "SEO thực hiện kháng · SEO",
+      "hours_to_breach": -643.7,
+      "severity": "bad"
+    },
+    {
+      "id": "T-0349",
+      "code": "WL-UCUYM0Z7-260302-01",
+      "type": "WHITELIST",
+      "channel_name": "Lifestyle Official 28",
+      "owner_name": "Phạm Anh Mai",
+      "waiting_side": "Chờ SEO xác nhận · SEO",
+      "hours_to_breach": -1875.7,
+      "severity": "bad"
+    },
+    {
+      "id": "T-0362",
+      "code": "WL-UChUsHJ3-260301-01",
+      "type": "WHITELIST",
+      "channel_name": "Tech Pro 44",
+      "owner_name": "Đặng Minh Quân",
+      "waiting_side": "Chờ SEO xác nhận · SEO",
+      "hours_to_breach": -1873.4,
+      "severity": "bad"
+    },
+    {
+      "id": "T-0303",
+      "code": "WL-UChUlyA9-260304-01",
+      "type": "WHITELIST",
+      "channel_name": "Kids 24h 20",
+      "owner_name": "Lý Minh Hiếu",
+      "waiting_side": "Chờ SEO xác nhận · SEO",
+      "hours_to_breach": -1849.7,
+      "severity": "bad"
+    }
+  ],
+  "assignee_workload": [
+    {
+      "user_id": "USR-0008",
+      "user_name": "Đỗ Minh Hoa",
+      "role": "VHYT",
+      "open": 19,
+      "critical": 12,
+      "breached": 0,
+      "load_pct": 100
+    },
+    {
+      "user_id": "USR-0009",
+      "user_name": "Trần Ngọc Hiếu",
+      "role": "VHYT",
+      "open": 18,
+      "critical": 8,
+      "breached": 0,
+      "load_pct": 95
+    },
+    {
+      "user_id": "USR-0007",
+      "user_name": "Hồ Kim Hoa",
+      "role": "VHYT",
+      "open": 13,
+      "critical": 6,
+      "breached": 0,
+      "load_pct": 68
+    },
+    {
+      "user_id": "USR-0010",
+      "user_name": "Mai Ngọc Hà",
+      "role": "VHYT",
+      "open": 11,
+      "critical": 10,
+      "breached": 0,
+      "load_pct": 58
+    },
+    {
+      "user_id": "USR-0014",
+      "user_name": "Mai Anh Nga",
+      "role": "VHWL",
+      "open": 10,
+      "critical": 0,
+      "breached": 0,
+      "load_pct": 53
+    },
+    {
+      "user_id": "USR-0006",
+      "user_name": "Hồ Hữu Long",
+      "role": "VHYT",
+      "open": 8,
+      "critical": 1,
+      "breached": 0,
+      "load_pct": 42
+    },
+    {
+      "user_id": "USR-0005",
+      "user_name": "Lý Hồng Phúc",
+      "role": "VHYT",
+      "open": 7,
+      "critical": 1,
+      "breached": 0,
+      "load_pct": 37
+    },
+    {
+      "user_id": "USR-0015",
+      "user_name": "Bùi Quang Hoa",
+      "role": "VHWL",
+      "open": 6,
+      "critical": 0,
+      "breached": 0,
+      "load_pct": 32
+    },
+    {
+      "user_id": "USR-0016",
+      "user_name": "Vũ Tuấn Mai",
+      "role": "VHWL",
+      "open": 4,
+      "critical": 0,
+      "breached": 0,
+      "load_pct": 21
+    }
+  ],
+  "assignee_perf": [
+    {
+      "user_id": "USR-0009",
+      "user_name": "Trần Ngọc Hiếu",
+      "role": "VHYT",
+      "avg_resolution_hours": 107.5,
+      "success_rate": 94.3,
+      "volume": 53
+    },
+    {
+      "user_id": "USR-0010",
+      "user_name": "Mai Ngọc Hà",
+      "role": "VHYT",
+      "avg_resolution_hours": 117.9,
+      "success_rate": 93.3,
+      "volume": 45
+    },
+    {
+      "user_id": "USR-0007",
+      "user_name": "Hồ Kim Hoa",
+      "role": "VHYT",
+      "avg_resolution_hours": 91.9,
+      "success_rate": 97.7,
+      "volume": 44
+    },
+    {
+      "user_id": "USR-0008",
+      "user_name": "Đỗ Minh Hoa",
+      "role": "VHYT",
+      "avg_resolution_hours": 118.6,
+      "success_rate": 95.2,
+      "volume": 42
+    },
+    {
+      "user_id": "USR-0005",
+      "user_name": "Lý Hồng Phúc",
+      "role": "VHYT",
+      "avg_resolution_hours": 94.2,
+      "success_rate": 95.1,
+      "volume": 41
+    },
+    {
+      "user_id": "USR-0006",
+      "user_name": "Hồ Hữu Long",
+      "role": "VHYT",
+      "avg_resolution_hours": 77.6,
+      "success_rate": 100,
+      "volume": 30
+    },
+    {
+      "user_id": "USR-0011",
+      "user_name": "Trịnh Hải Bình",
+      "role": "VHDA",
+      "avg_resolution_hours": 79.4,
+      "success_rate": 85.2,
+      "volume": 27
+    },
+    {
+      "user_id": "USR-0012",
+      "user_name": "Hồ Thị Thảo",
+      "role": "VHDA",
+      "avg_resolution_hours": 95,
+      "success_rate": 95.7,
+      "volume": 23
+    },
+    {
+      "user_id": "USR-0013",
+      "user_name": "Phạm Bảo Châu",
+      "role": "VHDA",
+      "avg_resolution_hours": 85.6,
+      "success_rate": 82.4,
+      "volume": 17
+    }
+  ],
+  "handoff_latency": [
+    {
+      "pair": "SEO → SYSTEM",
+      "median_hours": 24,
+      "sample_size": 17
+    },
+    {
+      "pair": "VHYT → SYSTEM",
+      "median_hours": 24,
+      "sample_size": 12
+    },
+    {
+      "pair": "VHYT → SEO",
+      "median_hours": 11.5,
+      "sample_size": 406
+    },
+    {
+      "pair": "SEO → VHDA",
+      "median_hours": 10.3,
+      "sample_size": 87
+    },
+    {
+      "pair": "VHDA → VHWL",
+      "median_hours": 9.5,
+      "sample_size": 82
+    },
+    {
+      "pair": "SEO → VHYT",
+      "median_hours": 9.3,
+      "sample_size": 476
+    }
+  ],
+  "escalation_board": [
+    {
+      "id": "T-0450",
+      "code": "GCD-30dfr68c-260221-01",
+      "type": "GCD",
+      "channel_name": "Edu Studio 7",
+      "owner_name": "Lý Hoài Trung",
+      "waiting_side": "SEO thực hiện kháng · SEO",
+      "days_open": 90,
+      "breach_risk": "breached",
+      "severity": "bad",
+      "revenue_at_risk": 2462000
+    },
+    {
+      "id": "T-0431",
+      "code": "GCD-y9ftvd0d-260306-01",
+      "type": "GCD",
+      "channel_name": "Kids Pro 43",
+      "owner_name": "Mai Anh Linh",
+      "waiting_side": "SEO thực hiện kháng · SEO",
+      "days_open": 77,
+      "breach_risk": "breached",
+      "severity": "bad",
+      "revenue_at_risk": 2440000
+    },
+    {
+      "id": "T-0434",
+      "code": "GCD-14cba8ez-260315-01",
+      "type": "GCD",
+      "channel_name": "Edu Việt 39",
+      "owner_name": "Hoàng Thanh Phúc",
+      "waiting_side": "SEO thực hiện kháng · SEO",
+      "days_open": 68,
+      "breach_risk": "breached",
+      "severity": "bad",
+      "revenue_at_risk": 2651000
+    },
+    {
+      "id": "T-0498",
+      "code": "DIE-UC6hhjSu-260306-01",
+      "type": "DIE",
+      "channel_name": "Lifestyle Official 37",
+      "owner_name": "Trần Hồng Mai",
+      "waiting_side": "Tạm dừng — chờ mở lại · SEO",
+      "days_open": 77,
+      "breach_risk": "breached",
+      "severity": "bad",
+      "revenue_at_risk": 43905000
+    },
+    {
+      "id": "T-0427",
+      "code": "GCD-z5cwssjc-260319-01",
+      "type": "GCD",
+      "channel_name": "Tech Official 16",
+      "owner_name": "Đặng Minh Quân",
+      "waiting_side": "SEO thực hiện kháng · SEO",
+      "days_open": 65,
+      "breach_risk": "breached",
+      "severity": "bad",
+      "revenue_at_risk": 1771000
+    },
+    {
+      "id": "T-0449",
+      "code": "GCD-a9bwr6zu-260221-01",
+      "type": "GCD",
+      "channel_name": "Comedy Pro 50",
+      "owner_name": "Phạm Minh Long",
+      "waiting_side": "SEO thực hiện kháng · SEO",
+      "days_open": 90,
+      "breach_risk": "breached",
+      "severity": "bad",
+      "revenue_at_risk": 1114000
+    },
+    {
+      "id": "T-0437",
+      "code": "GCD-oxcljegz-260401-01",
+      "type": "GCD",
+      "channel_name": "Vlog Hub 33",
+      "owner_name": "Lý Minh Hiếu",
+      "waiting_side": "SEO thực hiện kháng · SEO",
+      "days_open": 51,
+      "breach_risk": "breached",
+      "severity": "bad",
+      "revenue_at_risk": 1760000
+    },
+    {
+      "id": "T-0496",
+      "code": "DIE-UCeeanWI-260401-01",
+      "type": "DIE",
+      "channel_name": "Edu Network 48",
+      "owner_name": "Trần Hồng Mai",
+      "waiting_side": "VHYT xử lý · VHYT",
+      "days_open": 51,
+      "breach_risk": "breached",
+      "severity": "bad",
+      "revenue_at_risk": 12447000
+    },
+    {
+      "id": "T-0459",
+      "code": "GCD-r8swop66-260325-01",
+      "type": "GCD",
+      "channel_name": "Cook Network 18",
+      "owner_name": "Đặng Minh Quân",
+      "waiting_side": "SEO thực hiện kháng · SEO",
+      "days_open": 58,
+      "breach_risk": "breached",
+      "severity": "bad",
+      "revenue_at_risk": 904000
+    },
+    {
+      "id": "T-0405",
+      "code": "GBQ-jclr5i1p-260304-01",
+      "type": "GBQ",
+      "channel_name": "Kids Pro 43",
+      "owner_name": "Mai Anh Linh",
+      "waiting_side": "VHYT xử lý · VHYT",
+      "days_open": 79,
+      "breach_risk": "breached",
+      "severity": "bad",
+      "revenue_at_risk": 5403000
+    },
+    {
+      "id": "T-0481",
+      "code": "TKT-UCAaq4P9-260329-01",
+      "type": "TKT_BKT",
+      "channel_name": "Gaming 24h 23",
+      "owner_name": "Đặng Minh Quân",
+      "waiting_side": "Chờ VHYT xử lý · VHYT",
+      "days_open": 54,
+      "breach_risk": "breached",
+      "severity": "bad",
+      "revenue_at_risk": 14287000
+    },
+    {
+      "id": "T-0492",
+      "code": "DIE-UCMk6qOF-260303-01",
+      "type": "DIE",
+      "channel_name": "Gaming Network 4",
+      "owner_name": "Đặng Minh Quân",
+      "waiting_side": "Chờ VHYT tiếp nhận · VHYT",
+      "days_open": 80,
+      "breach_risk": "breached",
+      "severity": "bad",
+      "revenue_at_risk": 8949000
+    },
+    {
+      "id": "T-0445",
+      "code": "GCD-clhu4ft7-260423-01",
+      "type": "GCD",
+      "channel_name": "Vlog Việt 10",
+      "owner_name": "Vũ Bảo Lan",
+      "waiting_side": "SEO thực hiện kháng · SEO",
+      "days_open": 29,
+      "breach_risk": "breached",
+      "severity": "bad",
+      "revenue_at_risk": 926000
+    },
+    {
+      "id": "T-0486",
+      "code": "TKT-UCeeanWI-260326-01",
+      "type": "TKT_BKT",
+      "channel_name": "Edu Network 48",
+      "owner_name": "Trần Hồng Mai",
+      "waiting_side": "Chờ VHYT xử lý · VHYT",
+      "days_open": 57,
+      "breach_risk": "breached",
+      "severity": "bad",
+      "revenue_at_risk": 8952000
+    },
+    {
+      "id": "T-0403",
+      "code": "GBQ-zl8d535v-260420-01",
+      "type": "GBQ",
+      "channel_name": "Cook Official 45",
+      "owner_name": "Hoàng Kim An",
+      "waiting_side": "VHYT xử lý · VHYT",
+      "days_open": 32,
+      "breach_risk": "breached",
+      "severity": "bad",
+      "revenue_at_risk": 4374000
+    }
+  ],
+  "pause_reopen": [
+    {
+      "week": "2026-03-02",
+      "paused": 2,
+      "reopened": 0
+    },
+    {
+      "week": "2026-03-09",
+      "paused": 2,
+      "reopened": 0
+    },
+    {
+      "week": "2026-03-16",
+      "paused": 1,
+      "reopened": 0
+    },
+    {
+      "week": "2026-03-23",
+      "paused": 0,
+      "reopened": 0
+    },
+    {
+      "week": "2026-03-30",
+      "paused": 2,
+      "reopened": 0
+    },
+    {
+      "week": "2026-04-06",
+      "paused": 2,
+      "reopened": 0
+    },
+    {
+      "week": "2026-04-13",
+      "paused": 3,
+      "reopened": 0
+    },
+    {
+      "week": "2026-04-20",
+      "paused": 2,
+      "reopened": 0
+    },
+    {
+      "week": "2026-04-27",
+      "paused": 0,
+      "reopened": 0
+    },
+    {
+      "week": "2026-05-04",
+      "paused": 2,
+      "reopened": 0
+    },
+    {
+      "week": "2026-05-11",
+      "paused": 1,
+      "reopened": 0
+    },
+    {
+      "week": "2026-05-18",
+      "paused": 2,
+      "reopened": 0
+    }
+  ],
+  "totals": {
+    "total_tickets": 500,
+    "open_tickets": 178
+  }
+}

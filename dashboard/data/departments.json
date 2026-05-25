@@ -1,0 +1,42 @@
+[
+  {
+    "id": "DEP-0001",
+    "name": "SEO Operations",
+    "company_id": "CMP-0001"
+  },
+  {
+    "id": "DEP-0002",
+    "name": "Vận hành YouTube",
+    "company_id": "CMP-0001"
+  },
+  {
+    "id": "DEP-0003",
+    "name": "Vận hành Dự án",
+    "company_id": "CMP-0001"
+  },
+  {
+    "id": "DEP-0004",
+    "name": "Whitelist Operations",
+    "company_id": "CMP-0003"
+  },
+  {
+    "id": "DEP-0005",
+    "name": "Marketing",
+    "company_id": "CMP-0003"
+  },
+  {
+    "id": "DEP-0006",
+    "name": "Quản lý",
+    "company_id": "CMP-0001"
+  },
+  {
+    "id": "DEP-0007",
+    "name": "TP Kiểm duyệt",
+    "company_id": "CMP-0002"
+  },
+  {
+    "id": "DEP-0008",
+    "name": "Hỗ trợ Kỹ thuật",
+    "company_id": "CMP-0002"
+  }
+]

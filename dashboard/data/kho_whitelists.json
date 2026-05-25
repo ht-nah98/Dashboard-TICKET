@@ -1,0 +1,107 @@
+[
+  {
+    "id": "KHO-0001",
+    "name": "Helios",
+    "description": "Kho whitelist: Helios",
+    "owner_label": "Lý Hải Production",
+    "created_at": "2026-02-22T00:00:00+07:00"
+  },
+  {
+    "id": "KHO-0002",
+    "name": "Ghibli",
+    "description": "Kho whitelist: Ghibli",
+    "owner_label": "Yeah1 Music",
+    "created_at": "2026-02-22T00:00:00+07:00"
+  },
+  {
+    "id": "KHO-0003",
+    "name": "Guitar cover",
+    "description": "Kho whitelist: Guitar cover",
+    "owner_label": "Lý Hải Production",
+    "created_at": "2026-02-22T00:00:00+07:00"
+  },
+  {
+    "id": "KHO-0004",
+    "name": "Dream BGM",
+    "description": "Kho whitelist: Dream BGM",
+    "owner_label": "Universal Music",
+    "created_at": "2026-02-22T00:00:00+07:00"
+  },
+  {
+    "id": "KHO-0005",
+    "name": "Dự án test s3",
+    "description": "Kho whitelist: Dự án test s3",
+    "owner_label": "Hoa Vàng Studio",
+    "created_at": "2026-02-22T00:00:00+07:00"
+  },
+  {
+    "id": "KHO-0006",
+    "name": "Dự án 2-2",
+    "description": "Kho whitelist: Dự án 2-2",
+    "owner_label": "Sony Music",
+    "created_at": "2026-02-22T00:00:00+07:00"
+  },
+  {
+    "id": "KHO-0007",
+    "name": "Dự án 3-1",
+    "description": "Kho whitelist: Dự án 3-1",
+    "owner_label": "Hoa Vàng Studio",
+    "created_at": "2026-02-22T00:00:00+07:00"
+  },
+  {
+    "id": "KHO-0008",
+    "name": "Dự án 4-1",
+    "description": "Kho whitelist: Dự án 4-1",
+    "owner_label": "Lý Hải Production",
+    "created_at": "2026-02-22T00:00:00+07:00"
+  },
+  {
+    "id": "KHO-0009",
+    "name": "Acoustic Lo-Fi",
+    "description": "Kho whitelist: Acoustic Lo-Fi",
+    "owner_label": "Hoa Vàng Studio",
+    "created_at": "2026-02-22T00:00:00+07:00"
+  },
+  {
+    "id": "KHO-0010",
+    "name": "Vietnam Pop",
+    "description": "Kho whitelist: Vietnam Pop",
+    "owner_label": "Hoa Vàng Studio",
+    "created_at": "2026-02-22T00:00:00+07:00"
+  },
+  {
+    "id": "KHO-0011",
+    "name": "Karaoke Cover",
+    "description": "Kho whitelist: Karaoke Cover",
+    "owner_label": "Sony Music",
+    "created_at": "2026-02-22T00:00:00+07:00"
+  },
+  {
+    "id": "KHO-0012",
+    "name": "Indie Folk",
+    "description": "Kho whitelist: Indie Folk",
+    "owner_label": "Yeah1 Music",
+    "created_at": "2026-02-22T00:00:00+07:00"
+  },
+  {
+    "id": "KHO-0013",
+    "name": "Studio Sessions",
+    "description": "Kho whitelist: Studio Sessions",
+    "owner_label": "POPS Music",
+    "created_at": "2026-02-22T00:00:00+07:00"
+  },
+  {
+    "id": "KHO-0014",
+    "name": "MV Production",
+    "description": "Kho whitelist: MV Production",
+    "owner_label": "POPS Music",
+    "created_at": "2026-02-22T00:00:00+07:00"
+  },
+  {
+    "id": "KHO-0015",
+    "name": "Live Concert",
+    "description": "Kho whitelist: Live Concert",
+    "owner_label": "Hoa Vàng Studio",
+    "created_at": "2026-02-22T00:00:00+07:00"
+  }
+]

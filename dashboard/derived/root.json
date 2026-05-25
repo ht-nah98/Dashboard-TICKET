@@ -1,0 +1,475 @@
+{
+  "generated_at": "2026-05-25T03:27:47.194Z",
+  "as_of": "2026-05-23T02:00:00.000Z",
+  "pareto": [
+    {
+      "type": "CLAIM",
+      "total": 275,
+      "open": 100,
+      "completed": 167,
+      "failed": 8,
+      "revenue_vnd": 71414000,
+      "fail_rate": 4.6
+    },
+    {
+      "type": "WHITELIST",
+      "total": 100,
+      "open": 33,
+      "completed": 59,
+      "failed": 8,
+      "revenue_vnd": 13521000,
+      "fail_rate": 11.9
+    },
+    {
+      "type": "GBQ",
+      "total": 50,
+      "open": 19,
+      "completed": 29,
+      "failed": 2,
+      "revenue_vnd": 57477000,
+      "fail_rate": 6.5
+    },
+    {
+      "type": "GCD",
+      "total": 40,
+      "open": 13,
+      "completed": 26,
+      "failed": 1,
+      "revenue_vnd": 24689000,
+      "fail_rate": 3.7
+    },
+    {
+      "type": "TKT_BKT",
+      "total": 25,
+      "open": 9,
+      "completed": 16,
+      "failed": 0,
+      "revenue_vnd": 63258000,
+      "fail_rate": 0
+    },
+    {
+      "type": "DIE",
+      "total": 10,
+      "open": 4,
+      "completed": 6,
+      "failed": 0,
+      "revenue_vnd": 65517000,
+      "fail_rate": 0
+    }
+  ],
+  "step_bottlenecks": [
+    {
+      "step_name": "VHDA xác nhận kết quả",
+      "actor_role": "VHDA",
+      "expected_hours": 12,
+      "median_actual_hours": 14.8,
+      "breach_rate": 50,
+      "sample_size": 6,
+      "slowdown_ratio": 1.23
+    },
+    {
+      "step_name": "VHDA quyết định hướng (kháng/bỏ)",
+      "actor_role": "VHDA",
+      "expected_hours": 24,
+      "median_actual_hours": 20.5,
+      "breach_rate": 40,
+      "sample_size": 10,
+      "slowdown_ratio": 0.85
+    },
+    {
+      "step_name": "SEO theo dõi phản hồi",
+      "actor_role": "SEO",
+      "expected_hours": 24,
+      "median_actual_hours": 19.7,
+      "breach_rate": 36,
+      "sample_size": 25,
+      "slowdown_ratio": 0.82
+    },
+    {
+      "step_name": "SEO thu thập bằng chứng",
+      "actor_role": "SEO",
+      "expected_hours": 10,
+      "median_actual_hours": 7,
+      "breach_rate": 35,
+      "sample_size": 31,
+      "slowdown_ratio": 0.7
+    },
+    {
+      "step_name": "VHDA gỡ gậy",
+      "actor_role": "VHDA",
+      "expected_hours": 4,
+      "median_actual_hours": 3.2,
+      "breach_rate": 35,
+      "sample_size": 31,
+      "slowdown_ratio": 0.8
+    },
+    {
+      "step_name": "VHDA tiếp nhận GBQ",
+      "actor_role": "VHDA",
+      "expected_hours": 2,
+      "median_actual_hours": 1.7,
+      "breach_rate": 32,
+      "sample_size": 50,
+      "slowdown_ratio": 0.85
+    },
+    {
+      "step_name": "VHDA xác nhận đã giải quyết",
+      "actor_role": "VHDA",
+      "expected_hours": 2,
+      "median_actual_hours": 1.6,
+      "breach_rate": 31,
+      "sample_size": 175,
+      "slowdown_ratio": 0.8
+    },
+    {
+      "step_name": "VHDA hoàn tất whitelist",
+      "actor_role": "VHDA",
+      "expected_hours": 2,
+      "median_actual_hours": 1.8,
+      "breach_rate": 31,
+      "sample_size": 67,
+      "slowdown_ratio": 0.9
+    },
+    {
+      "step_name": "VHDA tiếp nhận ticket",
+      "actor_role": "VHDA",
+      "expected_hours": 2,
+      "median_actual_hours": 1.5,
+      "breach_rate": 30,
+      "sample_size": 269,
+      "slowdown_ratio": 0.75
+    },
+    {
+      "step_name": "VHDA hoàn tất kháng",
+      "actor_role": "VHDA",
+      "expected_hours": 6,
+      "median_actual_hours": 4.9,
+      "breach_rate": 30,
+      "sample_size": 27,
+      "slowdown_ratio": 0.82
+    },
+    {
+      "step_name": "SEO thực thi (chuẩn bị hồ sơ)",
+      "actor_role": "SEO",
+      "expected_hours": 48,
+      "median_actual_hours": 37.4,
+      "breach_rate": 30,
+      "sample_size": 10,
+      "slowdown_ratio": 0.78
+    },
+    {
+      "step_name": "VHDA xét duyệt yêu cầu",
+      "actor_role": "VHDA",
+      "expected_hours": 4,
+      "median_actual_hours": 3.3,
+      "breach_rate": 29,
+      "sample_size": 99,
+      "slowdown_ratio": 0.83
+    }
+  ],
+  "repeat_offender_channels": [
+    {
+      "channel_id": "CH-0027",
+      "channel_name": "Comedy Hub 27",
+      "project_name": "Học Tập Online",
+      "total_tickets": 16,
+      "open_tickets": 6,
+      "failed_tickets": 0,
+      "claim_count": 11,
+      "gbq_count": 1,
+      "revenue_at_risk": 8769000
+    },
+    {
+      "channel_id": "CH-0013",
+      "channel_name": "Comedy Official 13",
+      "project_name": "Giải Trí 24h",
+      "total_tickets": 16,
+      "open_tickets": 4,
+      "failed_tickets": 0,
+      "claim_count": 9,
+      "gbq_count": 1,
+      "revenue_at_risk": 2840000
+    },
+    {
+      "channel_id": "CH-0015",
+      "channel_name": "News Studio 15",
+      "project_name": "Phim Hoạt Hình",
+      "total_tickets": 16,
+      "open_tickets": 4,
+      "failed_tickets": 1,
+      "claim_count": 9,
+      "gbq_count": 1,
+      "revenue_at_risk": 6140000
+    },
+    {
+      "channel_id": "CH-0039",
+      "channel_name": "Edu Việt 39",
+      "project_name": "Vlog Cuộc Sống",
+      "total_tickets": 15,
+      "open_tickets": 7,
+      "failed_tickets": 2,
+      "claim_count": 6,
+      "gbq_count": 3,
+      "revenue_at_risk": 10721000
+    },
+    {
+      "channel_id": "CH-0034",
+      "channel_name": "Tech Official 34",
+      "project_name": "Phim Hoạt Hình",
+      "total_tickets": 15,
+      "open_tickets": 4,
+      "failed_tickets": 1,
+      "claim_count": 9,
+      "gbq_count": 1,
+      "revenue_at_risk": 3256000
+    },
+    {
+      "channel_id": "CH-0030",
+      "channel_name": "Comedy Hub 30",
+      "project_name": "Âm Nhạc Việt",
+      "total_tickets": 15,
+      "open_tickets": 7,
+      "failed_tickets": 0,
+      "claim_count": 10,
+      "gbq_count": 2,
+      "revenue_at_risk": 7473000
+    },
+    {
+      "channel_id": "CH-0002",
+      "channel_name": "News Hub 2",
+      "project_name": "Âm Nhạc Việt",
+      "total_tickets": 15,
+      "open_tickets": 5,
+      "failed_tickets": 2,
+      "claim_count": 7,
+      "gbq_count": 2,
+      "revenue_at_risk": 3646000
+    },
+    {
+      "channel_id": "CH-0004",
+      "channel_name": "Gaming Network 4",
+      "project_name": "Vlog Cuộc Sống",
+      "total_tickets": 14,
+      "open_tickets": 5,
+      "failed_tickets": 1,
+      "claim_count": 8,
+      "gbq_count": 1,
+      "revenue_at_risk": 13972000
+    },
+    {
+      "channel_id": "CH-0048",
+      "channel_name": "Edu Network 48",
+      "project_name": "Âm Nhạc Việt",
+      "total_tickets": 13,
+      "open_tickets": 5,
+      "failed_tickets": 1,
+      "claim_count": 8,
+      "gbq_count": 0,
+      "revenue_at_risk": 23598000
+    },
+    {
+      "channel_id": "CH-0021",
+      "channel_name": "News Hub 21",
+      "project_name": "Vlog Cuộc Sống",
+      "total_tickets": 13,
+      "open_tickets": 5,
+      "failed_tickets": 0,
+      "claim_count": 7,
+      "gbq_count": 3,
+      "revenue_at_risk": 7773000
+    }
+  ],
+  "return_analysis": {
+    "total_returned": 122,
+    "multi_returned": 0,
+    "by_type": [
+      {
+        "type": "CLAIM",
+        "count": 106,
+        "pct": 87
+      },
+      {
+        "type": "TKT_BKT",
+        "count": 10,
+        "pct": 8
+      },
+      {
+        "type": "DIE",
+        "count": 6,
+        "pct": 5
+      }
+    ],
+    "top_return_steps": [
+      {
+        "step": "VHYT yêu cầu bổ sung (1/2)",
+        "count": 116
+      },
+      {
+        "step": "VHYT yêu cầu bổ sung hồ sơ",
+        "count": 6
+      }
+    ]
+  },
+  "resolution_effectiveness": [
+    {
+      "direction": "PA1_DV_NGOAI",
+      "label": "PA1 – Dịch vụ ngoài",
+      "completed": 10,
+      "failed": 0,
+      "open": 6,
+      "total": 16,
+      "success_rate": 100
+    },
+    {
+      "direction": "PA2_VH_HO_TRO",
+      "label": "PA2 – VH hỗ trợ",
+      "completed": 6,
+      "failed": 0,
+      "open": 3,
+      "total": 9,
+      "success_rate": 100
+    },
+    {
+      "direction": "APPEAL_DIRECT",
+      "label": "Kháng trực tiếp",
+      "completed": 3,
+      "failed": 0,
+      "open": 2,
+      "total": 5,
+      "success_rate": 100
+    },
+    {
+      "direction": "ABANDON",
+      "label": "Bỏ kháng",
+      "completed": 2,
+      "failed": 0,
+      "open": 1,
+      "total": 3,
+      "success_rate": 100
+    },
+    {
+      "direction": "EXTERNAL_SERVICE",
+      "label": "Thuê ngoài",
+      "completed": 1,
+      "failed": 0,
+      "open": 1,
+      "total": 2,
+      "success_rate": 100
+    }
+  ],
+  "pause_reasons": [
+    {
+      "reason": "Tự động (24h không hành động)",
+      "count": 21,
+      "pct": 100
+    }
+  ],
+  "weekly_fail_trend": [
+    {
+      "week": "2026-03-02",
+      "created": 40,
+      "completed": 22,
+      "failed": 0,
+      "return_count": 13
+    },
+    {
+      "week": "2026-03-09",
+      "created": 46,
+      "completed": 20,
+      "failed": 2,
+      "return_count": 9
+    },
+    {
+      "week": "2026-03-16",
+      "created": 31,
+      "completed": 26,
+      "failed": 0,
+      "return_count": 8
+    },
+    {
+      "week": "2026-03-23",
+      "created": 41,
+      "completed": 28,
+      "failed": 3,
+      "return_count": 4
+    },
+    {
+      "week": "2026-03-30",
+      "created": 42,
+      "completed": 21,
+      "failed": 1,
+      "return_count": 12
+    },
+    {
+      "week": "2026-04-06",
+      "created": 34,
+      "completed": 22,
+      "failed": 1,
+      "return_count": 9
+    },
+    {
+      "week": "2026-04-13",
+      "created": 46,
+      "completed": 24,
+      "failed": 1,
+      "return_count": 8
+    },
+    {
+      "week": "2026-04-20",
+      "created": 44,
+      "completed": 30,
+      "failed": 1,
+      "return_count": 16
+    },
+    {
+      "week": "2026-04-27",
+      "created": 36,
+      "completed": 27,
+      "failed": 1,
+      "return_count": 6
+    },
+    {
+      "week": "2026-05-04",
+      "created": 41,
+      "completed": 17,
+      "failed": 3,
+      "return_count": 11
+    },
+    {
+      "week": "2026-05-11",
+      "created": 31,
+      "completed": 25,
+      "failed": 0,
+      "return_count": 7
+    },
+    {
+      "week": "2026-05-18",
+      "created": 23,
+      "completed": 20,
+      "failed": 2,
+      "return_count": 9
+    }
+  ],
+  "process_complexity": [
+    {
+      "bucket": "0–1 bàn giao",
+      "count": 6,
+      "avg_resolution_hours": 38.5
+    },
+    {
+      "bucket": "2–3 bàn giao",
+      "count": 229,
+      "avg_resolution_hours": 80.5
+    },
+    {
+      "bucket": "4–5 bàn giao",
+      "count": 87,
+      "avg_resolution_hours": 100
+    },
+    {
+      "bucket": "6+ bàn giao",
+      "count": 0,
+      "avg_resolution_hours": 0
+    }
+  ]
+}

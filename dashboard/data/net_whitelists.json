@@ -1,0 +1,98 @@
+[
+  {
+    "id": "NWL-0001",
+    "name": "Helios",
+    "network_id": "NET-0001",
+    "description": "Bucket whitelist Helios",
+    "active": true,
+    "created_at": "2026-02-22T00:00:00+07:00"
+  },
+  {
+    "id": "NWL-0002",
+    "name": "HG CNVH",
+    "network_id": "NET-0002",
+    "description": "Bucket whitelist HG CNVH",
+    "active": true,
+    "created_at": "2026-02-22T00:00:00+07:00"
+  },
+  {
+    "id": "NWL-0003",
+    "name": "WanaMusic",
+    "network_id": "NET-0003",
+    "description": "Bucket whitelist WanaMusic",
+    "active": true,
+    "created_at": "2026-02-22T00:00:00+07:00"
+  },
+  {
+    "id": "NWL-0004",
+    "name": "NE A",
+    "network_id": "NET-0004",
+    "description": "Bucket whitelist NE A",
+    "active": true,
+    "created_at": "2026-02-22T00:00:00+07:00"
+  },
+  {
+    "id": "NWL-0005",
+    "name": "Guitar cover",
+    "network_id": "NET-0001",
+    "description": "Bucket whitelist Guitar cover",
+    "active": true,
+    "created_at": "2026-02-22T00:00:00+07:00"
+  },
+  {
+    "id": "NWL-0006",
+    "name": "Ghibli",
+    "network_id": "NET-0002",
+    "description": "Bucket whitelist Ghibli",
+    "active": true,
+    "created_at": "2026-02-22T00:00:00+07:00"
+  },
+  {
+    "id": "NWL-0007",
+    "name": "Dream BGM",
+    "network_id": "NET-0003",
+    "description": "Bucket whitelist Dream BGM",
+    "active": true,
+    "created_at": "2026-02-22T00:00:00+07:00"
+  },
+  {
+    "id": "NWL-0008",
+    "name": "Phoenix Net",
+    "network_id": "NET-0004",
+    "description": "Bucket whitelist Phoenix Net",
+    "active": true,
+    "created_at": "2026-02-22T00:00:00+07:00"
+  },
+  {
+    "id": "NWL-0009",
+    "name": "MF Net",
+    "network_id": "NET-0001",
+    "description": "Bucket whitelist MF Net",
+    "active": true,
+    "created_at": "2026-02-22T00:00:00+07:00"
+  },
+  {
+    "id": "NWL-0010",
+    "name": "BPM Net",
+    "network_id": "NET-0002",
+    "description": "Bucket whitelist BPM Net",
+    "active": true,
+    "created_at": "2026-02-22T00:00:00+07:00"
+  },
+  {
+    "id": "NWL-0011",
+    "name": "Acoustic Studio",
+    "network_id": "NET-0003",
+    "description": "Bucket whitelist Acoustic Studio",
+    "active": true,
+    "created_at": "2026-02-22T00:00:00+07:00"
+  },
+  {
+    "id": "NWL-0012",
+    "name": "Lo-Fi Vibes",
+    "network_id": "NET-0004",
+    "description": "Bucket whitelist Lo-Fi Vibes",
+    "active": true,
+    "created_at": "2026-02-22T00:00:00+07:00"
+  }
+]

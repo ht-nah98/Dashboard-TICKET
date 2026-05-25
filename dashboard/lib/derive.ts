@@ -14,7 +14,7 @@ import type {
   KpiCard,
 } from "./types";
 
-const DATA_DIR = path.resolve(process.cwd(), "..", "data");
+const DATA_DIR = path.resolve(process.cwd(), "data");
 const OUT_DIR = path.resolve(process.cwd(), "derived");
 
 // "Today" anchor — the dataset ends 2026-05-22; we treat 2026-05-23 as now.

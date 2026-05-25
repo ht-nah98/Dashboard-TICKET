@@ -1,0 +1,738 @@
+{
+  "generated_at": "2026-05-25T03:27:47.121Z",
+  "as_of": "2026-05-23T02:00:00.000Z",
+  "kpis": [
+    {
+      "key": "open",
+      "label": "Ticket đang mở",
+      "value": 178,
+      "unit": "count",
+      "delta_pct": -3.260869565217391,
+      "delta_label": "so với 7 ngày trước",
+      "sparkline": [
+        178,
+        127.14,
+        101.71,
+        127.14,
+        127.14,
+        50.86,
+        101.71,
+        152.57,
+        101.71,
+        101.71,
+        127.14,
+        178,
+        76.29,
+        0
+      ],
+      "tone": "warn"
+    },
+    {
+      "key": "critical",
+      "label": "Critical đang mở",
+      "value": 99,
+      "unit": "count",
+      "delta_pct": 8.791208791208792,
+      "delta_label": "so với 7 ngày trước",
+      "sparkline": [
+        99,
+        70.71,
+        56.57,
+        70.71,
+        70.71,
+        28.29,
+        56.57,
+        84.86,
+        56.57,
+        56.57,
+        70.71,
+        99,
+        42.43,
+        0
+      ],
+      "tone": "bad"
+    },
+    {
+      "key": "breached",
+      "label": "Trễ SLA",
+      "value": 173,
+      "unit": "count",
+      "delta_pct": 10.897435897435898,
+      "delta_label": "đang mở · theo từng bước",
+      "sparkline": [
+        173,
+        123.57,
+        98.86,
+        123.57,
+        123.57,
+        49.43,
+        98.86,
+        148.29,
+        98.86,
+        98.86,
+        123.57,
+        173,
+        74.14,
+        0
+      ],
+      "tone": "bad"
+    },
+    {
+      "key": "revenue_risk",
+      "label": "Doanh thu rủi ro",
+      "value": 295876000,
+      "unit": "vnd",
+      "delta_pct": 6.382978723404255,
+      "delta_label": "so với 7 ngày trước",
+      "sparkline": [
+        295876000,
+        211340000,
+        169072000,
+        211340000,
+        211340000,
+        84536000,
+        169072000,
+        253608000,
+        169072000,
+        169072000,
+        211340000,
+        295876000,
+        126804000,
+        0
+      ],
+      "tone": "warn"
+    },
+    {
+      "key": "success_rate",
+      "label": "Tỷ lệ thành công (tháng)",
+      "value": 91.1,
+      "unit": "pct",
+      "delta_pct": -4.670781893004115,
+      "delta_label": "so với tháng trước",
+      "sparkline": [
+        91.11,
+        65.08,
+        52.06,
+        65.08,
+        65.08,
+        26.03,
+        52.06,
+        78.1,
+        52.06,
+        52.06,
+        65.08,
+        91.11,
+        39.05,
+        0
+      ],
+      "tone": "good"
+    },
+    {
+      "key": "mttr",
+      "label": "Thời gian xử lý trung vị",
+      "value": 88,
+      "unit": "hours",
+      "delta_pct": 9.613781899535919,
+      "delta_label": "so với 30 ngày trước",
+      "sparkline": [
+        88.04,
+        62.88,
+        50.31,
+        62.88,
+        62.88,
+        25.15,
+        50.31,
+        75.46,
+        50.31,
+        50.31,
+        62.88,
+        88.04,
+        37.73,
+        0
+      ],
+      "tone": "warn"
+    }
+  ],
+  "revenue": {
+    "at_risk_now": 295876000,
+    "recovered_mtd": 205392000,
+    "realized_loss_ytd": 67585000,
+    "weekly": [
+      {
+        "week": "2026-03-02",
+        "at_risk": 70508000,
+        "recovered": 50113000,
+        "lost": 0
+      },
+      {
+        "week": "2026-03-09",
+        "at_risk": 11829000,
+        "recovered": 19902000,
+        "lost": 4688000
+      },
+      {
+        "week": "2026-03-16",
+        "at_risk": 9778000,
+        "recovered": 85471000,
+        "lost": 0
+      },
+      {
+        "week": "2026-03-23",
+        "at_risk": 37183000,
+        "recovered": 112422000,
+        "lost": 16634000
+      },
+      {
+        "week": "2026-03-30",
+        "at_risk": 29118000,
+        "recovered": 36835000,
+        "lost": 230000
+      },
+      {
+        "week": "2026-04-06",
+        "at_risk": 18100000,
+        "recovered": 55024000,
+        "lost": 59000
+      },
+      {
+        "week": "2026-04-13",
+        "at_risk": 5619000,
+        "recovered": 41647000,
+        "lost": 103000
+      },
+      {
+        "week": "2026-04-20",
+        "at_risk": 28255000,
+        "recovered": 83216000,
+        "lost": 1626000
+      },
+      {
+        "week": "2026-04-27",
+        "at_risk": 17200000,
+        "recovered": 93383000,
+        "lost": 204000
+      },
+      {
+        "week": "2026-05-04",
+        "at_risk": 25805000,
+        "recovered": 63880000,
+        "lost": 2102000
+      },
+      {
+        "week": "2026-05-11",
+        "at_risk": 12026000,
+        "recovered": 70417000,
+        "lost": 0
+      },
+      {
+        "week": "2026-05-18",
+        "at_risk": 15581000,
+        "recovered": 30061000,
+        "lost": 8489000
+      }
+    ],
+    "by_project": [
+      {
+        "project_id": "PRJ-0003",
+        "project_name": "Vlog Cuộc Sống",
+        "at_risk": 104923000,
+        "share_pct": 35.5
+      },
+      {
+        "project_id": "PRJ-0001",
+        "project_name": "Âm Nhạc Việt",
+        "at_risk": 73415000,
+        "share_pct": 24.8
+      },
+      {
+        "project_id": "PRJ-0005",
+        "project_name": "Học Tập Online",
+        "at_risk": 62103000,
+        "share_pct": 21
+      },
+      {
+        "project_id": "PRJ-0002",
+        "project_name": "Giải Trí 24h",
+        "at_risk": 33075000,
+        "share_pct": 11.2
+      },
+      {
+        "project_id": "PRJ-0004",
+        "project_name": "Phim Hoạt Hình",
+        "at_risk": 22360000,
+        "share_pct": 7.6
+      }
+    ]
+  },
+  "volume_trend": [
+    {
+      "week": "2026-03-02",
+      "CLAIM": 19,
+      "WHITELIST": 11,
+      "GBQ": 4,
+      "GCD": 3,
+      "TKT_BKT": 1,
+      "DIE": 2
+    },
+    {
+      "week": "2026-03-09",
+      "CLAIM": 31,
+      "WHITELIST": 6,
+      "GBQ": 2,
+      "GCD": 5,
+      "TKT_BKT": 1,
+      "DIE": 1
+    },
+    {
+      "week": "2026-03-16",
+      "CLAIM": 14,
+      "WHITELIST": 2,
+      "GBQ": 7,
+      "GCD": 3,
+      "TKT_BKT": 4,
+      "DIE": 1
+    },
+    {
+      "week": "2026-03-23",
+      "CLAIM": 22,
+      "WHITELIST": 9,
+      "GBQ": 4,
+      "GCD": 3,
+      "TKT_BKT": 3,
+      "DIE": 0
+    },
+    {
+      "week": "2026-03-30",
+      "CLAIM": 22,
+      "WHITELIST": 9,
+      "GBQ": 3,
+      "GCD": 4,
+      "TKT_BKT": 3,
+      "DIE": 1
+    },
+    {
+      "week": "2026-04-06",
+      "CLAIM": 16,
+      "WHITELIST": 7,
+      "GBQ": 5,
+      "GCD": 4,
+      "TKT_BKT": 2,
+      "DIE": 0
+    },
+    {
+      "week": "2026-04-13",
+      "CLAIM": 30,
+      "WHITELIST": 9,
+      "GBQ": 2,
+      "GCD": 2,
+      "TKT_BKT": 2,
+      "DIE": 1
+    },
+    {
+      "week": "2026-04-20",
+      "CLAIM": 27,
+      "WHITELIST": 8,
+      "GBQ": 4,
+      "GCD": 3,
+      "TKT_BKT": 1,
+      "DIE": 1
+    },
+    {
+      "week": "2026-04-27",
+      "CLAIM": 20,
+      "WHITELIST": 7,
+      "GBQ": 4,
+      "GCD": 3,
+      "TKT_BKT": 0,
+      "DIE": 2
+    },
+    {
+      "week": "2026-05-04",
+      "CLAIM": 24,
+      "WHITELIST": 9,
+      "GBQ": 5,
+      "GCD": 0,
+      "TKT_BKT": 3,
+      "DIE": 0
+    },
+    {
+      "week": "2026-05-11",
+      "CLAIM": 13,
+      "WHITELIST": 10,
+      "GBQ": 2,
+      "GCD": 5,
+      "TKT_BKT": 1,
+      "DIE": 0
+    },
+    {
+      "week": "2026-05-18",
+      "CLAIM": 12,
+      "WHITELIST": 6,
+      "GBQ": 1,
+      "GCD": 2,
+      "TKT_BKT": 2,
+      "DIE": 0
+    }
+  ],
+  "type_risk": [
+    {
+      "type": "CLAIM",
+      "count": 100,
+      "median_revenue": 683000,
+      "score": 68300000
+    },
+    {
+      "type": "WHITELIST",
+      "count": 33,
+      "median_revenue": 399000,
+      "score": 13167000
+    },
+    {
+      "type": "GBQ",
+      "count": 19,
+      "median_revenue": 2918000,
+      "score": 55442000
+    },
+    {
+      "type": "GCD",
+      "count": 13,
+      "median_revenue": 1771000,
+      "score": 23023000
+    },
+    {
+      "type": "TKT_BKT",
+      "count": 9,
+      "median_revenue": 5403000,
+      "score": 48627000
+    },
+    {
+      "type": "DIE",
+      "count": 4,
+      "median_revenue": 10698000,
+      "score": 42792000
+    }
+  ],
+  "project_type_heatmap": [
+    {
+      "project_id": "PRJ-0001",
+      "project_name": "Âm Nhạc Việt",
+      "cells": {
+        "CLAIM": 13408000,
+        "WHITELIST": 1667000,
+        "GBQ": 13502000,
+        "GCD": 7019000,
+        "TKT_BKT": 25372000,
+        "DIE": 12447000
+      }
+    },
+    {
+      "project_id": "PRJ-0002",
+      "project_name": "Giải Trí 24h",
+      "cells": {
+        "CLAIM": 11264000,
+        "WHITELIST": 2481000,
+        "GBQ": 2828000,
+        "GCD": 3789000,
+        "TKT_BKT": 12713000,
+        "DIE": 0
+      }
+    },
+    {
+      "project_id": "PRJ-0003",
+      "project_name": "Vlog Cuộc Sống",
+      "cells": {
+        "CLAIM": 16786000,
+        "WHITELIST": 2125000,
+        "GBQ": 18544000,
+        "GCD": 8458000,
+        "TKT_BKT": 6156000,
+        "DIE": 52854000
+      }
+    },
+    {
+      "project_id": "PRJ-0004",
+      "project_name": "Phim Hoạt Hình",
+      "cells": {
+        "CLAIM": 6565000,
+        "WHITELIST": 1684000,
+        "GBQ": 11383000,
+        "GCD": 2512000,
+        "TKT_BKT": 0,
+        "DIE": 216000
+      }
+    },
+    {
+      "project_id": "PRJ-0005",
+      "project_name": "Học Tập Online",
+      "cells": {
+        "CLAIM": 23391000,
+        "WHITELIST": 5564000,
+        "GBQ": 11220000,
+        "GCD": 2911000,
+        "TKT_BKT": 19017000,
+        "DIE": 0
+      }
+    }
+  ],
+  "funnel": [
+    {
+      "step": "Lưu nháp",
+      "count": 8,
+      "median_dwell_hours": 9.8
+    },
+    {
+      "step": "Đã gửi",
+      "count": 53,
+      "median_dwell_hours": 9.4
+    },
+    {
+      "step": "Đang xử lý",
+      "count": 96,
+      "median_dwell_hours": 10.7
+    },
+    {
+      "step": "Tạm dừng",
+      "count": 21,
+      "median_dwell_hours": 0
+    },
+    {
+      "step": "Hoàn thành",
+      "count": 321,
+      "median_dwell_hours": 0
+    }
+  ],
+  "aging": [
+    {
+      "bucket": "0-4h",
+      "count": 0,
+      "tone": "good"
+    },
+    {
+      "bucket": "4-24h",
+      "count": 1,
+      "tone": "good"
+    },
+    {
+      "bucket": "1-3d",
+      "count": 3,
+      "tone": "warn"
+    },
+    {
+      "bucket": "3-7d",
+      "count": 5,
+      "tone": "warn"
+    },
+    {
+      "bucket": "7d+",
+      "count": 169,
+      "tone": "bad"
+    }
+  ],
+  "waiting_split": [
+    {
+      "side": "Chờ VHYT",
+      "count": 105
+    },
+    {
+      "side": "Chờ SEO",
+      "count": 49
+    },
+    {
+      "side": "Tự động tạm dừng",
+      "count": 21
+    },
+    {
+      "side": "VHYT",
+      "count": 3
+    }
+  ],
+  "channels_top": [
+    {
+      "channel_id": "CH-0017",
+      "channel_name": "Lifestyle Hub 17",
+      "project_name": "Học Tập Online",
+      "open_count": 8,
+      "critical_count": 5,
+      "revenue_at_risk": 6846000,
+      "monthly_revenue": 207196000,
+      "days_unresolved": 82,
+      "whitelist_status": "Thuộc net",
+      "no_whitelist_flag": false,
+      "severity": "critical",
+      "composite_score": 94
+    },
+    {
+      "channel_id": "CH-0043",
+      "channel_name": "Kids Pro 43",
+      "project_name": "Âm Nhạc Việt",
+      "open_count": 6,
+      "critical_count": 4,
+      "revenue_at_risk": 11867000,
+      "monthly_revenue": 426909000,
+      "days_unresolved": 87,
+      "whitelist_status": "Tự do",
+      "no_whitelist_flag": false,
+      "severity": "critical",
+      "composite_score": 84
+    },
+    {
+      "channel_id": "CH-0045",
+      "channel_name": "Cook Official 45",
+      "project_name": "Học Tập Online",
+      "open_count": 4,
+      "critical_count": 4,
+      "revenue_at_risk": 7840000,
+      "monthly_revenue": 419214000,
+      "days_unresolved": 86,
+      "whitelist_status": "Thuộc net",
+      "no_whitelist_flag": true,
+      "severity": "critical",
+      "composite_score": 82.7
+    },
+    {
+      "channel_id": "CH-0004",
+      "channel_name": "Gaming Network 4",
+      "project_name": "Vlog Cuộc Sống",
+      "open_count": 5,
+      "critical_count": 4,
+      "revenue_at_risk": 13972000,
+      "monthly_revenue": 132859000,
+      "days_unresolved": 82,
+      "whitelist_status": "Thuộc net",
+      "no_whitelist_flag": false,
+      "severity": "critical",
+      "composite_score": 81.6
+    },
+    {
+      "channel_id": "CH-0037",
+      "channel_name": "Lifestyle Official 37",
+      "project_name": "Vlog Cuộc Sống",
+      "open_count": 4,
+      "critical_count": 2,
+      "revenue_at_risk": 50748000,
+      "monthly_revenue": 344512000,
+      "days_unresolved": 77,
+      "whitelist_status": "Tự do",
+      "no_whitelist_flag": true,
+      "severity": "critical",
+      "composite_score": 81.5
+    },
+    {
+      "channel_id": "CH-0032",
+      "channel_name": "Kids 24h 32",
+      "project_name": "Học Tập Online",
+      "open_count": 6,
+      "critical_count": 4,
+      "revenue_at_risk": 9679000,
+      "monthly_revenue": 398818000,
+      "days_unresolved": 80,
+      "whitelist_status": "Thuộc net",
+      "no_whitelist_flag": false,
+      "severity": "critical",
+      "composite_score": 80.8
+    },
+    {
+      "channel_id": "CH-0039",
+      "channel_name": "Edu Việt 39",
+      "project_name": "Vlog Cuộc Sống",
+      "open_count": 7,
+      "critical_count": 4,
+      "revenue_at_risk": 10721000,
+      "monthly_revenue": 243184000,
+      "days_unresolved": 68,
+      "whitelist_status": "Thuộc net",
+      "no_whitelist_flag": false,
+      "severity": "critical",
+      "composite_score": 79.8
+    },
+    {
+      "channel_id": "CH-0020",
+      "channel_name": "Kids 24h 20",
+      "project_name": "Phim Hoạt Hình",
+      "open_count": 6,
+      "critical_count": 4,
+      "revenue_at_risk": 2205000,
+      "monthly_revenue": 70936000,
+      "days_unresolved": 88,
+      "whitelist_status": "Thuộc net",
+      "no_whitelist_flag": false,
+      "severity": "critical",
+      "composite_score": 79.5
+    },
+    {
+      "channel_id": "CH-0021",
+      "channel_name": "News Hub 21",
+      "project_name": "Vlog Cuộc Sống",
+      "open_count": 5,
+      "critical_count": 4,
+      "revenue_at_risk": 7773000,
+      "monthly_revenue": 189002000,
+      "days_unresolved": 85,
+      "whitelist_status": "Thuộc net",
+      "no_whitelist_flag": false,
+      "severity": "critical",
+      "composite_score": 79.4
+    },
+    {
+      "channel_id": "CH-0026",
+      "channel_name": "Vlog Hub 26",
+      "project_name": "Vlog Cuộc Sống",
+      "open_count": 5,
+      "critical_count": 4,
+      "revenue_at_risk": 5780000,
+      "monthly_revenue": 391007000,
+      "days_unresolved": 80,
+      "whitelist_status": "Thuộc net",
+      "no_whitelist_flag": false,
+      "severity": "critical",
+      "composite_score": 76.9
+    }
+  ],
+  "anomalies": [
+    {
+      "id": "ty-WHITELIST",
+      "title": "Ticket WHITELIST giảm mạnh 40% so với tuần trước",
+      "detail": "10 → 6 ticket mới tuần này so với tuần trước",
+      "direction": "down",
+      "magnitude_pct": -40,
+      "severity": "info"
+    },
+    {
+      "id": "ty-GBQ",
+      "title": "Ticket GBQ giảm mạnh 50% so với tuần trước",
+      "detail": "2 → 1 ticket mới tuần này so với tuần trước",
+      "direction": "down",
+      "magnitude_pct": -50,
+      "severity": "info"
+    },
+    {
+      "id": "ty-GCD",
+      "title": "Ticket GCD giảm mạnh 60% so với tuần trước",
+      "detail": "5 → 2 ticket mới tuần này so với tuần trước",
+      "direction": "down",
+      "magnitude_pct": -60,
+      "severity": "info"
+    },
+    {
+      "id": "ty-TKT_BKT",
+      "title": "Ticket TKT_BKT tăng đột biến 100% so với tuần trước",
+      "detail": "1 → 2 ticket mới tuần này so với tuần trước",
+      "direction": "up",
+      "magnitude_pct": 100,
+      "severity": "warn"
+    },
+    {
+      "id": "ch-CH-0017",
+      "title": "Kênh Lifestyle Hub 17 đang gánh 5 ticket critical",
+      "detail": "Doanh thu rủi ro 6.8M VND, ticket cũ nhất 82 ngày",
+      "direction": "up",
+      "magnitude_pct": 250,
+      "severity": "bad"
+    }
+  ],
+  "totals": {
+    "total_tickets": 500,
+    "open_tickets": 178,
+    "completed_tickets": 303
+  }
+}
