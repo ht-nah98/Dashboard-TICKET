@@ -120,6 +120,7 @@ export interface KpiCard {
 export interface OperationsPayload {
   generated_at: string;
   as_of: string;
+  ops_kpis: KpiCard[];
   queue: { key: string; label: string; value: number; tone: "neutral" | "warn" | "bad" | "good" }[];
   sla: {
     within: number;

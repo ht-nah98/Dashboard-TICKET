@@ -1,6 +1,274 @@
 {
-  "generated_at": "2026-05-25T08:04:33.337Z",
+  "generated_at": "2026-05-25T08:42:53.434Z",
   "as_of": "2026-05-23T02:00:00.000Z",
+  "root_kpis": [
+    {
+      "key": "fail_rate",
+      "label": "Tỷ lệ thất bại tổng thể",
+      "value": 3.8,
+      "unit": "pct",
+      "delta_pct": 18.7,
+      "delta_label": "19 / 500 ticket",
+      "sparkline": [
+        0,
+        2,
+        0,
+        3,
+        1,
+        1,
+        1,
+        1,
+        1,
+        3,
+        0,
+        2
+      ],
+      "tone": "good"
+    },
+    {
+      "key": "breached",
+      "label": "Bước nghẽn hàng đầu",
+      "value": 50,
+      "unit": "pct",
+      "delta_pct": null,
+      "delta_label": "VHDA xác nhận kết quả",
+      "sparkline": [
+        50,
+        40,
+        36,
+        35,
+        35,
+        32,
+        31,
+        31,
+        30,
+        30,
+        30,
+        29
+      ],
+      "tone": "bad"
+    },
+    {
+      "key": "returned",
+      "label": "Ticket bị trả về",
+      "value": 122,
+      "unit": "count",
+      "delta_pct": -2.9,
+      "delta_label": "0 bị trả nhiều lần",
+      "sparkline": [
+        13,
+        9,
+        8,
+        4,
+        12,
+        9,
+        8,
+        16,
+        6,
+        11,
+        7,
+        9
+      ],
+      "tone": "bad"
+    },
+    {
+      "key": "open",
+      "label": "Kênh vi phạm lặp lại",
+      "value": 10,
+      "unit": "count",
+      "delta_pct": -41.2,
+      "delta_label": "Kênh có 5+ ticket lịch sử",
+      "sparkline": [
+        40,
+        46,
+        31,
+        41,
+        42,
+        34,
+        46,
+        44,
+        36,
+        41,
+        31,
+        23
+      ],
+      "tone": "neutral"
+    }
+  ],
+  "resource_breakdown": {
+    "summary": [
+      {
+        "resource": "audio",
+        "total": 171,
+        "open": 58,
+        "completed": 109,
+        "failed": 4,
+        "fail_rate": 3.5,
+        "revenue_at_risk": 59372000,
+        "by_subtype": [
+          {
+            "subtype": "claim_dung",
+            "count": 85
+          },
+          {
+            "subtype": "claim_lao",
+            "count": 55
+          },
+          {
+            "subtype": "gay_dung",
+            "count": 16
+          },
+          {
+            "subtype": "gay_lao",
+            "count": 15
+          }
+        ]
+      },
+      {
+        "resource": "image",
+        "total": 135,
+        "open": 55,
+        "completed": 75,
+        "failed": 5,
+        "fail_rate": 6.3,
+        "revenue_at_risk": 44195000,
+        "by_subtype": [
+          {
+            "subtype": "claim_dung",
+            "count": 91
+          },
+          {
+            "subtype": "claim_lao",
+            "count": 44
+          }
+        ]
+      },
+      {
+        "resource": "footage",
+        "total": 14,
+        "open": 3,
+        "completed": 10,
+        "failed": 1,
+        "fail_rate": 9.1,
+        "revenue_at_risk": 14798000,
+        "by_subtype": [
+          {
+            "subtype": "gay_dung",
+            "count": 11
+          },
+          {
+            "subtype": "gay_lao",
+            "count": 3
+          }
+        ]
+      },
+      {
+        "resource": "thumb",
+        "total": 5,
+        "open": 3,
+        "completed": 2,
+        "failed": 0,
+        "fail_rate": 0,
+        "revenue_at_risk": 10526000,
+        "by_subtype": [
+          {
+            "subtype": "gay_dung",
+            "count": 3
+          },
+          {
+            "subtype": "gay_lao",
+            "count": 2
+          }
+        ]
+      }
+    ],
+    "trend": [
+      {
+        "week": "2026-03-02",
+        "image": 8,
+        "audio": 13,
+        "footage": 1,
+        "thumb": 1
+      },
+      {
+        "week": "2026-03-09",
+        "image": 13,
+        "audio": 18,
+        "footage": 2,
+        "thumb": 0
+      },
+      {
+        "week": "2026-03-16",
+        "image": 5,
+        "audio": 14,
+        "footage": 2,
+        "thumb": 0
+      },
+      {
+        "week": "2026-03-23",
+        "image": 14,
+        "audio": 11,
+        "footage": 1,
+        "thumb": 0
+      },
+      {
+        "week": "2026-03-30",
+        "image": 10,
+        "audio": 13,
+        "footage": 1,
+        "thumb": 1
+      },
+      {
+        "week": "2026-04-06",
+        "image": 6,
+        "audio": 13,
+        "footage": 0,
+        "thumb": 2
+      },
+      {
+        "week": "2026-04-13",
+        "image": 14,
+        "audio": 17,
+        "footage": 1,
+        "thumb": 0
+      },
+      {
+        "week": "2026-04-20",
+        "image": 12,
+        "audio": 17,
+        "footage": 2,
+        "thumb": 0
+      },
+      {
+        "week": "2026-04-27",
+        "image": 13,
+        "audio": 10,
+        "footage": 0,
+        "thumb": 1
+      },
+      {
+        "week": "2026-05-04",
+        "image": 14,
+        "audio": 13,
+        "footage": 2,
+        "thumb": 0
+      },
+      {
+        "week": "2026-05-11",
+        "image": 6,
+        "audio": 9,
+        "footage": 0,
+        "thumb": 0
+      },
+      {
+        "week": "2026-05-18",
+        "image": 7,
+        "audio": 6,
+        "footage": 0,
+        "thumb": 0
+      }
+    ]
+  },
   "pareto": [
     {
       "type": "CLAIM",

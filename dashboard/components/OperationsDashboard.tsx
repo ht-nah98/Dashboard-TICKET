@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { QueueCards } from "@/components/QueueCards";
+import { KpiCard } from "@/components/KpiCard";
 import { SlaGauge } from "@/components/SlaGauge";
 import { NearBreachRadar } from "@/components/NearBreachRadar";
 import { AssigneeWorkload } from "@/components/AssigneeWorkload";
@@ -95,9 +95,11 @@ export function OperationsDashboard({
         </div>
       </div>
 
-      {/* Row 1 — Queue summary */}
-      <section>
-        <QueueCards data={data.queue} />
+      {/* Row 1 — KPI strip */}
+      <section className="grid grid-cols-6 gap-4">
+        {data.ops_kpis.map((k) => (
+          <KpiCard key={k.key} kpi={k} />
+        ))}
       </section>
 
       {/* Row 2 — SLA + Near breach */}

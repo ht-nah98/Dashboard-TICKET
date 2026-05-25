@@ -47,6 +47,20 @@ interface SlaStep {
 export interface RootPayload {
   generated_at: string;
   as_of: string;
+  root_kpis: import("./types").KpiCard[];
+  resource_breakdown: {
+    summary: {
+      resource: string;
+      total: number;
+      open: number;
+      completed: number;
+      failed: number;
+      fail_rate: number;
+      revenue_at_risk: number;
+      by_subtype: { subtype: string; count: number }[];
+    }[];
+    trend: { week: string; image: number; audio: number; footage: number; thumb: number }[];
+  };
   pareto: {
     type: string;
     total: number;
@@ -485,9 +499,152 @@ export function buildRoot(): RootPayload {
     });
   }
 
+  // ---- KPI cards (same visual contract as Executive KpiCard) ----
+  const totalFailed = pareto.reduce((s, d) => s + d.failed, 0);
+  const totalTickets = pareto.reduce((s, d) => s + d.total, 0);
+  const avgFailRate = totalTickets > 0 ? Math.round((totalFailed / totalTickets) * 1000) / 10 : 0;
+  const topBottleneck = stepBottlenecks[0];
+
+  function deltaKpi(curr: number, prev: number): number | null {
+    if (prev === 0) return null;
+    return Math.round(((curr - prev) / prev) * 1000) / 10;
+  }
+
+  // Prev-period fail rate proxy: use 8 weeks ago vs now from weekly trend
+  const failTrendValues = weeklyFailTrend.map((w) => w.failed);
+  const failRatePrev = weeklyFailTrend.length >= 8
+    ? (() => {
+        const prevFailed = weeklyFailTrend.slice(0, 4).reduce((s, w) => s + w.failed, 0);
+        const prevTotal = weeklyFailTrend.slice(0, 4).reduce((s, w) => s + w.created, 0);
+        return prevTotal > 0 ? Math.round((prevFailed / prevTotal) * 1000) / 10 : avgFailRate;
+      })()
+    : avgFailRate;
+
+  const returnTrend = weeklyFailTrend.map((w) => w.return_count);
+  const returnedPrev4w = weeklyFailTrend.slice(0, 4).reduce((s, w) => s + w.return_count, 0);
+  const returnedNow4w = weeklyFailTrend.slice(-4).reduce((s, w) => s + w.return_count, 0);
+
+  // Repeat offenders count 8 weeks ago: channels with 5+ tickets created before 8 weeks
+  const eightWeeksAgo = +NOW - 56 * MS_DAY;
+  const repeatOffendersPrev = new Map<string, number>();
+  for (const t of tickets) {
+    if (+new Date(t.created_at) > eightWeeksAgo) continue;
+    repeatOffendersPrev.set(t.channel_id, (repeatOffendersPrev.get(t.channel_id) ?? 0) + 1);
+  }
+  const repeatOffendersPrevCount = [...repeatOffendersPrev.values()].filter((v) => v >= 5).length;
+
+  const root_kpis: import("./types").KpiCard[] = [
+    {
+      key: "fail_rate",
+      label: "Tỷ lệ thất bại tổng thể",
+      value: avgFailRate,
+      unit: "pct",
+      delta_pct: deltaKpi(avgFailRate, failRatePrev),
+      delta_label: `${totalFailed} / ${totalTickets} ticket`,
+      sparkline: failTrendValues,
+      tone: avgFailRate > 20 ? "bad" : avgFailRate > 10 ? "warn" : "good",
+    },
+    {
+      key: "breached",
+      label: "Bước nghẽn hàng đầu",
+      value: topBottleneck ? topBottleneck.breach_rate : 0,
+      unit: "pct",
+      delta_pct: null,
+      delta_label: topBottleneck?.step_name ?? "Không có dữ liệu",
+      sparkline: stepBottlenecks.slice(0, 14).map((s) => s.breach_rate),
+      tone: "bad",
+    },
+    {
+      key: "returned",
+      label: "Ticket bị trả về",
+      value: totalReturned,
+      unit: "count",
+      delta_pct: deltaKpi(returnedNow4w, Math.max(1, returnedPrev4w)),
+      delta_label: `${multiReturned} bị trả nhiều lần`,
+      sparkline: returnTrend,
+      tone: totalReturned > 50 ? "bad" : "warn",
+    },
+    {
+      key: "open",
+      label: "Kênh vi phạm lặp lại",
+      value: repeatOffenders.length,
+      unit: "count",
+      delta_pct: deltaKpi(repeatOffenders.length, Math.max(1, repeatOffendersPrevCount)),
+      delta_label: "Kênh có 5+ ticket lịch sử",
+      sparkline: weeklyFailTrend.map((w) => w.created),
+      tone: "neutral",
+    },
+  ];
+
+  // ---- Resource breakdown ----
+  // Which resource types (image/audio/footage/thumb) generate the most tickets,
+  // their fail rates, revenue at risk, and 12-week trend.
+  function resourceOf(t: Ticket): string | null {
+    if (t.type === "CLAIM") return (t as any).resource_kind ?? null;
+    if (t.type === "GBQ") return (t as any).gay_category ?? null;
+    return null;
+  }
+  function subTypeOf(t: Ticket): string {
+    if (t.type === "CLAIM") return (t as any).claim_type === "claim_lao" ? "claim_lao" : "claim_dung";
+    if (t.type === "GBQ") return (t as any).strike_type === "gay_lao" ? "gay_lao" : "gay_dung";
+    return t.type;
+  }
+
+  const RESOURCES = ["image", "audio", "footage", "thumb"] as const;
+  type ResourceKey = typeof RESOURCES[number];
+
+  const resourceTickets = tickets.filter((t) => resourceOf(t) !== null);
+
+  const resource_summary = RESOURCES.map((res) => {
+    const rc = resourceTickets.filter((t) => resourceOf(t) === res);
+    const open = rc.filter(isOpen).length;
+    const completed = rc.filter((t) => t.current_state === "completed").length;
+    const failed = rc.filter((t) => ["failed", "closed"].includes(t.current_state)).length;
+    const resolved = completed + failed;
+    const fail_rate = resolved > 0 ? Math.round((failed / resolved) * 1000) / 10 : 0;
+    const revenue = rc.filter(isOpen).reduce((s, t) => s + (t.affected_revenue_vnd ?? 0), 0);
+    // Sub-type breakdown
+    const by_subtype: { subtype: string; count: number }[] = [];
+    const subtypeMap = new Map<string, number>();
+    for (const t of rc) subtypeMap.set(subTypeOf(t), (subtypeMap.get(subTypeOf(t)) ?? 0) + 1);
+    for (const [subtype, count] of subtypeMap) by_subtype.push({ subtype, count });
+    by_subtype.sort((a, b) => b.count - a.count);
+    return {
+      resource: res,
+      total: rc.length,
+      open,
+      completed,
+      failed,
+      fail_rate,
+      revenue_at_risk: Math.round(revenue),
+      by_subtype,
+    };
+  }).sort((a, b) => b.total - a.total);
+
+  // 12-week trend by resource
+  const resource_trend = weekKeys.map((wk) => {
+    const start = +new Date(wk);
+    const end = start + 7 * MS_DAY;
+    let image = 0, audio = 0, footage = 0, thumb = 0;
+    for (const t of resourceTickets) {
+      const ts = +new Date(t.created_at);
+      if (ts < start || ts >= end) continue;
+      const res = resourceOf(t);
+      if (res === "image") image++;
+      else if (res === "audio") audio++;
+      else if (res === "footage") footage++;
+      else if (res === "thumb") thumb++;
+    }
+    return { week: wk, image, audio, footage, thumb };
+  });
+
+  const resource_breakdown = { summary: resource_summary, trend: resource_trend };
+
   return {
     generated_at: new Date().toISOString(),
     as_of: NOW.toISOString(),
+    root_kpis,
+    resource_breakdown,
     pareto,
     step_bottlenecks: stepBottlenecks,
     repeat_offender_channels: repeatOffenders,

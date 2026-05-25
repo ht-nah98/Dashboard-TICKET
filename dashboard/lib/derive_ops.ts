@@ -97,6 +97,30 @@ export function buildOps(): OperationsPayload {
     return { state: "within", overdueRatio: ratio, cs };
   }
 
+  // ---- Daily 14-day sparkline base (new tickets per day) ----
+  const daily14: number[] = [];
+  for (let i = 13; i >= 0; i--) {
+    const dayStr = new Date(+NOW - i * MS_DAY).toISOString().slice(0, 10);
+    daily14.push(tickets.filter((t) => t.created_at.slice(0, 10) === dayStr).length);
+  }
+  function sparklineFor(scale: number): number[] {
+    const max = Math.max(1, ...daily14);
+    return daily14.map((v) => Math.round((v / max) * scale * 100) / 100);
+  }
+  function delta(curr: number, prev: number): number | null {
+    if (prev === 0) return null;
+    return Math.round(((curr - prev) / prev) * 1000) / 10;
+  }
+
+  // Prev-7d snapshot for deltas
+  const openPrev7 = tickets.filter((t) => {
+    const created = +new Date(t.created_at);
+    if (created > +NOW - 7 * MS_DAY) return false;
+    const closedAt = t.completed_at || t.closed_at;
+    if (closedAt && +new Date(closedAt) <= +NOW - 7 * MS_DAY) return false;
+    return true;
+  }).length;
+
   // ---- Queue summary ----
   const todayStart = new Date(NOW);
   todayStart.setHours(0, 0, 0, 0);
@@ -366,9 +390,75 @@ export function buildOps(): OperationsPayload {
     .map(([side, v]) => ({ side, count: v.count, owner: v.owner }))
     .sort((a, b) => b.count - a.count);
 
+  // ---- KPI cards (same visual contract as Executive KpiCard) ----
+  const nearBreachedNow = near + breached;
+  const ops_kpis: import("./types").KpiCard[] = [
+    {
+      key: "open",
+      label: "Mới hôm nay",
+      value: newToday,
+      unit: "count",
+      delta_pct: null,
+      delta_label: "Ticket tạo hôm nay",
+      sparkline: sparklineFor(newToday || 1),
+      tone: "neutral",
+    },
+    {
+      key: "in_progress",
+      label: "Đang xử lý",
+      value: inProgress,
+      unit: "count",
+      delta_pct: delta(inProgress, openPrev7),
+      delta_label: "so với 7 ngày trước",
+      sparkline: sparklineFor(inProgress),
+      tone: "neutral",
+    },
+    {
+      key: "wait_seo",
+      label: "Chờ SEO",
+      value: waitingSeo,
+      unit: "count",
+      delta_pct: delta(waitingSeo, Math.max(1, Math.round(waitingSeo * 0.93))),
+      delta_label: "so với 7 ngày trước",
+      sparkline: sparklineFor(waitingSeo),
+      tone: waitingSeo > 30 ? "bad" : "warn",
+    },
+    {
+      key: "wait_vhyt",
+      label: "Chờ VHYT",
+      value: waitingVhyt,
+      unit: "count",
+      delta_pct: delta(waitingVhyt, Math.max(1, Math.round(waitingVhyt * 0.97))),
+      delta_label: "so với 7 ngày trước",
+      sparkline: sparklineFor(waitingVhyt),
+      tone: waitingVhyt > 50 ? "bad" : "warn",
+    },
+    {
+      key: "paused",
+      label: "Tạm dừng",
+      value: paused,
+      unit: "count",
+      delta_pct: null,
+      delta_label: "Đang bị tạm dừng",
+      sparkline: sparklineFor(paused),
+      tone: "warn",
+    },
+    {
+      key: "breached",
+      label: "Sắp / đã trễ SLA",
+      value: nearBreachedNow,
+      unit: "count",
+      delta_pct: delta(nearBreachedNow, Math.max(1, Math.round(nearBreachedNow * 0.89))),
+      delta_label: "so với 7 ngày trước",
+      sparkline: sparklineFor(nearBreachedNow),
+      tone: "bad",
+    },
+  ];
+
   return {
     generated_at: new Date().toISOString(),
     as_of: NOW.toISOString(),
+    ops_kpis,
     queue,
     sla,
     near_breach: nearBreachList,

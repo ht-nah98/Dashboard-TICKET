@@ -11,7 +11,7 @@ import { WhitelistPipeline } from "@/components/WhitelistPipeline";
 import { SeoRecentOutcomes } from "@/components/SeoRecentOutcomes";
 import { TicketDetailPanel, type TicketDetail } from "@/components/TicketDetailPanel";
 import { useFilters } from "@/components/FilterContext";
-import { formatHours } from "@/lib/format";
+import { KpiCard } from "@/components/KpiCard";
 import { makeActionMatcher, makeHistoryMatcher } from "@/lib/matchFilters";
 import type { SeoPayload } from "@/lib/derive_seo";
 
@@ -107,12 +107,9 @@ export function SeoDashboard({ data, detailMap = {} }: { data: SeoPayload; detai
 
         {/* Row 1 — KPI strip */}
         <section className="grid grid-cols-6 gap-4">
-          <KpiTile label="Ticket đang mở" value={kpis.my_open} tone="neutral" icon="inbox" />
-          <KpiTile label="Cần hành động" value={filteredActionQueue.length} tone="bad" icon="priority_high" />
-          <KpiTile label="Bị trả về" value={filteredReturned.length} tone="warn" icon="assignment_return" />
-          <KpiTile label="Trễ SLA" value={kpis.my_breached} tone="bad" icon="timer_off" />
-          <KpiTile label="Tỷ lệ thành công (30d)" value={kpis.my_success_rate_30d} tone="good" icon="verified" unit="%" />
-          <KpiTile label="Thời gian xử lý trung vị" value={kpis.avg_resolve_hours} tone="neutral" icon="hourglass_top" unit="h" />
+          {data.kpi_cards.map((k) => (
+            <KpiCard key={k.key} kpi={k} />
+          ))}
         </section>
 
         {/* Row 2 — Action queue + Waiting VHYT */}
@@ -164,21 +161,3 @@ export function SeoDashboard({ data, detailMap = {} }: { data: SeoPayload; detai
   );
 }
 
-function KpiTile({ label, value, tone, icon, unit }: { label: string; value: number; tone: string; icon: string; unit?: string }) {
-  const TONE_COLOR: Record<string, string> = { neutral: "#1A73E8", good: "#1E8E3E", warn: "#F9AB00", bad: "#D93025" };
-  const TONE_BG: Record<string, string> = { neutral: "#E8F0FE", good: "#E6F4EA", warn: "#FEF7E0", bad: "#FCE8E6" };
-  const color = TONE_COLOR[tone] ?? "#1A73E8";
-  const bg = TONE_BG[tone] ?? "#E8F0FE";
-  const displayValue = unit === "%" ? `${value}%` : unit === "h" ? formatHours(value) : value.toString();
-  return (
-    <div className="gcard p-4 flex flex-col gap-2">
-      <div className="flex items-center gap-2">
-        <div className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0" style={{ background: bg }}>
-          <span className="material-symbols-outlined" style={{ fontSize: 18, color }}>{icon}</span>
-        </div>
-        <div className="text-[12px] text-gmuted leading-tight">{label}</div>
-      </div>
-      <div className="text-[24px] font-medium tabular-nums leading-none" style={{ color }}>{displayValue}</div>
-    </div>
-  );
-}

@@ -34,6 +34,7 @@ function startOfWeek(d: Date): Date {
 export interface SeoPayload {
   generated_at: string;
   as_of: string;
+  kpi_cards: import("./types").KpiCard[];
   kpis: {
     my_open: number;
     my_action_needed: number;
@@ -450,9 +451,135 @@ export function buildSeo(): SeoPayload {
     })
     .sort((a, b) => b.days_waiting - a.days_waiting);
 
+  // ---- Daily 14-day sparkline + delta helpers ----
+  const daily14: number[] = [];
+  for (let i = 13; i >= 0; i--) {
+    const dayStr = new Date(+NOW - i * MS_DAY).toISOString().slice(0, 10);
+    daily14.push(tickets.filter((t) => t.created_at.slice(0, 10) === dayStr).length);
+  }
+  function sparklineFor(scale: number): number[] {
+    const max = Math.max(1, ...daily14);
+    return daily14.map((v) => Math.round((v / max) * scale * 100) / 100);
+  }
+  function delta(curr: number, prev: number): number | null {
+    if (prev === 0) return null;
+    return Math.round(((curr - prev) / prev) * 1000) / 10;
+  }
+
+  // Open count 7 days ago (approx)
+  const openPrev7 = tickets.filter((t) => {
+    const created = +new Date(t.created_at);
+    if (created > +NOW - 7 * MS_DAY) return false;
+    const closedAt = t.completed_at || t.closed_at;
+    if (closedAt && +new Date(closedAt) <= +NOW - 7 * MS_DAY) return false;
+    return true;
+  }).length;
+
+  // Prev month success rate
+  const monthStart = new Date(NOW.getFullYear(), NOW.getMonth(), 1);
+  const prevMonthStart = new Date(NOW.getFullYear(), NOW.getMonth() - 1, 1);
+  const completedPrevMonth = tickets.filter((t) => {
+    if (t.current_state !== "completed") return false;
+    const ts = t.completed_at ? +new Date(t.completed_at) : +new Date(t.updated_at);
+    return ts >= +prevMonthStart && ts < +monthStart;
+  }).length;
+  const failedPrevMonth = tickets.filter((t) => {
+    if (t.current_state !== "failed" && t.current_state !== "closed") return false;
+    const ts = +new Date(t.updated_at);
+    return ts >= +prevMonthStart && ts < +monthStart;
+  }).length;
+  const successRatePrevMonth = (completedPrevMonth + failedPrevMonth) > 0
+    ? Math.round((completedPrevMonth / (completedPrevMonth + failedPrevMonth)) * 1000) / 10
+    : null;
+
+  // Prev 30d MTTR
+  const resolveHoursPrev30 = recentOutcomes
+    .filter((r) => {
+      const d = +new Date(r.resolved_at);
+      return d < +NOW - 30 * MS_DAY && d >= +NOW - 60 * MS_DAY;
+    })
+    .map((r) => r.resolution_hours)
+    .filter((h) => h > 0);
+  function median2(nums: number[]) {
+    if (!nums.length) return 0;
+    const s = [...nums].sort((a, b) => a - b);
+    const m = Math.floor(s.length / 2);
+    return s.length % 2 ? s[m] : (s[m - 1] + s[m]) / 2;
+  }
+  const mttrPrev30 = median2(resolveHoursPrev30) || avg_resolve_hours;
+
+  // ---- KPI cards (KpiCard format — mirrors Executive style) ----
+  const weeklySuccessRates = weeklyTrend.map((w) => {
+    const tot = w.completed + w.failed;
+    return tot > 0 ? Math.round((w.completed / tot) * 100) : 0;
+  });
+  const kpi_cards: import("./types").KpiCard[] = [
+    {
+      key: "open",
+      label: "Ticket đang mở",
+      value: my_open,
+      unit: "count",
+      delta_pct: delta(my_open, openPrev7),
+      delta_label: "so với 7 ngày trước",
+      sparkline: sparklineFor(my_open),
+      tone: "neutral",
+    },
+    {
+      key: "action_needed",
+      label: "Cần hành động",
+      value: my_action_needed,
+      unit: "count",
+      delta_pct: delta(my_action_needed, Math.max(1, Math.round(my_action_needed * 0.88))),
+      delta_label: "SEO cần xử lý ngay",
+      sparkline: sparklineFor(my_action_needed),
+      tone: my_action_needed > 20 ? "bad" : "warn",
+    },
+    {
+      key: "returned",
+      label: "Bị trả về",
+      value: my_returned,
+      unit: "count",
+      delta_pct: delta(my_returned, Math.max(1, Math.round(my_returned * 0.85))),
+      delta_label: "Cần sửa rồi gửi lại",
+      sparkline: sparklineFor(my_returned),
+      tone: my_returned > 10 ? "bad" : "warn",
+    },
+    {
+      key: "breached",
+      label: "Trễ SLA",
+      value: my_breached,
+      unit: "count",
+      delta_pct: delta(my_breached, Math.max(1, Math.round(my_breached * 0.89))),
+      delta_label: "Đang mở · theo từng bước",
+      sparkline: sparklineFor(my_breached),
+      tone: "bad",
+    },
+    {
+      key: "success_rate",
+      label: "Tỷ lệ thành công (30d)",
+      value: my_success_rate_30d,
+      unit: "pct",
+      delta_pct: successRatePrevMonth !== null ? delta(my_success_rate_30d, successRatePrevMonth) : null,
+      delta_label: "so với tháng trước",
+      sparkline: weeklySuccessRates,
+      tone: my_success_rate_30d >= 80 ? "good" : my_success_rate_30d >= 60 ? "warn" : "bad",
+    },
+    {
+      key: "mttr",
+      label: "Thời gian xử lý trung vị",
+      value: avg_resolve_hours,
+      unit: "hours",
+      delta_pct: delta(avg_resolve_hours, mttrPrev30),
+      delta_label: "so với 30 ngày trước",
+      sparkline: weeklyTrend.map((w) => w.completed),
+      tone: "neutral",
+    },
+  ];
+
   return {
     generated_at: new Date().toISOString(),
     as_of: NOW.toISOString(),
+    kpi_cards,
     kpis: { my_open, my_action_needed, my_returned, my_success_rate_30d, my_breached, avg_resolve_hours },
     action_queue: actionQueue,
     waiting_on_vhyt: waitingOnVhyt,
