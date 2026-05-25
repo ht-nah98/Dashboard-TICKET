@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { QueueCards } from "@/components/QueueCards";
 import { SlaGauge } from "@/components/SlaGauge";
 import { NearBreachRadar } from "@/components/NearBreachRadar";
@@ -10,20 +10,41 @@ import { HandoffLatency } from "@/components/HandoffLatency";
 import { EscalationBoard } from "@/components/EscalationBoard";
 import { PauseReopen } from "@/components/PauseReopen";
 import { TicketDetailPanel, type TicketDetail } from "@/components/TicketDetailPanel";
+import { useFilters } from "@/components/FilterContext";
 import type { OperationsPayload } from "@/lib/types";
-
-type DetailMap = Record<string, any>;
 
 export function OperationsDashboard({
   data,
   detailMap,
 }: {
   data: OperationsPayload;
-  detailMap: DetailMap;
+  detailMap: Record<string, any>;
 }) {
+  const { filters } = useFilters();
   const [selectedTicket, setSelectedTicket] = useState<TicketDetail | null>(null);
 
-  function openDetail(item: { id: string; code: string; type: string; channel_name: string; [key: string]: any }) {
+  // Filter near_breach and escalation_board by active filters
+  const filteredNearBreach = useMemo(() => {
+    return data.near_breach.filter((item) => {
+      if (filters.types.length > 0 && !filters.types.includes(item.type as any)) return false;
+      if (filters.channelId && item.channel_id !== filters.channelId) return false;
+      if (filters.severity) {
+        const sev = item.severity === "bad" ? "critical" : item.severity === "warn" ? "high" : "low";
+        if (sev !== filters.severity) return false;
+      }
+      return true;
+    });
+  }, [data.near_breach, filters]);
+
+  const filteredEscalation = useMemo(() => {
+    return data.escalation_board.filter((item) => {
+      if (filters.types.length > 0 && !filters.types.includes(item.type as any)) return false;
+      if (filters.channelId && item.channel_id !== filters.channelId) return false;
+      return true;
+    });
+  }, [data.escalation_board, filters]);
+
+  function openDetail(item: any) {
     const full = detailMap[item.id];
     if (full) {
       setSelectedTicket({
@@ -50,7 +71,6 @@ export function OperationsDashboard({
         sla_steps: full.sla_steps,
       });
     } else {
-      // Fallback with available data from the list item
       setSelectedTicket({
         id: item.id,
         code: item.code,
@@ -68,6 +88,10 @@ export function OperationsDashboard({
     }
   }
 
+  const activeFilterNote = filters.types.length > 0 || filters.channelId
+    ? ` · lọc: ${[filters.types.join(", "), filters.channelId ? `kênh ${filters.channelName}` : ""].filter(Boolean).join(", ")}`
+    : "";
+
   return (
     <div className="max-w-[1600px] mx-auto space-y-4">
       <div className="flex items-end justify-between">
@@ -75,7 +99,7 @@ export function OperationsDashboard({
           <h1 className="text-[22px] font-medium text-gink">Kiểm soát Vận hành</h1>
           <p className="text-[13px] text-gmuted">
             Cho Manager / VH Lead · {data.totals.open_tickets} ticket đang mở ·{" "}
-            {data.sla.pct_within}% còn trong SLA
+            {data.sla.pct_within}% còn trong SLA{activeFilterNote}
           </p>
         </div>
         <div className="flex items-center gap-2 text-[12px] text-gmuted">
@@ -95,7 +119,7 @@ export function OperationsDashboard({
           <SlaGauge data={data.sla} />
         </div>
         <div className="col-span-8 flex">
-          <NearBreachRadar data={data.near_breach} onRowClick={openDetail} />
+          <NearBreachRadar data={filteredNearBreach} onRowClick={openDetail} />
         </div>
       </section>
 
@@ -121,7 +145,7 @@ export function OperationsDashboard({
 
       {/* Row 5 — Escalation board */}
       <section>
-        <EscalationBoard data={data.escalation_board} onRowClick={openDetail} />
+        <EscalationBoard data={filteredEscalation} onRowClick={openDetail} />
       </section>
 
       <footer className="text-[11px] text-gmuted text-center py-6">

@@ -42,7 +42,7 @@
     "runtime": null
   },
   "build": {
-    "buildCommand": "cd \"/home/user/Downloads/Dashboard Ticket/dashboard\" && rm -rf .next && rtk npm run build 2>&1",
+    "buildCommand": "cd \"/home/user/Downloads/Dashboard Ticket/dashboard\" && rtk tsc --noEmit 2>&1 | head -40",
     "testCommand": null,
     "lintCommand": "npm run lint",
     "devCommand": "npm run dev",
@@ -123,9 +123,27 @@
   },
   "hotPaths": [
     {
+      "path": "lib/types.ts",
+      "accessCount": 5,
+      "lastAccessed": 1779680402134,
+      "type": "file"
+    },
+    {
       "path": "app/seo/page.tsx",
       "accessCount": 4,
       "lastAccessed": 1779673403933,
+      "type": "file"
+    },
+    {
+      "path": "lib/derive_ops.ts",
+      "accessCount": 4,
+      "lastAccessed": 1779680260326,
+      "type": "file"
+    },
+    {
+      "path": "lib/derive_seo.ts",
+      "accessCount": 4,
+      "lastAccessed": 1779680276936,
       "type": "file"
     },
     {
@@ -135,21 +153,9 @@
       "type": "file"
     },
     {
-      "path": "lib/types.ts",
-      "accessCount": 2,
-      "lastAccessed": 1779673098406,
-      "type": "file"
-    },
-    {
       "path": "package.json",
       "accessCount": 2,
       "lastAccessed": 1779673566379,
-      "type": "file"
-    },
-    {
-      "path": "lib/derive_ops.ts",
-      "accessCount": 1,
-      "lastAccessed": 1779534227547,
       "type": "file"
     },
     {

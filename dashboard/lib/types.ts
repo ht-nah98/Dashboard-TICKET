@@ -126,6 +126,7 @@ export interface OperationsPayload {
     id: string;
     code: string;
     type: string;
+    channel_id: string;
     channel_name: string;
     owner_name: string;
     waiting_side: string;
@@ -154,6 +155,7 @@ export interface OperationsPayload {
     id: string;
     code: string;
     type: string;
+    channel_id: string;
     channel_name: string;
     owner_name: string;
     waiting_side: string;

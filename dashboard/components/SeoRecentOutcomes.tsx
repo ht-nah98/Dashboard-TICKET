@@ -19,7 +19,7 @@ const OUTCOME_CFG = {
   closed: { chip: "chip-neutral", label: "Đã đóng", icon: "do_not_disturb_on" },
 };
 
-export function SeoRecentOutcomes({ data }: { data: Outcome[] }) {
+export function SeoRecentOutcomes({ data, onRowClick }: { data: Outcome[]; onRowClick?: (item: Outcome) => void }) {
   const completed = data.filter((d) => d.outcome === "completed").length;
   const failed = data.filter((d) => d.outcome === "failed" || d.outcome === "closed").length;
   const rate = data.length > 0 ? Math.round((completed / data.length) * 100) : 0;
@@ -31,7 +31,6 @@ export function SeoRecentOutcomes({ data }: { data: Outcome[] }) {
         <div className="text-[12px] text-gmuted">Ticket đã xử lý xong · thành công / thất bại</div>
       </div>
 
-      {/* Rate summary */}
       <div className="flex items-center gap-4 mb-3 shrink-0">
         <div className="flex-1 h-2 bg-gbg rounded-full overflow-hidden">
           <div className="h-full bg-ggreen rounded-full" style={{ width: `${rate}%` }} />
@@ -58,7 +57,14 @@ export function SeoRecentOutcomes({ data }: { data: Outcome[] }) {
               {data.map((item) => {
                 const cfg = OUTCOME_CFG[item.outcome];
                 return (
-                  <tr key={item.id} className="row-hover border-b border-gborder/60 last:border-b-0">
+                  <tr
+                    key={item.id}
+                    onClick={() => onRowClick?.(item)}
+                    className={clsx(
+                      "border-b border-gborder/60 last:border-b-0",
+                      onRowClick && "row-hover cursor-pointer"
+                    )}
+                  >
                     <td className="py-2 pr-2 font-medium text-gblue">{item.code}</td>
                     <td className="py-2 pr-2 text-gmuted">{item.type}</td>
                     <td className="py-2 pr-2 text-gink max-w-[110px] truncate">{item.channel_name}</td>

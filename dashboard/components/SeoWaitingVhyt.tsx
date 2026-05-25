@@ -17,7 +17,7 @@ type WaitItem = {
 
 const SEV_COLOR: Record<string, string> = { bad: "#D93025", warn: "#F9AB00", ok: "#1E8E3E" };
 
-export function SeoWaitingVhyt({ data }: { data: WaitItem[] }) {
+export function SeoWaitingVhyt({ data, onRowClick }: { data: WaitItem[]; onRowClick?: (item: WaitItem) => void }) {
   const bad = data.filter((d) => d.severity === "bad").length;
   const warn = data.filter((d) => d.severity === "warn").length;
   const ok = data.filter((d) => d.severity === "ok").length;
@@ -29,7 +29,6 @@ export function SeoWaitingVhyt({ data }: { data: WaitItem[] }) {
         <div className="text-[12px] text-gmuted">Ticket SEO đã gửi — đang trong tay VHYT</div>
       </div>
 
-      {/* Summary pills */}
       <div className="flex gap-2 mb-3 shrink-0">
         <div className="flex-1 rounded-lg bg-gbg p-2 text-center">
           <div className="text-[18px] font-medium text-gred tabular-nums">{bad}</div>
@@ -54,7 +53,14 @@ export function SeoWaitingVhyt({ data }: { data: WaitItem[] }) {
               const pct = Math.min(item.overdue_ratio * 100, 100);
               const color = SEV_COLOR[item.severity];
               return (
-                <div key={item.id} className="flex items-center gap-2 py-1.5 border-b border-gborder/50 last:border-0">
+                <div
+                  key={item.id}
+                  onClick={() => onRowClick?.(item)}
+                  className={clsx(
+                    "flex items-center gap-2 py-1.5 border-b border-gborder/50 last:border-0",
+                    onRowClick && "cursor-pointer hover:bg-gbg rounded-md px-1 transition"
+                  )}
+                >
                   <div className="w-[90px] text-[11px] font-medium text-gblue truncate shrink-0">{item.code}</div>
                   <div className="flex-1 min-w-0">
                     <div className="text-[11px] text-gink truncate">{item.channel_name}</div>

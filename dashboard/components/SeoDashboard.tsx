@@ -13,63 +13,88 @@ import { useFilters } from "@/components/FilterContext";
 import { formatHours } from "@/lib/format";
 import type { SeoPayload } from "@/lib/derive_seo";
 
-export function SeoDashboard({ data }: { data: SeoPayload }) {
+export function SeoDashboard({ data, detailMap = {} }: { data: SeoPayload; detailMap?: Record<string, any> }) {
   const { filters, toggleType, setChannel } = useFilters();
   const [detailTicket, setDetailTicket] = useState<TicketDetail | null>(null);
   const { kpis, action_queue, waiting_on_vhyt, returned_for_correction, recent_outcomes, weekly_trend, repeat_channels, reapply_tracker } = data;
 
-  // Apply type + channel filters to action queue
-  const filteredActionQueue = useMemo(() => {
-    return action_queue.filter((item) => {
-      if (filters.types.length > 0 && !filters.types.includes(item.type as any)) return false;
-      if (filters.channelId && !item.channel_name.includes(filters.channelName ?? "")) return false;
-      return true;
-    });
-  }, [action_queue, filters]);
+  // Filter helpers
+  const matchType = (item: { type: string }) =>
+    filters.types.length === 0 || filters.types.includes(item.type as any);
+  const matchChannel = (item: { channel_id?: string; channel_name?: string }) =>
+    !filters.channelId || item.channel_id === filters.channelId;
 
-  const filteredWaitingVhyt = useMemo(() => {
-    return waiting_on_vhyt.filter((item) => {
-      if (filters.types.length > 0 && !filters.types.includes(item.type as any)) return false;
-      return true;
-    });
-  }, [waiting_on_vhyt, filters]);
+  const filteredActionQueue = useMemo(() =>
+    action_queue.filter((i) => matchType(i) && matchChannel(i)),
+    [action_queue, filters.types, filters.channelId]
+  );
 
-  const filteredReturned = useMemo(() => {
-    return returned_for_correction.filter((item) => {
-      if (filters.types.length > 0 && !filters.types.includes(item.type as any)) return false;
-      return true;
-    });
-  }, [returned_for_correction, filters]);
+  const filteredWaitingVhyt = useMemo(() =>
+    waiting_on_vhyt.filter((i) => matchType(i) && matchChannel(i)),
+    [waiting_on_vhyt, filters.types, filters.channelId]
+  );
 
-  const filteredOutcomes = useMemo(() => {
-    return recent_outcomes.filter((item) => {
-      if (filters.types.length > 0 && !filters.types.includes(item.type as any)) return false;
-      return true;
-    });
-  }, [recent_outcomes, filters]);
+  const filteredReturned = useMemo(() =>
+    returned_for_correction.filter((i) => matchType(i) && matchChannel(i)),
+    [returned_for_correction, filters.types, filters.channelId]
+  );
 
-  const filteredRepeatChannels = useMemo(() => {
-    return repeat_channels.filter((ch) => {
-      if (filters.projectId && !ch.project_name.includes(filters.projectId)) return false;
+  const filteredOutcomes = useMemo(() =>
+    recent_outcomes.filter((i) => matchType(i) && matchChannel(i)),
+    [recent_outcomes, filters.types, filters.channelId]
+  );
+
+  const filteredRepeatChannels = useMemo(() =>
+    repeat_channels.filter((ch) => {
       if (filters.channelId && ch.channel_id !== filters.channelId) return false;
       return true;
-    });
-  }, [repeat_channels, filters]);
+    }),
+    [repeat_channels, filters.channelId]
+  );
 
-  function openTicketDetail(item: any) {
-    setDetailTicket({
-      id: item.id,
-      code: item.code,
-      type: item.type,
-      current_state: "processing",
-      channel_name: item.channel_name,
-      project_name: "—",
-      created_at: data.as_of,
-      affected_revenue_vnd: item.revenue_at_risk ?? 0,
-      is_urgent: item.is_urgent ?? false,
-      current_step: item.current_step,
-      hours_waiting: item.hours_waiting,
-    });
+  function openDetail(item: any) {
+    const full = detailMap[item.id];
+    if (full) {
+      setDetailTicket({
+        id: full.id,
+        code: full.code,
+        type: full.type,
+        current_state: full.current_state,
+        channel_name: full.channel_name,
+        project_name: full.project_name,
+        network_name: full.network_name,
+        created_at: full.created_at,
+        affected_revenue_vnd: full.affected_revenue_vnd,
+        is_urgent: full.is_urgent,
+        claim_type: full.claim_type,
+        claimer: full.claimer,
+        current_step: full.current_step,
+        current_owner: full.current_owner,
+        hours_in_current_step: full.hours_in_current_step,
+        sla_hours: full.sla_hours,
+        overdue_ratio: full.overdue_ratio,
+        days_open: full.days_open,
+        resolution_direction: full.resolution_direction,
+        timeline: full.timeline,
+        sla_steps: full.sla_steps,
+      });
+    } else {
+      setDetailTicket({
+        id: item.id,
+        code: item.code,
+        type: item.type,
+        current_state: item.current_state ?? "processing",
+        channel_name: item.channel_name,
+        project_name: item.project_name ?? "—",
+        created_at: item.created_at ?? data.as_of,
+        affected_revenue_vnd: item.revenue_at_risk ?? 0,
+        is_urgent: item.is_urgent ?? false,
+        current_step: item.current_step,
+        hours_in_current_step: item.hours_waiting,
+        sla_hours: item.sla_hours,
+        overdue_ratio: item.overdue_ratio,
+      });
+    }
   }
 
   function handleRepeatChannelClick(channelId: string, channelName: string) {
@@ -105,20 +130,20 @@ export function SeoDashboard({ data }: { data: SeoPayload }) {
         {/* Row 2 — Action queue + Waiting VHYT */}
         <section className="grid grid-cols-12 gap-4 items-stretch">
           <div className="col-span-7 flex">
-            <SeoActionQueue data={filteredActionQueue} onRowClick={openTicketDetail} />
+            <SeoActionQueue data={filteredActionQueue} onRowClick={openDetail} />
           </div>
           <div className="col-span-5 flex">
-            <SeoWaitingVhyt data={filteredWaitingVhyt} />
+            <SeoWaitingVhyt data={filteredWaitingVhyt} onRowClick={openDetail} />
           </div>
         </section>
 
         {/* Row 3 — Returned + Recent outcomes */}
         <section className="grid grid-cols-12 gap-4 items-stretch">
           <div className="col-span-4 flex">
-            <SeoReturnedCorrection data={filteredReturned} onRowClick={openTicketDetail} />
+            <SeoReturnedCorrection data={filteredReturned} onRowClick={openDetail} />
           </div>
           <div className="col-span-8 flex">
-            <SeoRecentOutcomes data={filteredOutcomes} />
+            <SeoRecentOutcomes data={filteredOutcomes} onRowClick={openDetail} />
           </div>
         </section>
 
@@ -128,7 +153,11 @@ export function SeoDashboard({ data }: { data: SeoPayload }) {
             <SeoWeeklyTrend data={weekly_trend} />
           </div>
           <div className="col-span-6 flex">
-            <SeoRepeatChannels data={filteredRepeatChannels} onChannelClick={handleRepeatChannelClick} activeChannelId={filters.channelId} />
+            <SeoRepeatChannels
+              data={filteredRepeatChannels}
+              onChannelClick={handleRepeatChannelClick}
+              activeChannelId={filters.channelId}
+            />
           </div>
         </section>
 
