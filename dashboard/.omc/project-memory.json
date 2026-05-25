@@ -1,0 +1,235 @@
+{
+  "version": "1.0.0",
+  "lastScanned": 1779534217654,
+  "projectRoot": "/home/user/Downloads/Dashboard Ticket/dashboard",
+  "techStack": {
+    "languages": [
+      {
+        "name": "JavaScript/TypeScript",
+        "version": null,
+        "confidence": "high",
+        "markers": [
+          "package.json"
+        ]
+      },
+      {
+        "name": "TypeScript",
+        "version": null,
+        "confidence": "high",
+        "markers": [
+          "tsconfig.json"
+        ]
+      }
+    ],
+    "frameworks": [
+      {
+        "name": "next",
+        "version": "14.2.5",
+        "category": "fullstack"
+      },
+      {
+        "name": "react",
+        "version": "18.3.1",
+        "category": "frontend"
+      },
+      {
+        "name": "react-dom",
+        "version": "18.3.1",
+        "category": "frontend"
+      }
+    ],
+    "packageManager": "npm",
+    "runtime": null
+  },
+  "build": {
+    "buildCommand": "cd \"/home/user/Downloads/Dashboard Ticket/dashboard\" && rm -rf .next && rtk npm run build 2>&1",
+    "testCommand": null,
+    "lintCommand": "npm run lint",
+    "devCommand": "npm run dev",
+    "scripts": {
+      "derive": "tsx lib/derive.ts",
+      "predev": "npm run derive",
+      "prebuild": "npm run derive",
+      "dev": "next dev -p 3000",
+      "build": "next build",
+      "start": "next start -p 3000",
+      "lint": "next lint"
+    }
+  },
+  "conventions": {
+    "namingStyle": "camelCase",
+    "importStyle": "ES modules",
+    "testPattern": null,
+    "fileOrganization": null
+  },
+  "structure": {
+    "isMonorepo": false,
+    "workspaces": [],
+    "mainDirectories": [
+      "app",
+      "components",
+      "lib"
+    ],
+    "gitBranches": null
+  },
+  "customNotes": [],
+  "directoryMap": {
+    "app": {
+      "path": "app",
+      "purpose": "Application code",
+      "fileCount": 3,
+      "lastAccessed": 1779534217649,
+      "keyFiles": [
+        "globals.css",
+        "layout.tsx",
+        "page.tsx"
+      ]
+    },
+    "components": {
+      "path": "components",
+      "purpose": "UI components",
+      "fileCount": 20,
+      "lastAccessed": 1779534217649,
+      "keyFiles": [
+        "Aging.tsx",
+        "AnomalyFeed.tsx",
+        "AppShell.tsx",
+        "AssigneePerformance.tsx",
+        "AssigneeWorkload.tsx"
+      ]
+    },
+    "derived": {
+      "path": "derived",
+      "purpose": null,
+      "fileCount": 3,
+      "lastAccessed": 1779534217652,
+      "keyFiles": [
+        "executive.json",
+        "operations.json"
+      ]
+    },
+    "lib": {
+      "path": "lib",
+      "purpose": "Library code",
+      "fileCount": 4,
+      "lastAccessed": 1779534217653,
+      "keyFiles": [
+        "derive.ts",
+        "derive_ops.ts",
+        "format.ts",
+        "types.ts"
+      ]
+    }
+  },
+  "hotPaths": [
+    {
+      "path": "app/seo/page.tsx",
+      "accessCount": 4,
+      "lastAccessed": 1779673403933,
+      "type": "file"
+    },
+    {
+      "path": "app/root/page.tsx",
+      "accessCount": 3,
+      "lastAccessed": 1779673421697,
+      "type": "file"
+    },
+    {
+      "path": "lib/types.ts",
+      "accessCount": 2,
+      "lastAccessed": 1779673098406,
+      "type": "file"
+    },
+    {
+      "path": "package.json",
+      "accessCount": 2,
+      "lastAccessed": 1779673566379,
+      "type": "file"
+    },
+    {
+      "path": "lib/derive_ops.ts",
+      "accessCount": 1,
+      "lastAccessed": 1779534227547,
+      "type": "file"
+    },
+    {
+      "path": "lib/derive.ts",
+      "accessCount": 1,
+      "lastAccessed": 1779534227904,
+      "type": "file"
+    },
+    {
+      "path": "lib/format.ts",
+      "accessCount": 1,
+      "lastAccessed": 1779550817224,
+      "type": "file"
+    },
+    {
+      "path": "components/RootPareto.tsx",
+      "accessCount": 1,
+      "lastAccessed": 1779672974469,
+      "type": "file"
+    },
+    {
+      "path": "components/RootBottleneck.tsx",
+      "accessCount": 1,
+      "lastAccessed": 1779672986728,
+      "type": "file"
+    },
+    {
+      "path": "components/RootReturnAnalysis.tsx",
+      "accessCount": 1,
+      "lastAccessed": 1779673005040,
+      "type": "file"
+    },
+    {
+      "path": "components/RootResolutionEffect.tsx",
+      "accessCount": 1,
+      "lastAccessed": 1779673013635,
+      "type": "file"
+    },
+    {
+      "path": "components/RootRepeatChannels.tsx",
+      "accessCount": 1,
+      "lastAccessed": 1779673027250,
+      "type": "file"
+    },
+    {
+      "path": "components/RootWeeklyFail.tsx",
+      "accessCount": 1,
+      "lastAccessed": 1779673039512,
+      "type": "file"
+    },
+    {
+      "path": "components/RootProcessComplexity.tsx",
+      "accessCount": 1,
+      "lastAccessed": 1779673049555,
+      "type": "file"
+    },
+    {
+      "path": "components/AppShell.tsx",
+      "accessCount": 1,
+      "lastAccessed": 1779673061594,
+      "type": "file"
+    },
+    {
+      "path": "app/operations/page.tsx",
+      "accessCount": 1,
+      "lastAccessed": 1779673379303,
+      "type": "file"
+    },
+    {
+      "path": "components/NearBreachRadar.tsx",
+      "accessCount": 1,
+      "lastAccessed": 1779675125409,
+      "type": "file"
+    },
+    {
+      "path": "components/EscalationBoard.tsx",
+      "accessCount": 1,
+      "lastAccessed": 1779675125546,
+      "type": "file"
+    }
+  ],
+  "userDirectives": []
+}

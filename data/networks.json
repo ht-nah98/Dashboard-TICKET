@@ -1,0 +1,26 @@
+[
+  {
+    "id": "NET-0001",
+    "name": "Yeah1 Network",
+    "type": "mcn",
+    "contact_email": "yeah1.network@network.vn"
+  },
+  {
+    "id": "NET-0002",
+    "name": "METUB Network",
+    "type": "mcn",
+    "contact_email": "metub.network@network.vn"
+  },
+  {
+    "id": "NET-0003",
+    "name": "POPS Worldwide",
+    "type": "mcn",
+    "contact_email": "pops.worldwide@network.vn"
+  },
+  {
+    "id": "NET-0004",
+    "name": "BHMedia",
+    "type": "mcn",
+    "contact_email": "bhmedia@network.vn"
+  }
+]

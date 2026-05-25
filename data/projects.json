@@ -1,0 +1,37 @@
+[
+  {
+    "id": "PRJ-0001",
+    "name": "Âm Nhạc Việt",
+    "company_id": "CMP-0001",
+    "manager_user_id": "USR-0002",
+    "status": "active"
+  },
+  {
+    "id": "PRJ-0002",
+    "name": "Giải Trí 24h",
+    "company_id": "CMP-0001",
+    "manager_user_id": "USR-0002",
+    "status": "active"
+  },
+  {
+    "id": "PRJ-0003",
+    "name": "Vlog Cuộc Sống",
+    "company_id": "CMP-0001",
+    "manager_user_id": "USR-0002",
+    "status": "active"
+  },
+  {
+    "id": "PRJ-0004",
+    "name": "Phim Hoạt Hình",
+    "company_id": "CMP-0001",
+    "manager_user_id": "USR-0002",
+    "status": "active"
+  },
+  {
+    "id": "PRJ-0005",
+    "name": "Học Tập Online",
+    "company_id": "CMP-0001",
+    "manager_user_id": "USR-0002",
+    "status": "active"
+  }
+]
