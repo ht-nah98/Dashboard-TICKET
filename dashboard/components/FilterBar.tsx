@@ -3,7 +3,7 @@
 import clsx from "clsx";
 import { useFilters, type TicketType, type DateRange, type Severity } from "./FilterContext";
 
-type ActivePage = "executive" | "operations" | "seo" | "root";
+type ActivePage = "executive" | "operations" | "seo" | "root" | "priority";
 
 const TICKET_TYPES: TicketType[] = ["CLAIM", "WHITELIST", "GBQ", "GCD", "TKT_BKT", "DIE"];
 const TYPE_COLOR: Record<string, string> = {
@@ -69,6 +69,14 @@ function visibleFor(page: ActivePage | undefined) {
         projects: false,
         networks: false,
         severities: [] as Severity[],
+      };
+    case "priority":
+      return {
+        dateRange: false, // Priority page reads a precomputed snapshot
+        types: true,
+        projects: true,
+        networks: true,
+        severities: ["critical", "high", "medium", "low"] as Severity[],
       };
     case "executive":
     default:

@@ -4,7 +4,7 @@ import clsx from "clsx";
 import Link from "next/link";
 import { FilterBar } from "./FilterBar";
 
-type ActivePage = "executive" | "operations" | "seo" | "root";
+type ActivePage = "executive" | "operations" | "seo" | "root" | "priority";
 
 export function AppShell({
   asOf,
@@ -22,6 +22,7 @@ export function AppShell({
     <div className="min-h-screen flex">
       {/* Side rail — Cài đặt removed (was a dead href="#") */}
       <aside className="w-[72px] bg-white border-r border-gborder flex flex-col items-center py-3 gap-2 shrink-0">
+        <RailIcon icon="flag" label="Ưu tiên triển khai" href="/priority" active={activePage === "priority"} />
         <RailIcon icon="dashboard" label="Tổng quan" href="/" active={activePage === "executive"} />
         <RailIcon icon="manage_search" label="Vận hành" href="/operations" active={activePage === "operations"} />
         <RailIcon icon="task_alt" label="Việc của tôi" href="/seo" active={activePage === "seo"} />
@@ -80,6 +81,7 @@ function RoleSwitcher({ activePage }: { activePage: ActivePage }) {
     operations: "Manager",
     seo: "SEO",
     root: "Manager",
+    priority: "Manager",
   };
   const active = PAGE_ROLES[activePage];
   return (

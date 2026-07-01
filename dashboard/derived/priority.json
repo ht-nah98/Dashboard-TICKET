@@ -1,0 +1,1540 @@
+{
+  "generated_at": "2026-06-30T07:01:34.658Z",
+  "as_of": "2026-05-23T02:00:00.000Z",
+  "kpis": [
+    {
+      "key": "open",
+      "label": "Ticket đang mở",
+      "value": 178,
+      "unit": "count",
+      "delta_pct": -3.3,
+      "delta_label": "so với 7 ngày trước",
+      "sparkline": [
+        178,
+        127.14,
+        101.71,
+        127.14,
+        127.14,
+        50.86,
+        101.71,
+        152.57,
+        101.71,
+        101.71,
+        127.14,
+        178,
+        76.29,
+        0
+      ],
+      "tone": "warn"
+    },
+    {
+      "key": "critical",
+      "label": "Critical đang mở",
+      "value": 99,
+      "unit": "count",
+      "delta_pct": 8.8,
+      "delta_label": "GBQ/DIE/urgent · đang mở",
+      "sparkline": [
+        99,
+        70.71,
+        56.57,
+        70.71,
+        70.71,
+        28.29,
+        56.57,
+        84.86,
+        56.57,
+        56.57,
+        70.71,
+        99,
+        42.43,
+        0
+      ],
+      "tone": "bad"
+    },
+    {
+      "key": "breached",
+      "label": "Trễ SLA",
+      "value": 173,
+      "unit": "count",
+      "delta_pct": 10.9,
+      "delta_label": "đang mở · theo từng bước",
+      "sparkline": [
+        173,
+        123.57,
+        98.86,
+        123.57,
+        123.57,
+        49.43,
+        98.86,
+        148.29,
+        98.86,
+        98.86,
+        123.57,
+        173,
+        74.14,
+        0
+      ],
+      "tone": "bad"
+    },
+    {
+      "key": "success_rate",
+      "label": "Tỷ lệ thành công (tháng)",
+      "value": 94.2,
+      "unit": "pct",
+      "delta_pct": -1.5,
+      "delta_label": "so với tháng trước",
+      "sparkline": [
+        94.2,
+        67.29,
+        53.83,
+        67.29,
+        67.29,
+        26.91,
+        53.83,
+        80.74,
+        53.83,
+        53.83,
+        67.29,
+        94.2,
+        40.37,
+        0
+      ],
+      "tone": "good"
+    },
+    {
+      "key": "mttr",
+      "label": "Thời gian xử lý trung vị",
+      "value": 88,
+      "unit": "hours",
+      "delta_pct": 9.6,
+      "delta_label": "so với 30 ngày trước",
+      "sparkline": [
+        88,
+        62.86,
+        50.29,
+        62.86,
+        62.86,
+        25.14,
+        50.29,
+        75.43,
+        50.29,
+        50.29,
+        62.86,
+        88,
+        37.71,
+        0
+      ],
+      "tone": "warn"
+    }
+  ],
+  "volume_trend": [
+    {
+      "week": "2026-03-02",
+      "CLAIM": 19,
+      "WHITELIST": 11,
+      "GBQ": 4,
+      "GCD": 3,
+      "TKT_BKT": 1,
+      "DIE": 2
+    },
+    {
+      "week": "2026-03-09",
+      "CLAIM": 31,
+      "WHITELIST": 6,
+      "GBQ": 2,
+      "GCD": 5,
+      "TKT_BKT": 1,
+      "DIE": 1
+    },
+    {
+      "week": "2026-03-16",
+      "CLAIM": 14,
+      "WHITELIST": 2,
+      "GBQ": 7,
+      "GCD": 3,
+      "TKT_BKT": 4,
+      "DIE": 1
+    },
+    {
+      "week": "2026-03-23",
+      "CLAIM": 22,
+      "WHITELIST": 9,
+      "GBQ": 4,
+      "GCD": 3,
+      "TKT_BKT": 3,
+      "DIE": 0
+    },
+    {
+      "week": "2026-03-30",
+      "CLAIM": 22,
+      "WHITELIST": 9,
+      "GBQ": 3,
+      "GCD": 4,
+      "TKT_BKT": 3,
+      "DIE": 1
+    },
+    {
+      "week": "2026-04-06",
+      "CLAIM": 16,
+      "WHITELIST": 7,
+      "GBQ": 5,
+      "GCD": 4,
+      "TKT_BKT": 2,
+      "DIE": 0
+    },
+    {
+      "week": "2026-04-13",
+      "CLAIM": 30,
+      "WHITELIST": 9,
+      "GBQ": 2,
+      "GCD": 2,
+      "TKT_BKT": 2,
+      "DIE": 1
+    },
+    {
+      "week": "2026-04-20",
+      "CLAIM": 27,
+      "WHITELIST": 8,
+      "GBQ": 4,
+      "GCD": 3,
+      "TKT_BKT": 1,
+      "DIE": 1
+    },
+    {
+      "week": "2026-04-27",
+      "CLAIM": 20,
+      "WHITELIST": 7,
+      "GBQ": 4,
+      "GCD": 3,
+      "TKT_BKT": 0,
+      "DIE": 2
+    },
+    {
+      "week": "2026-05-04",
+      "CLAIM": 24,
+      "WHITELIST": 9,
+      "GBQ": 5,
+      "GCD": 0,
+      "TKT_BKT": 3,
+      "DIE": 0
+    },
+    {
+      "week": "2026-05-11",
+      "CLAIM": 13,
+      "WHITELIST": 10,
+      "GBQ": 2,
+      "GCD": 5,
+      "TKT_BKT": 1,
+      "DIE": 0
+    },
+    {
+      "week": "2026-05-18",
+      "CLAIM": 12,
+      "WHITELIST": 6,
+      "GBQ": 1,
+      "GCD": 2,
+      "TKT_BKT": 2,
+      "DIE": 0
+    }
+  ],
+  "outcome_trend": [
+    {
+      "week": "2026-03-02",
+      "completed": 25,
+      "failed": 0,
+      "open": 15,
+      "success_rate": 100
+    },
+    {
+      "week": "2026-03-09",
+      "completed": 26,
+      "failed": 2,
+      "open": 18,
+      "success_rate": 92.9
+    },
+    {
+      "week": "2026-03-16",
+      "completed": 22,
+      "failed": 1,
+      "open": 8,
+      "success_rate": 95.7
+    },
+    {
+      "week": "2026-03-23",
+      "completed": 24,
+      "failed": 1,
+      "open": 16,
+      "success_rate": 96
+    },
+    {
+      "week": "2026-03-30",
+      "completed": 28,
+      "failed": 2,
+      "open": 12,
+      "success_rate": 93.3
+    },
+    {
+      "week": "2026-04-06",
+      "completed": 17,
+      "failed": 0,
+      "open": 17,
+      "success_rate": 100
+    },
+    {
+      "week": "2026-04-13",
+      "completed": 31,
+      "failed": 2,
+      "open": 13,
+      "success_rate": 93.9
+    },
+    {
+      "week": "2026-04-20",
+      "completed": 27,
+      "failed": 3,
+      "open": 14,
+      "success_rate": 90
+    },
+    {
+      "week": "2026-04-27",
+      "completed": 19,
+      "failed": 2,
+      "open": 15,
+      "success_rate": 90.5
+    },
+    {
+      "week": "2026-05-04",
+      "completed": 26,
+      "failed": 1,
+      "open": 14,
+      "success_rate": 96.3
+    },
+    {
+      "week": "2026-05-11",
+      "completed": 18,
+      "failed": 2,
+      "open": 11,
+      "success_rate": 90
+    },
+    {
+      "week": "2026-05-18",
+      "completed": 15,
+      "failed": 0,
+      "open": 8,
+      "success_rate": 100
+    }
+  ],
+  "channels_top": [
+    {
+      "channel_id": "CH-0043",
+      "channel_name": "Kids Pro 43",
+      "project_name": "Âm Nhạc Việt",
+      "open_count": 6,
+      "critical_count": 4,
+      "days_unresolved": 87,
+      "whitelist_status": "Tự do",
+      "no_whitelist_flag": false,
+      "severity": "critical",
+      "priority_score": 33997.4
+    },
+    {
+      "channel_id": "CH-0050",
+      "channel_name": "Comedy Pro 50",
+      "project_name": "Giải Trí 24h",
+      "open_count": 4,
+      "critical_count": 2,
+      "days_unresolved": 90,
+      "whitelist_status": "Thuộc net",
+      "no_whitelist_flag": false,
+      "severity": "critical",
+      "priority_score": 31484.3
+    },
+    {
+      "channel_id": "CH-0007",
+      "channel_name": "Edu Studio 7",
+      "project_name": "Phim Hoạt Hình",
+      "open_count": 2,
+      "critical_count": 0,
+      "days_unresolved": 90,
+      "whitelist_status": "Dừng phát triển",
+      "no_whitelist_flag": false,
+      "severity": "low",
+      "priority_score": 29193.1
+    },
+    {
+      "channel_id": "CH-0039",
+      "channel_name": "Edu Việt 39",
+      "project_name": "Vlog Cuộc Sống",
+      "open_count": 7,
+      "critical_count": 4,
+      "days_unresolved": 68,
+      "whitelist_status": "Thuộc net",
+      "no_whitelist_flag": false,
+      "severity": "critical",
+      "priority_score": 21571.8
+    },
+    {
+      "channel_id": "CH-0020",
+      "channel_name": "Kids 24h 20",
+      "project_name": "Phim Hoạt Hình",
+      "open_count": 6,
+      "critical_count": 4,
+      "days_unresolved": 88,
+      "whitelist_status": "Thuộc net",
+      "no_whitelist_flag": false,
+      "severity": "critical",
+      "priority_score": 20128.5
+    },
+    {
+      "channel_id": "CH-0016",
+      "channel_name": "Tech Official 16",
+      "project_name": "Giải Trí 24h",
+      "open_count": 4,
+      "critical_count": 0,
+      "days_unresolved": 87,
+      "whitelist_status": "Thuộc net",
+      "no_whitelist_flag": false,
+      "severity": "medium",
+      "priority_score": 19980
+    },
+    {
+      "channel_id": "CH-0031",
+      "channel_name": "Music Official 31",
+      "project_name": "Phim Hoạt Hình",
+      "open_count": 5,
+      "critical_count": 4,
+      "days_unresolved": 85,
+      "whitelist_status": "Thuộc net",
+      "no_whitelist_flag": false,
+      "severity": "critical",
+      "priority_score": 15913.2
+    },
+    {
+      "channel_id": "CH-0018",
+      "channel_name": "Cook Network 18",
+      "project_name": "Giải Trí 24h",
+      "open_count": 2,
+      "critical_count": 0,
+      "days_unresolved": 58,
+      "whitelist_status": "Thuộc net",
+      "no_whitelist_flag": false,
+      "severity": "low",
+      "priority_score": 12789.1
+    },
+    {
+      "channel_id": "CH-0033",
+      "channel_name": "Vlog Hub 33",
+      "project_name": "Vlog Cuộc Sống",
+      "open_count": 1,
+      "critical_count": 0,
+      "days_unresolved": 51,
+      "whitelist_status": "Thuộc net",
+      "no_whitelist_flag": false,
+      "severity": "low",
+      "priority_score": 9760.9
+    },
+    {
+      "channel_id": "CH-0040",
+      "channel_name": "Kids Official 40",
+      "project_name": "Học Tập Online",
+      "open_count": 5,
+      "critical_count": 4,
+      "days_unresolved": 69,
+      "whitelist_status": "Thuộc net",
+      "no_whitelist_flag": false,
+      "severity": "critical",
+      "priority_score": 9511
+    }
+  ],
+  "aging": [
+    {
+      "bucket": "0-4h",
+      "count": 0,
+      "tone": "good"
+    },
+    {
+      "bucket": "4-24h",
+      "count": 1,
+      "tone": "good"
+    },
+    {
+      "bucket": "1-3d",
+      "count": 3,
+      "tone": "warn"
+    },
+    {
+      "bucket": "3-7d",
+      "count": 5,
+      "tone": "warn"
+    },
+    {
+      "bucket": "7d+",
+      "count": 169,
+      "tone": "bad"
+    }
+  ],
+  "funnel": [
+    {
+      "step": "Lưu nháp",
+      "count": 8,
+      "median_dwell_hours": 9.8
+    },
+    {
+      "step": "Đã gửi",
+      "count": 53,
+      "median_dwell_hours": 9.4
+    },
+    {
+      "step": "Đang xử lý",
+      "count": 96,
+      "median_dwell_hours": 10.7
+    },
+    {
+      "step": "Tạm dừng",
+      "count": 21,
+      "median_dwell_hours": 0
+    },
+    {
+      "step": "Hoàn thành",
+      "count": 321,
+      "median_dwell_hours": 0
+    }
+  ],
+  "sla": {
+    "within": 5,
+    "near": 0,
+    "breached": 173,
+    "pct_within": 2.8,
+    "breach_by_owner": [
+      {
+        "owner": "VHYT",
+        "count": 113
+      },
+      {
+        "owner": "SEO",
+        "count": 57
+      },
+      {
+        "owner": "External",
+        "count": 3
+      }
+    ]
+  },
+  "breach_by_role": [
+    {
+      "role": "VHYT",
+      "count": 113
+    },
+    {
+      "role": "SEO",
+      "count": 57
+    },
+    {
+      "role": "External",
+      "count": 3
+    }
+  ],
+  "assignee_workload": [
+    {
+      "user_id": "USR-0008",
+      "user_name": "Đỗ Minh Hoa",
+      "role": "VHYT",
+      "open": 19,
+      "critical": 16,
+      "breached": 19,
+      "load_pct": 100
+    },
+    {
+      "user_id": "USR-0009",
+      "user_name": "Trần Ngọc Hiếu",
+      "role": "VHYT",
+      "open": 18,
+      "critical": 13,
+      "breached": 17,
+      "load_pct": 95
+    },
+    {
+      "user_id": "USR-0007",
+      "user_name": "Hồ Kim Hoa",
+      "role": "VHYT",
+      "open": 13,
+      "critical": 7,
+      "breached": 13,
+      "load_pct": 68
+    },
+    {
+      "user_id": "USR-0010",
+      "user_name": "Mai Ngọc Hà",
+      "role": "VHYT",
+      "open": 11,
+      "critical": 10,
+      "breached": 11,
+      "load_pct": 58
+    },
+    {
+      "user_id": "USR-0014",
+      "user_name": "Mai Anh Nga",
+      "role": "VHWL",
+      "open": 10,
+      "critical": 0,
+      "breached": 10,
+      "load_pct": 53
+    },
+    {
+      "user_id": "USR-0006",
+      "user_name": "Hồ Hữu Long",
+      "role": "VHYT",
+      "open": 8,
+      "critical": 2,
+      "breached": 8,
+      "load_pct": 42
+    },
+    {
+      "user_id": "USR-0005",
+      "user_name": "Lý Hồng Phúc",
+      "role": "VHYT",
+      "open": 7,
+      "critical": 5,
+      "breached": 7,
+      "load_pct": 37
+    },
+    {
+      "user_id": "USR-0015",
+      "user_name": "Bùi Quang Hoa",
+      "role": "VHWL",
+      "open": 6,
+      "critical": 0,
+      "breached": 6,
+      "load_pct": 32
+    },
+    {
+      "user_id": "USR-0016",
+      "user_name": "Vũ Tuấn Mai",
+      "role": "VHWL",
+      "open": 4,
+      "critical": 0,
+      "breached": 4,
+      "load_pct": 21
+    }
+  ],
+  "near_breach": [
+    {
+      "id": "T-0449",
+      "code": "GCD-a9bwr6zu-260221-01",
+      "type": "GCD",
+      "channel_id": "CH-0050",
+      "channel_name": "Comedy Pro 50",
+      "project_id": "PRJ-0002",
+      "network_id": "NET-0004",
+      "created_at": "2026-02-21T17:23:39.149Z",
+      "owner_name": "Phạm Minh Long",
+      "waiting_side": "SEO thực hiện kháng · SEO",
+      "hours_to_breach": -2118.4,
+      "severity": "bad"
+    },
+    {
+      "id": "T-0450",
+      "code": "GCD-30dfr68c-260221-01",
+      "type": "GCD",
+      "channel_id": "CH-0007",
+      "channel_name": "Edu Studio 7",
+      "project_id": "PRJ-0004",
+      "network_id": "NET-0002",
+      "created_at": "2026-02-21T23:16:42.810Z",
+      "owner_name": "Lý Hoài Trung",
+      "waiting_side": "SEO thực hiện kháng · SEO",
+      "hours_to_breach": -2103.5,
+      "severity": "bad"
+    },
+    {
+      "id": "T-0431",
+      "code": "GCD-y9ftvd0d-260306-01",
+      "type": "GCD",
+      "channel_id": "CH-0043",
+      "channel_name": "Kids Pro 43",
+      "project_id": "PRJ-0001",
+      "network_id": "NET-0004",
+      "created_at": "2026-03-06T05:56:41.904Z",
+      "owner_name": "Mai Anh Linh",
+      "waiting_side": "SEO thực hiện kháng · SEO",
+      "hours_to_breach": -1825.9,
+      "severity": "bad"
+    },
+    {
+      "id": "T-0434",
+      "code": "GCD-14cba8ez-260315-01",
+      "type": "GCD",
+      "channel_id": "CH-0039",
+      "channel_name": "Edu Việt 39",
+      "project_id": "PRJ-0003",
+      "network_id": "NET-0004",
+      "created_at": "2026-03-15T10:38:13.252Z",
+      "owner_name": "Hoàng Thanh Phúc",
+      "waiting_side": "SEO thực hiện kháng · SEO",
+      "hours_to_breach": -1567.9,
+      "severity": "bad"
+    },
+    {
+      "id": "T-0427",
+      "code": "GCD-z5cwssjc-260319-01",
+      "type": "GCD",
+      "channel_id": "CH-0016",
+      "channel_name": "Tech Official 16",
+      "project_id": "PRJ-0002",
+      "network_id": "NET-0002",
+      "created_at": "2026-03-19T01:24:36.960Z",
+      "owner_name": "Đặng Minh Quân",
+      "waiting_side": "SEO thực hiện kháng · SEO",
+      "hours_to_breach": -1505,
+      "severity": "bad"
+    },
+    {
+      "id": "T-0459",
+      "code": "GCD-r8swop66-260325-01",
+      "type": "GCD",
+      "channel_id": "CH-0018",
+      "channel_name": "Cook Network 18",
+      "project_id": "PRJ-0002",
+      "network_id": "NET-0004",
+      "created_at": "2026-03-25T11:54:12.256Z",
+      "owner_name": "Đặng Minh Quân",
+      "waiting_side": "SEO thực hiện kháng · SEO",
+      "hours_to_breach": -1351.1,
+      "severity": "bad"
+    },
+    {
+      "id": "T-0437",
+      "code": "GCD-oxcljegz-260401-01",
+      "type": "GCD",
+      "channel_id": "CH-0033",
+      "channel_name": "Vlog Hub 33",
+      "project_id": "PRJ-0003",
+      "network_id": "NET-0003",
+      "created_at": "2026-04-01T07:21:10.906Z",
+      "owner_name": "Lý Minh Hiếu",
+      "waiting_side": "SEO thực hiện kháng · SEO",
+      "hours_to_breach": -1177,
+      "severity": "bad"
+    },
+    {
+      "id": "T-0438",
+      "code": "GCD-w66om4ja-260406-01",
+      "type": "GCD",
+      "channel_id": "CH-0031",
+      "channel_name": "Music Official 31",
+      "project_id": "PRJ-0004",
+      "network_id": "NET-0004",
+      "created_at": "2026-04-06T10:10:26.652Z",
+      "owner_name": "Hoàng Thanh Phúc",
+      "waiting_side": "SEO thực hiện kháng · SEO",
+      "hours_to_breach": -1062.2,
+      "severity": "bad"
+    },
+    {
+      "id": "T-0445",
+      "code": "GCD-clhu4ft7-260423-01",
+      "type": "GCD",
+      "channel_id": "CH-0010",
+      "channel_name": "Vlog Việt 10",
+      "project_id": "PRJ-0003",
+      "network_id": "NET-0002",
+      "created_at": "2026-04-23T08:10:38.530Z",
+      "owner_name": "Vũ Bảo Lan",
+      "waiting_side": "SEO thực hiện kháng · SEO",
+      "hours_to_breach": -643.7,
+      "severity": "bad"
+    },
+    {
+      "id": "T-0349",
+      "code": "WL-UCUYM0Z7-260302-01",
+      "type": "WHITELIST",
+      "channel_id": "CH-0028",
+      "channel_name": "Lifestyle Official 28",
+      "project_id": "PRJ-0002",
+      "network_id": "NET-0004",
+      "created_at": "2026-03-02T06:47:21.582Z",
+      "owner_name": "Phạm Anh Mai",
+      "waiting_side": "Chờ SEO xác nhận · SEO",
+      "hours_to_breach": -1875.7,
+      "severity": "bad"
+    },
+    {
+      "id": "T-0362",
+      "code": "WL-UChUsHJ3-260301-01",
+      "type": "WHITELIST",
+      "channel_id": "CH-0044",
+      "channel_name": "Tech Pro 44",
+      "project_id": "PRJ-0004",
+      "network_id": "NET-0002",
+      "created_at": "2026-03-01T17:48:30.116Z",
+      "owner_name": "Đặng Minh Quân",
+      "waiting_side": "Chờ SEO xác nhận · SEO",
+      "hours_to_breach": -1873.4,
+      "severity": "bad"
+    },
+    {
+      "id": "T-0303",
+      "code": "WL-UChUlyA9-260304-01",
+      "type": "WHITELIST",
+      "channel_id": "CH-0020",
+      "channel_name": "Kids 24h 20",
+      "project_id": "PRJ-0004",
+      "network_id": "NET-0003",
+      "created_at": "2026-03-04T06:57:36.820Z",
+      "owner_name": "Lý Minh Hiếu",
+      "waiting_side": "Chờ SEO xác nhận · SEO",
+      "hours_to_breach": -1849.7,
+      "severity": "bad"
+    }
+  ],
+  "escalation_board": [
+    {
+      "id": "T-0449",
+      "code": "GCD-a9bwr6zu-260221-01",
+      "type": "GCD",
+      "channel_id": "CH-0050",
+      "channel_name": "Comedy Pro 50",
+      "project_id": "PRJ-0002",
+      "network_id": "NET-0004",
+      "created_at": "2026-02-21T17:23:39.149Z",
+      "owner_name": "Phạm Minh Long",
+      "waiting_side": "SEO thực hiện kháng · SEO",
+      "days_open": 90,
+      "breach_risk": "breached",
+      "severity": "bad",
+      "priority_score": 29368.4
+    },
+    {
+      "id": "T-0450",
+      "code": "GCD-30dfr68c-260221-01",
+      "type": "GCD",
+      "channel_id": "CH-0007",
+      "channel_name": "Edu Studio 7",
+      "project_id": "PRJ-0004",
+      "network_id": "NET-0002",
+      "created_at": "2026-02-21T23:16:42.810Z",
+      "owner_name": "Lý Hoài Trung",
+      "waiting_side": "SEO thực hiện kháng · SEO",
+      "days_open": 90,
+      "breach_risk": "breached",
+      "severity": "bad",
+      "priority_score": 29162.1
+    },
+    {
+      "id": "T-0431",
+      "code": "GCD-y9ftvd0d-260306-01",
+      "type": "GCD",
+      "channel_id": "CH-0043",
+      "channel_name": "Kids Pro 43",
+      "project_id": "PRJ-0001",
+      "network_id": "NET-0004",
+      "created_at": "2026-03-06T05:56:41.904Z",
+      "owner_name": "Mai Anh Linh",
+      "waiting_side": "SEO thực hiện kháng · SEO",
+      "days_open": 77,
+      "breach_risk": "breached",
+      "severity": "bad",
+      "priority_score": 21922.8
+    },
+    {
+      "id": "T-0434",
+      "code": "GCD-14cba8ez-260315-01",
+      "type": "GCD",
+      "channel_id": "CH-0039",
+      "channel_name": "Edu Việt 39",
+      "project_id": "PRJ-0003",
+      "network_id": "NET-0004",
+      "created_at": "2026-03-15T10:38:13.252Z",
+      "owner_name": "Hoàng Thanh Phúc",
+      "waiting_side": "SEO thực hiện kháng · SEO",
+      "days_open": 68,
+      "breach_risk": "breached",
+      "severity": "bad",
+      "priority_score": 16809.2
+    },
+    {
+      "id": "T-0427",
+      "code": "GCD-z5cwssjc-260319-01",
+      "type": "GCD",
+      "channel_id": "CH-0016",
+      "channel_name": "Tech Official 16",
+      "project_id": "PRJ-0002",
+      "network_id": "NET-0002",
+      "created_at": "2026-03-19T01:24:36.960Z",
+      "owner_name": "Đặng Minh Quân",
+      "waiting_side": "SEO thực hiện kháng · SEO",
+      "days_open": 65,
+      "breach_risk": "breached",
+      "severity": "bad",
+      "priority_score": 15490.2
+    },
+    {
+      "id": "T-0459",
+      "code": "GCD-r8swop66-260325-01",
+      "type": "GCD",
+      "channel_id": "CH-0018",
+      "channel_name": "Cook Network 18",
+      "project_id": "PRJ-0002",
+      "network_id": "NET-0004",
+      "created_at": "2026-03-25T11:54:12.256Z",
+      "owner_name": "Đặng Minh Quân",
+      "waiting_side": "SEO thực hiện kháng · SEO",
+      "days_open": 58,
+      "breach_risk": "breached",
+      "severity": "bad",
+      "priority_score": 12555.1
+    },
+    {
+      "id": "T-0437",
+      "code": "GCD-oxcljegz-260401-01",
+      "type": "GCD",
+      "channel_id": "CH-0033",
+      "channel_name": "Vlog Hub 33",
+      "project_id": "PRJ-0003",
+      "network_id": "NET-0003",
+      "created_at": "2026-04-01T07:21:10.906Z",
+      "owner_name": "Lý Minh Hiếu",
+      "waiting_side": "SEO thực hiện kháng · SEO",
+      "days_open": 51,
+      "breach_risk": "breached",
+      "severity": "bad",
+      "priority_score": 9760.9
+    },
+    {
+      "id": "T-0438",
+      "code": "GCD-w66om4ja-260406-01",
+      "type": "GCD",
+      "channel_id": "CH-0031",
+      "channel_name": "Music Official 31",
+      "project_id": "PRJ-0004",
+      "network_id": "NET-0004",
+      "created_at": "2026-04-06T10:10:26.652Z",
+      "owner_name": "Hoàng Thanh Phúc",
+      "waiting_side": "SEO thực hiện kháng · SEO",
+      "days_open": 46,
+      "breach_risk": "breached",
+      "severity": "bad",
+      "priority_score": 8049.9
+    },
+    {
+      "id": "T-0378",
+      "code": "GBQ-bp6r5p0w-260223-01",
+      "type": "GBQ",
+      "channel_id": "CH-0020",
+      "channel_name": "Kids 24h 20",
+      "project_id": "PRJ-0004",
+      "network_id": "NET-0003",
+      "created_at": "2026-02-23T22:00:17.483Z",
+      "owner_name": "Lý Minh Hiếu",
+      "waiting_side": "VHYT xử lý · VHYT",
+      "days_open": 88,
+      "breach_risk": "breached",
+      "severity": "bad",
+      "priority_score": 7043
+    },
+    {
+      "id": "T-0405",
+      "code": "GBQ-jclr5i1p-260304-01",
+      "type": "GBQ",
+      "channel_id": "CH-0043",
+      "channel_name": "Kids Pro 43",
+      "project_id": "PRJ-0001",
+      "network_id": "NET-0004",
+      "created_at": "2026-03-04T16:47:46.315Z",
+      "owner_name": "Mai Anh Linh",
+      "waiting_side": "VHYT xử lý · VHYT",
+      "days_open": 79,
+      "breach_risk": "breached",
+      "severity": "bad",
+      "priority_score": 5683.7
+    },
+    {
+      "id": "T-0206",
+      "code": "TC-w66om4ja-260226-01",
+      "type": "CLAIM",
+      "channel_id": "CH-0031",
+      "channel_name": "Music Official 31",
+      "project_id": "PRJ-0004",
+      "network_id": "NET-0004",
+      "created_at": "2026-02-26T03:37:52.943Z",
+      "owner_name": "Hoàng Thanh Phúc",
+      "waiting_side": "VHYT xử lý · VHYT",
+      "days_open": 85,
+      "breach_risk": "breached",
+      "severity": "bad",
+      "priority_score": 5513
+    },
+    {
+      "id": "T-0362",
+      "code": "WL-UChUsHJ3-260301-01",
+      "type": "WHITELIST",
+      "channel_id": "CH-0044",
+      "channel_name": "Tech Pro 44",
+      "project_id": "PRJ-0004",
+      "network_id": "NET-0002",
+      "created_at": "2026-03-01T17:48:30.116Z",
+      "owner_name": "Đặng Minh Quân",
+      "waiting_side": "Chờ SEO xác nhận · SEO",
+      "days_open": 82,
+      "breach_risk": "breached",
+      "severity": "bad",
+      "priority_score": 4485.1
+    },
+    {
+      "id": "T-0349",
+      "code": "WL-UCUYM0Z7-260302-01",
+      "type": "WHITELIST",
+      "channel_id": "CH-0028",
+      "channel_name": "Lifestyle Official 28",
+      "project_id": "PRJ-0002",
+      "network_id": "NET-0004",
+      "created_at": "2026-03-02T06:47:21.582Z",
+      "owner_name": "Phạm Anh Mai",
+      "waiting_side": "Chờ SEO xác nhận · SEO",
+      "days_open": 81,
+      "breach_risk": "breached",
+      "severity": "bad",
+      "priority_score": 4440.1
+    },
+    {
+      "id": "T-0303",
+      "code": "WL-UChUlyA9-260304-01",
+      "type": "WHITELIST",
+      "channel_id": "CH-0020",
+      "channel_name": "Kids 24h 20",
+      "project_id": "PRJ-0004",
+      "network_id": "NET-0003",
+      "created_at": "2026-03-04T06:57:36.820Z",
+      "owner_name": "Lý Minh Hiếu",
+      "waiting_side": "Chờ SEO xác nhận · SEO",
+      "days_open": 79,
+      "breach_risk": "breached",
+      "severity": "bad",
+      "priority_score": 4279.3
+    },
+    {
+      "id": "T-0020",
+      "code": "TC-bp6r5p0w-260309-01",
+      "type": "CLAIM",
+      "channel_id": "CH-0020",
+      "channel_name": "Kids 24h 20",
+      "project_id": "PRJ-0004",
+      "network_id": "NET-0003",
+      "created_at": "2026-03-09T01:40:31.132Z",
+      "owner_name": "Lý Minh Hiếu",
+      "waiting_side": "VHYT xử lý · VHYT",
+      "days_open": 75,
+      "breach_risk": "breached",
+      "severity": "bad",
+      "priority_score": 4252.2
+    }
+  ],
+  "analysis": {
+    "resource_breakdown": {
+      "summary": [
+        {
+          "resource": "audio",
+          "total": 171,
+          "open": 58,
+          "completed": 109,
+          "failed": 4,
+          "fail_rate": 3.5,
+          "revenue_at_risk": 0,
+          "by_subtype": [
+            {
+              "subtype": "claim_dung",
+              "count": 85
+            },
+            {
+              "subtype": "claim_lao",
+              "count": 55
+            },
+            {
+              "subtype": "gay_dung",
+              "count": 16
+            },
+            {
+              "subtype": "gay_lao",
+              "count": 15
+            }
+          ]
+        },
+        {
+          "resource": "image",
+          "total": 135,
+          "open": 55,
+          "completed": 75,
+          "failed": 5,
+          "fail_rate": 6.3,
+          "revenue_at_risk": 0,
+          "by_subtype": [
+            {
+              "subtype": "claim_dung",
+              "count": 91
+            },
+            {
+              "subtype": "claim_lao",
+              "count": 44
+            }
+          ]
+        },
+        {
+          "resource": "footage",
+          "total": 14,
+          "open": 3,
+          "completed": 10,
+          "failed": 1,
+          "fail_rate": 9.1,
+          "revenue_at_risk": 0,
+          "by_subtype": [
+            {
+              "subtype": "gay_dung",
+              "count": 11
+            },
+            {
+              "subtype": "gay_lao",
+              "count": 3
+            }
+          ]
+        },
+        {
+          "resource": "thumb",
+          "total": 5,
+          "open": 3,
+          "completed": 2,
+          "failed": 0,
+          "fail_rate": 0,
+          "revenue_at_risk": 0,
+          "by_subtype": [
+            {
+              "subtype": "gay_dung",
+              "count": 3
+            },
+            {
+              "subtype": "gay_lao",
+              "count": 2
+            }
+          ]
+        }
+      ],
+      "trend": [
+        {
+          "week": "2026-03-02",
+          "image": 8,
+          "audio": 13,
+          "footage": 1,
+          "thumb": 1
+        },
+        {
+          "week": "2026-03-09",
+          "image": 13,
+          "audio": 18,
+          "footage": 2,
+          "thumb": 0
+        },
+        {
+          "week": "2026-03-16",
+          "image": 5,
+          "audio": 14,
+          "footage": 2,
+          "thumb": 0
+        },
+        {
+          "week": "2026-03-23",
+          "image": 14,
+          "audio": 11,
+          "footage": 1,
+          "thumb": 0
+        },
+        {
+          "week": "2026-03-30",
+          "image": 10,
+          "audio": 13,
+          "footage": 1,
+          "thumb": 1
+        },
+        {
+          "week": "2026-04-06",
+          "image": 6,
+          "audio": 13,
+          "footage": 0,
+          "thumb": 2
+        },
+        {
+          "week": "2026-04-13",
+          "image": 14,
+          "audio": 17,
+          "footage": 1,
+          "thumb": 0
+        },
+        {
+          "week": "2026-04-20",
+          "image": 12,
+          "audio": 17,
+          "footage": 2,
+          "thumb": 0
+        },
+        {
+          "week": "2026-04-27",
+          "image": 13,
+          "audio": 10,
+          "footage": 0,
+          "thumb": 1
+        },
+        {
+          "week": "2026-05-04",
+          "image": 14,
+          "audio": 13,
+          "footage": 2,
+          "thumb": 0
+        },
+        {
+          "week": "2026-05-11",
+          "image": 6,
+          "audio": 9,
+          "footage": 0,
+          "thumb": 0
+        },
+        {
+          "week": "2026-05-18",
+          "image": 7,
+          "audio": 6,
+          "footage": 0,
+          "thumb": 0
+        }
+      ]
+    },
+    "repeat_offender_channels": [
+      {
+        "channel_id": "CH-0027",
+        "channel_name": "Comedy Hub 27",
+        "project_name": "Học Tập Online",
+        "total_tickets": 16,
+        "open_tickets": 6,
+        "failed_tickets": 0,
+        "claim_count": 11,
+        "gbq_count": 1,
+        "revenue_at_risk": 0
+      },
+      {
+        "channel_id": "CH-0013",
+        "channel_name": "Comedy Official 13",
+        "project_name": "Giải Trí 24h",
+        "total_tickets": 16,
+        "open_tickets": 4,
+        "failed_tickets": 0,
+        "claim_count": 9,
+        "gbq_count": 1,
+        "revenue_at_risk": 0
+      },
+      {
+        "channel_id": "CH-0015",
+        "channel_name": "News Studio 15",
+        "project_name": "Phim Hoạt Hình",
+        "total_tickets": 16,
+        "open_tickets": 4,
+        "failed_tickets": 1,
+        "claim_count": 9,
+        "gbq_count": 1,
+        "revenue_at_risk": 0
+      },
+      {
+        "channel_id": "CH-0039",
+        "channel_name": "Edu Việt 39",
+        "project_name": "Vlog Cuộc Sống",
+        "total_tickets": 15,
+        "open_tickets": 7,
+        "failed_tickets": 2,
+        "claim_count": 6,
+        "gbq_count": 3,
+        "revenue_at_risk": 0
+      },
+      {
+        "channel_id": "CH-0034",
+        "channel_name": "Tech Official 34",
+        "project_name": "Phim Hoạt Hình",
+        "total_tickets": 15,
+        "open_tickets": 4,
+        "failed_tickets": 1,
+        "claim_count": 9,
+        "gbq_count": 1,
+        "revenue_at_risk": 0
+      },
+      {
+        "channel_id": "CH-0030",
+        "channel_name": "Comedy Hub 30",
+        "project_name": "Âm Nhạc Việt",
+        "total_tickets": 15,
+        "open_tickets": 7,
+        "failed_tickets": 0,
+        "claim_count": 10,
+        "gbq_count": 2,
+        "revenue_at_risk": 0
+      },
+      {
+        "channel_id": "CH-0002",
+        "channel_name": "News Hub 2",
+        "project_name": "Âm Nhạc Việt",
+        "total_tickets": 15,
+        "open_tickets": 5,
+        "failed_tickets": 2,
+        "claim_count": 7,
+        "gbq_count": 2,
+        "revenue_at_risk": 0
+      },
+      {
+        "channel_id": "CH-0004",
+        "channel_name": "Gaming Network 4",
+        "project_name": "Vlog Cuộc Sống",
+        "total_tickets": 14,
+        "open_tickets": 5,
+        "failed_tickets": 1,
+        "claim_count": 8,
+        "gbq_count": 1,
+        "revenue_at_risk": 0
+      },
+      {
+        "channel_id": "CH-0048",
+        "channel_name": "Edu Network 48",
+        "project_name": "Âm Nhạc Việt",
+        "total_tickets": 13,
+        "open_tickets": 5,
+        "failed_tickets": 1,
+        "claim_count": 8,
+        "gbq_count": 0,
+        "revenue_at_risk": 0
+      },
+      {
+        "channel_id": "CH-0021",
+        "channel_name": "News Hub 21",
+        "project_name": "Vlog Cuộc Sống",
+        "total_tickets": 13,
+        "open_tickets": 5,
+        "failed_tickets": 0,
+        "claim_count": 7,
+        "gbq_count": 3,
+        "revenue_at_risk": 0
+      }
+    ],
+    "weekly_fail_trend": [
+      {
+        "week": "2026-03-02",
+        "created": 40,
+        "completed": 22,
+        "failed": 0,
+        "return_count": 13
+      },
+      {
+        "week": "2026-03-09",
+        "created": 46,
+        "completed": 20,
+        "failed": 2,
+        "return_count": 9
+      },
+      {
+        "week": "2026-03-16",
+        "created": 31,
+        "completed": 26,
+        "failed": 0,
+        "return_count": 8
+      },
+      {
+        "week": "2026-03-23",
+        "created": 41,
+        "completed": 28,
+        "failed": 3,
+        "return_count": 4
+      },
+      {
+        "week": "2026-03-30",
+        "created": 42,
+        "completed": 21,
+        "failed": 1,
+        "return_count": 12
+      },
+      {
+        "week": "2026-04-06",
+        "created": 34,
+        "completed": 22,
+        "failed": 1,
+        "return_count": 9
+      },
+      {
+        "week": "2026-04-13",
+        "created": 46,
+        "completed": 24,
+        "failed": 1,
+        "return_count": 8
+      },
+      {
+        "week": "2026-04-20",
+        "created": 44,
+        "completed": 30,
+        "failed": 1,
+        "return_count": 16
+      },
+      {
+        "week": "2026-04-27",
+        "created": 36,
+        "completed": 27,
+        "failed": 1,
+        "return_count": 6
+      },
+      {
+        "week": "2026-05-04",
+        "created": 41,
+        "completed": 17,
+        "failed": 3,
+        "return_count": 11
+      },
+      {
+        "week": "2026-05-11",
+        "created": 31,
+        "completed": 25,
+        "failed": 0,
+        "return_count": 7
+      },
+      {
+        "week": "2026-05-18",
+        "created": 23,
+        "completed": 20,
+        "failed": 2,
+        "return_count": 9
+      }
+    ],
+    "whitelist_pipeline": {
+      "by_status": [
+        {
+          "status": "Đang WL",
+          "count": 65,
+          "tone": "good"
+        },
+        {
+          "status": "Đã gỡ",
+          "count": 8,
+          "tone": "bad"
+        },
+        {
+          "status": "Đang xử lý",
+          "count": 7,
+          "tone": "warn"
+        }
+      ],
+      "avg_days_to_wl": 4.5,
+      "recent_wl": [
+        {
+          "id": "MWL-0030",
+          "channel_name": "Lifestyle Official 28",
+          "project_name": "Giải Trí 24h",
+          "wl_date": "2026-05-27T05:29:22.590Z",
+          "days_taken": 4.5
+        },
+        {
+          "id": "MWL-0044",
+          "channel_name": "Gaming Network 4",
+          "project_name": "Vlog Cuộc Sống",
+          "wl_date": "2026-05-26T17:07:22.450Z",
+          "days_taken": 4.3
+        },
+        {
+          "id": "MWL-0038",
+          "channel_name": "Edu 24h 29",
+          "project_name": "Học Tập Online",
+          "wl_date": "2026-05-25T05:28:47.213Z",
+          "days_taken": 3.4
+        },
+        {
+          "id": "MWL-0021",
+          "channel_name": "Kids Pro 43",
+          "project_name": "Âm Nhạc Việt",
+          "wl_date": "2026-05-25T03:47:35.907Z",
+          "days_taken": 4.9
+        },
+        {
+          "id": "MWL-0011",
+          "channel_name": "Gaming 24h 23",
+          "project_name": "Âm Nhạc Việt",
+          "wl_date": "2026-05-24T16:14:20.396Z",
+          "days_taken": 4.3
+        },
+        {
+          "id": "MWL-0029",
+          "channel_name": "Comedy Hub 27",
+          "project_name": "Học Tập Online",
+          "wl_date": "2026-05-24T15:37:56.767Z",
+          "days_taken": 3.2
+        },
+        {
+          "id": "MWL-0045",
+          "channel_name": "Comedy Hub 30",
+          "project_name": "Âm Nhạc Việt",
+          "wl_date": "2026-05-22T18:49:06.694Z",
+          "days_taken": 5.3
+        },
+        {
+          "id": "MWL-0025",
+          "channel_name": "Edu Hub 19",
+          "project_name": "Vlog Cuộc Sống",
+          "wl_date": "2026-05-20T13:50:08.636Z",
+          "days_taken": 3.9
+        }
+      ],
+      "pending_applications": [
+        {
+          "id": "MWL-0065",
+          "channel_name": "Lifestyle Network 24",
+          "project_name": "Giải Trí 24h",
+          "days_waiting": 116,
+          "created_at": "2026-01-26T08:38:57.719Z"
+        },
+        {
+          "id": "MWL-0067",
+          "channel_name": "Tech Official 34",
+          "project_name": "Phim Hoạt Hình",
+          "days_waiting": 107,
+          "created_at": "2026-02-04T11:54:28.504Z"
+        },
+        {
+          "id": "MWL-0059",
+          "channel_name": "Kids Studio 9",
+          "project_name": "Phim Hoạt Hình",
+          "days_waiting": 75,
+          "created_at": "2026-03-08T09:15:37.447Z"
+        },
+        {
+          "id": "MWL-0078",
+          "channel_name": "Vlog Hub 33",
+          "project_name": "Vlog Cuộc Sống",
+          "days_waiting": 63,
+          "created_at": "2026-03-20T19:39:25.376Z"
+        },
+        {
+          "id": "MWL-0069",
+          "channel_name": "Edu Studio 7",
+          "project_name": "Phim Hoạt Hình",
+          "days_waiting": 55,
+          "created_at": "2026-03-28T18:23:20.443Z"
+        },
+        {
+          "id": "MWL-0066",
+          "channel_name": "Music Network 25",
+          "project_name": "Phim Hoạt Hình",
+          "days_waiting": 51,
+          "created_at": "2026-04-01T15:59:34.159Z"
+        },
+        {
+          "id": "MWL-0079",
+          "channel_name": "Vlog Hub 33",
+          "project_name": "Vlog Cuộc Sống",
+          "days_waiting": 30,
+          "created_at": "2026-04-23T00:04:56.999Z"
+        }
+      ],
+      "total": 80
+    }
+  },
+  "totals": {
+    "total_tickets": 500,
+    "open_tickets": 178
+  }
+}

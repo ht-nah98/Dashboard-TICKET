@@ -604,6 +604,13 @@ import("./derive_root").then((m) => {
   console.log(`Wrote root.json (bottlenecks=${out.step_bottlenecks.length}, repeat=${out.repeat_offender_channels.length})`);
 });
 
+// Build Priority dashboard payload (revenue-free MVP for TP + Leader + Vận hành)
+import("./derive_priority").then((m) => {
+  const out = m.buildPriority();
+  fs.writeFileSync(path.join(OUT_DIR, "priority.json"), JSON.stringify(out, null, 2));
+  console.log(`Wrote priority.json (breached=${out.sla.breached}, channels=${out.channels_top.length}, escalations=${out.escalation_board.length})`);
+});
+
 // Build full ticket detail payload (for drill-down panel)
 import("./derive_detail").then((m) => {
   const out = m.buildTicketDetails();
